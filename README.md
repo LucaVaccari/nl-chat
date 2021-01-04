@@ -26,3 +26,4 @@
 ### Packet structure:
  - 1 byte for the message type
  - content (string, int or both) optional
+
