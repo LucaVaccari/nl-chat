@@ -9,12 +9,13 @@ public class Sender
 {
     public static final int PORT = 3482;
 
-    public static void send(byte[] data, InetAddress ip)
+    //send a message to one ip (used for the communications with the server)
+    public static void send(byte[] data, InetAddress serverIp)
     {
         try
         {
             DatagramSocket socket = new DatagramSocket(PORT);
-            DatagramPacket packet = new DatagramPacket(data, data.length, ip, PORT);
+            DatagramPacket packet = new DatagramPacket(data, data.length, serverIp, PORT);
             socket.send(packet);
         }
         catch (IOException e)
@@ -22,4 +23,26 @@ public class Sender
             e.printStackTrace();
         }
     }
+
+    // send the message to all the users in the group except for the given ip address
+    public static void send(byte[] data, InetAddress ip, ChatGroup group)
+    {
+        group.getUsers().forEach( (user -> {
+            if(user.getIpAddress() != ip)
+            {
+                try
+                {
+                    DatagramSocket socket = new DatagramSocket(PORT);
+                    DatagramPacket packet = new DatagramPacket(data, data.length, user.getIpAddress(), PORT);
+                    socket.send(packet);
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }));
+    }
 }
+
+
