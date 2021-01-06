@@ -25,10 +25,10 @@ public class Sender
     }
 
     // send the message to all the users in the group except for the given ip address
-    public static void send(byte[] data, InetAddress ip, ChatGroup group)
+    public static void send(byte[] data, User senderUser, ChatGroup group)
     {
         group.getUsers().forEach( (user -> {
-            if(user.getIpAddress() != ip)
+            if(user.getIpAddress() != senderUser.getIpAddress())
             {
                 try
                 {
