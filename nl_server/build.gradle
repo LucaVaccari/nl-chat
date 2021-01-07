@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+mainClassName = "it.castelli.nl.NLServer"
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']
+        }
+    }
+}
+dependencies {
+    compile project(':nl_utils')
+}
+application {
+    mainClass = 'it.castelli.nl.NLServer'
+}
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'it.castelli.nl.NLServer'
+        )
+    }
+
+    // https://stackoverflow.com/questions/28421409/gradle-command-from-configurations-compile-collect
+    from(configurations.compile.collect { it.isDirectory() ? it : zipTree(it)}) {}
+}
