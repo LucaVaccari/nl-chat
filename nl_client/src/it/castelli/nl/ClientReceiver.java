@@ -1,15 +1,18 @@
-package nl;
+package it.castelli.nl;
 
-import nl.messages.MessageManager;
+import it.castelli.nl.message.ClientMessageManager;
+import nl.Sender;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
-public class Receiver implements Runnable
+
+public class ClientReceiver implements Runnable
 {
     public static final int RECEIVE_WINDOW = 2048;
     private boolean isRunning = true;
+
 
     public void run()
     {
@@ -21,7 +24,7 @@ public class Receiver implements Runnable
             while(isRunning)
             {
                 socket.receive(packet);
-                MessageManager.getMessageReceiver(receiveBuffer[0]).OnReceive(receiveBuffer);
+                ClientMessageManager.getMessageReceiver(receiveBuffer[0]).OnReceive(receiveBuffer);
             }
         }
         catch (IOException e)

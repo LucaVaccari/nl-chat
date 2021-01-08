@@ -2,7 +2,6 @@ package it.castelli.nl;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import nl.Receiver;
 
 public class NLClient extends Application
 {
@@ -16,7 +15,7 @@ public class NLClient extends Application
 	@Override
 	public void start(Stage primaryStage) throws Exception
 	{
-		clientThread = new Thread(new Receiver(), "ClientThread");
+		clientThread = new Thread(new ClientReceiver(), "ClientThread");
 	}
 
 	@Override

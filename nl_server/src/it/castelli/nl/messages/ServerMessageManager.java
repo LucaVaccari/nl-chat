@@ -1,14 +1,16 @@
-package nl.messages;
+package it.castelli.nl.messages;
+
+import nl.messages.IMessage;
 
 import java.util.HashMap;
 
-public class MessageManager
+public class ServerMessageManager
 {
     private static final HashMap<Byte, IMessage> messageReceivers = new HashMap<>();
 
     static
     {
-        //initialize the HashMap with message classes instances and relative id codes
+        messageReceivers.put((byte) 0, new CreateGroupMessage());
     }
 
     public static IMessage getMessageReceiver(byte messageType)
