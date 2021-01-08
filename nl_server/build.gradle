@@ -5,6 +5,10 @@ plugins {
 
 mainClassName = "it.castelli.nl.NLServer"
 
+dependencies {
+    compile project(':nl_utils')
+}
+
 sourceSets {
     main {
         java {
@@ -12,9 +16,7 @@ sourceSets {
         }
     }
 }
-dependencies {
-    compile project(':nl_utils')
-}
+
 application {
     mainClass = 'it.castelli.nl.NLServer'
 }

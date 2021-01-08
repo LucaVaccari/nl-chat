@@ -1,24 +1,27 @@
 package it.castelli.nl;
 
+import javafx.application.Application;
+import javafx.stage.Stage;
 import nl.Receiver;
 
-import java.util.Scanner;
-
-public class NLClient
+public class NLClient extends Application
 {
+	private Thread clientThread;
+
 	public static void main(String[] args)
 	{
-		Scanner sc = new Scanner(System.in);
+		launch(args);
+	}
 
-		Thread clientThread = new Thread(new Receiver(), "ClientThread");
+	@Override
+	public void start(Stage primaryStage) throws Exception
+	{
+		clientThread = new Thread(new Receiver(), "ClientThread");
+	}
 
-		String input;
-		do
-		{
-			input = sc.next();
-		} while (!input.equals("stop"));
-
-		sc.close();
+	@Override
+	public void stop() throws Exception
+	{
 		clientThread.interrupt();
 		try
 		{
@@ -27,5 +30,6 @@ public class NLClient
 		catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		super.stop();
 	}
 }

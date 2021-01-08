@@ -1,12 +1,20 @@
 plugins {
     id 'java'
     id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.9'
 }
 
 mainClassName = "it.castelli.nl.NLClient"
 
 repositories {
     mavenCentral()
+}
+javafx {
+    version '15.0.1'
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+dependencies {
+    compile project(':nl_utils')
 }
 
 sourceSets {
@@ -15,9 +23,6 @@ sourceSets {
             srcDirs = ['src']
         }
     }
-}
-dependencies {
-    compile project(':nl_utils')
 }
 application {
     mainClass = 'it.castelli.nl.NLClient'

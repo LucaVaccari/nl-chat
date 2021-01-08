@@ -1,5 +1,7 @@
 package it.castelli.nl;
 
+import nl.ChatGroup;
+
 import java.io.File;
 import java.util.ArrayList;
 

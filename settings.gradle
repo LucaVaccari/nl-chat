@@ -1,1 +1,5 @@
-include 'nl_client', 'nl_server', 'nl_utils'
+rootProject.name = "nl-chat"
+
+include 'nl_utils'
+include 'nl_client'
+include 'nl_server'
