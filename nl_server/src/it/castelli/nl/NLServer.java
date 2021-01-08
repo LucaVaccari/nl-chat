@@ -1,10 +1,9 @@
 package it.castelli.nl;
 
+import nl.serialization.Serializer;
+
 public class NLServer
 {
-
-
-
     public static void main(String[] args) throws InterruptedException {
 
         String input = "test";
@@ -17,7 +16,7 @@ public class NLServer
 
         } while (!input.equals("stop"));
 
-
+        Serializer.serialize(GroupManager.getAllGroups(), GroupManager.GROUPS_FILE_PATH);
 
         Thread serverThread = new Thread(new ServerReceiver(), "serverThread");
         serverThread.interrupt();
