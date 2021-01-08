@@ -1,4 +1,6 @@
-package nl.messages;
+package it.castelli.nl.message;
+
+import nl.messages.IMessage;
 
 public class UserChatMessage implements IMessage
 {

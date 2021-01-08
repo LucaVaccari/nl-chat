@@ -1,24 +1,25 @@
 package it.castelli.nl;
 
-import nl.Receiver;
-
-import java.util.Scanner;
-
 public class NLServer
 {
-    public static void main(String[] args)
-    {
-        Scanner sc = new Scanner(System.in);
 
-        Thread serverThread = new Thread(new Receiver(), "serverThread");
 
-        String input;
+
+    public static void main(String[] args) throws InterruptedException {
+
+        String input = "test";
+
         do
         {
-            input = sc.next();
+            System.out.println(input);
+            /*Thread.sleep(5000);
+            input = "stop";*/
+
         } while (!input.equals("stop"));
 
-        sc.close();
+
+
+        Thread serverThread = new Thread(new ServerReceiver(), "serverThread");
         serverThread.interrupt();
         try
         {
@@ -27,5 +28,6 @@ public class NLServer
         catch (InterruptedException e) {
             e.printStackTrace();
         }
+
     }
 }
