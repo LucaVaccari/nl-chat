@@ -11,9 +11,7 @@ public class GroupRemovedMessage implements IMessage {
 
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
-        Byte temp = data[1];
-        int groupCode = temp.intValue();
-
+        Byte groupCode = data[1];
         ChatGroup groupToRemove = ClientGroupManager.getAllGroups().remove(groupCode);
 
     }

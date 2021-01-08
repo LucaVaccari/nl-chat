@@ -10,7 +10,10 @@ public class ClientMessageManager
 
     static
     {
-
+        messageReceivers.put((byte) 0, new UserChatMessage());
+        messageReceivers.put((byte) 1, new NewGroupMessage());
+        messageReceivers.put((byte) 2, new NewUserMessage());
+        messageReceivers.put((byte) 3, new GroupRemovedMessage());
     }
 
     public static IMessage getMessageReceiver(byte messageType)

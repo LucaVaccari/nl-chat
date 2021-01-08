@@ -18,6 +18,12 @@ public class User
         id = lastUserId++;
     }
 
+    public User(String name, int id)
+    {
+        this.name = name;
+        this.id = (byte)id;
+    }
+
     public byte getId()
     {
         return id;

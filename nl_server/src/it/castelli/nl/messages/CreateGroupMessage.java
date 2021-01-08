@@ -14,8 +14,7 @@ public class CreateGroupMessage implements IMessage {
 
 
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
-        Byte temp = data[2];
-        int userId = temp.intValue();
+        Byte userId = data[2];
         byte[] contentOfMessage = Arrays.copyOfRange(data, 3, data.length - 1);
         String newGroupName = new String(contentOfMessage);
 
