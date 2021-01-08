@@ -13,7 +13,6 @@ public class NLServer
             System.out.println(input);
             /*Thread.sleep(5000);
             input = "stop";*/
-
         } while (!input.equals("stop"));
 
         Serializer.serialize(GroupManager.getAllGroups(), GroupManager.GROUPS_FILE_PATH);
@@ -27,6 +26,5 @@ public class NLServer
         catch (InterruptedException e) {
             e.printStackTrace();
         }
-
     }
 }
