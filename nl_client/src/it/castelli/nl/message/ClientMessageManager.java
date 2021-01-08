@@ -10,7 +10,7 @@ public class ClientMessageManager
 
     static
     {
-        messageReceivers.put((byte) 0, new GroupReply());
+
     }
 
     public static IMessage getMessageReceiver(byte messageType)

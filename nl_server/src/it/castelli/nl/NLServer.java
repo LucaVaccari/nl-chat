@@ -15,7 +15,9 @@ public class NLServer
             input = "stop";*/
         } while (!input.equals("stop"));
 
-        Serializer.serialize(GroupManager.getAllGroups(), GroupManager.GROUPS_FILE_PATH);
+        Serializer.serialize(ServerGroupManager.getAllGroups(), ServerGroupManager.GROUPS_FILE_PATH);
+        Serializer.serialize(UsersManager.getAllUsers(), UsersManager.USERS_FILE_PATH);
+
 
         Thread serverThread = new Thread(new ServerReceiver(), "serverThread");
         serverThread.interrupt();

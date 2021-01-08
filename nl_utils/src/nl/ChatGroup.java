@@ -9,6 +9,7 @@ public class ChatGroup implements Serializable
     private static byte lastId = 0;
 
     private ArrayList<User> users;
+    private ArrayList<User> superUsers;
     private final byte id;
     private String name;
     private final ChatGroupContent chatGroupContent = new ChatGroupContent();
@@ -42,5 +43,10 @@ public class ChatGroup implements Serializable
     public ChatGroupContent getChatGroupContent()
     {
         return chatGroupContent;
+    }
+
+    public ArrayList<User> getSuperUsers()
+    {
+        return superUsers;
     }
 }
