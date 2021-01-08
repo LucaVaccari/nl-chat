@@ -1,5 +1,7 @@
 package it.castelli.nl;
 
+import nl.Receiver;
+
 import java.util.Scanner;
 
 public class NLServer

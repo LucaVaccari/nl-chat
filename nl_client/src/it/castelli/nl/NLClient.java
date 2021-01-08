@@ -1,29 +1,31 @@
 package it.castelli.nl;
 
+import nl.Receiver;
+
 import java.util.Scanner;
 
 public class NLClient
 {
-    public static void main(String[] args)
-    {
-        Scanner sc = new Scanner(System.in);
+	public static void main(String[] args)
+	{
+		Scanner sc = new Scanner(System.in);
 
-        Thread clientThread = new Thread(new Receiver(), "ClientThread");
+		Thread clientThread = new Thread(new Receiver(), "ClientThread");
 
-        String input;
-        do
-        {
-            input = sc.next();
-        } while (!input.equals("stop"));
+		String input;
+		do
+		{
+			input = sc.next();
+		} while (!input.equals("stop"));
 
-        sc.close();
-        clientThread.interrupt();
-        try
-        {
-            clientThread.join();
-        }
-        catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+		sc.close();
+		clientThread.interrupt();
+		try
+		{
+			clientThread.join();
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 }
