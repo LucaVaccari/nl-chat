@@ -9,7 +9,6 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -17,39 +16,40 @@
 <VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.castelli.nl.FXMLController">
    <MenuBar prefHeight="31.0" prefWidth="775.0">
       <Menu mnemonicParsing="false" text="System">
-         <MenuItem mnemonicParsing="false" text="Settings" />
-         <MenuItem mnemonicParsing="false" text="Close" />
+         <MenuItem fx:id="settingsMenuItem" mnemonicParsing="false" text="Settings" />
+         <MenuItem fx:id="closeMenuItem" mnemonicParsing="false" text="Close" />
       </Menu>
       <Menu mnemonicParsing="false" text="Chat">
-         <MenuItem mnemonicParsing="false" text="View partecipants" />
-         <MenuItem mnemonicParsing="false" text="Create new" />
-         <MenuItem mnemonicParsing="false" text="Clear content" />
-         <MenuItem mnemonicParsing="false" text="Leave" />
+         <!--<MenuItem mnemonicParsing="false" text="View participants" />-->
+         <MenuItem fx:id="newChatMenuItem" mnemonicParsing="false" text="Create new" />
+         <MenuItem fx:id="clearChatContentMenuItem" mnemonicParsing="false" text="Clear content" />
+         <MenuItem fx:id="leaveChatMenuItem" mnemonicParsing="false" text="Leave" />
+         <MenuItem fx:id="removeChatMenuItem" mnemonicParsing="false" text="Remove completely" />
       </Menu>
       <Menu mnemonicParsing="false" text="Help">
-         <MenuItem mnemonicParsing="false" text="How can I..." />
+         <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" text="How can I..." />
       </Menu>
    </MenuBar>
    <SplitPane dividerPositions="0.3">
       <VBox prefHeight="462.0" prefWidth="212.0">
-         <ScrollPane prefHeight="461.0" prefWidth="267.0">
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="463.0" prefWidth="200.0"/>
+         <ScrollPane hbarPolicy="NEVER" pannable="true" prefHeight="461.0" prefWidth="267.0">
+            <VBox fx:id="chatsVBox" prefHeight="417.0" prefWidth="241.0"/>
          </ScrollPane>
-         <Button mnemonicParsing="false" prefHeight="88.0" prefWidth="229.0" text="Create a new chat"/>
+         <Button fx:id="createChatButton" mnemonicParsing="false" prefHeight="88.0" prefWidth="229.0" text="Create a new chat" />
       </VBox>
       <VBox prefHeight="461.0" prefWidth="590.0">
          <HBox prefHeight="57.0" prefWidth="555.0">
             <VBox prefHeight="57.0" prefWidth="144.0">
-               <Label prefHeight="37.0" prefWidth="168.0" text="Group name">
+               <Label fx:id="groupNameLabel" prefHeight="37.0" prefWidth="168.0" text="Group name">
                   <font>
-                     <Font name="System Bold" size="16.0"/>
+                     <Font name="System Bold" size="16.0" />
                   </font>
                </Label>
-               <Label prefHeight="25.0" prefWidth="107.0" text="Group ID"/>
+               <Label fx:id="groupIdLabel" prefHeight="25.0" prefWidth="107.0" text="Group ID" />
             </VBox>
          </HBox>
-         <ListView prefHeight="354.0" prefWidth="555.0"/>
-         <TextField prefHeight="47.0" prefWidth="555.0" promptText="Write a message..."/>
+         <ListView fx:id="messageList" prefHeight="354.0" prefWidth="555.0" />
+         <TextField fx:id="messageInputField" prefHeight="47.0" prefWidth="555.0" promptText="Write a message..." />
       </VBox>
    </SplitPane>
 </VBox>

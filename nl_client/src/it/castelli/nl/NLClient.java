@@ -14,6 +14,8 @@ public class NLClient extends Application
 {
 	private Thread clientThread;
 
+	private static Stage primaryStage;
+
 	public static void main(String[] args)
 	{
 		launch(args);
@@ -23,29 +25,12 @@ public class NLClient extends Application
 	public void start(Stage primaryStage)
 	{
 		clientThread = new Thread(new ClientReceiver(), "ClientThread");
-
-		FXMLLoader loader = new FXMLLoader();
-		try
-		{
-			loader.setLocation(new File("src/index.fxml").toURI().toURL());
-		}
-		catch (MalformedURLException e)
-		{
-			e.printStackTrace();
-		}
-		Parent root;
-		try
-		{
-			root = loader.load();
-			assert root != null;
-			Scene mainScene = new Scene(root);
-			primaryStage.setScene(mainScene);
-			primaryStage.show();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
+		NLClient.primaryStage = primaryStage;
+		Parent root = loadFXML("src/index.fxml");
+		assert root != null;
+		Scene mainScene = new Scene(root);
+		primaryStage.setScene(mainScene);
+		primaryStage.show();
 	}
 
 	@Override
@@ -61,5 +46,32 @@ public class NLClient extends Application
 			e.printStackTrace();
 		}
 		super.stop();
+	}
+
+	public static Stage getPrimaryStage()
+	{
+		return primaryStage;
+	}
+
+	public static Parent loadFXML(String path)
+	{
+		FXMLLoader loader = new FXMLLoader();
+		try
+		{
+			loader.setLocation(new File("src/index.fxml").toURI().toURL());
+		}
+		catch (MalformedURLException e)
+		{
+			e.printStackTrace();
+		}
+		try
+		{
+			return loader.load();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

@@ -11,7 +11,7 @@ public class ChatGroup implements Serializable
     private ArrayList<User> users;
     private final byte id;
     private String name;
-    private File file;
+    private final ChatGroupContent chatGroupContent = new ChatGroupContent();
 
     public ChatGroup(String name)
     {
@@ -37,5 +37,10 @@ public class ChatGroup implements Serializable
     public ArrayList<User> getUsers()
     {
         return users;
+    }
+
+    public ChatGroupContent getChatGroupContent()
+    {
+        return chatGroupContent;
     }
 }
