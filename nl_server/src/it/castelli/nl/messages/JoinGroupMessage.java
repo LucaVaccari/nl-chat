@@ -3,8 +3,12 @@ package it.castelli.nl.messages;
 import it.castelli.nl.ServerGroupManager;
 import it.castelli.nl.UsersManager;
 import nl.ChatGroup;
+import nl.Sender;
 import nl.User;
 import nl.messages.IMessage;
+import nl.messages.MessageBuilder;
+
+import java.io.IOException;
 
 public class JoinGroupMessage implements IMessage {
     @Override
@@ -19,6 +23,43 @@ public class JoinGroupMessage implements IMessage {
 
         if(!groupToJoin.getUsers().contains(thisUser)) groupToJoin.getUsers().add(thisUser);
 
-        //NewGroupMessage and some NewUserMessage
+        if(groupToJoin == null)
+        {
+            try {
+                String groupCodeString = String.valueOf(groupCode.intValue());
+                byte[] errorReply = MessageBuilder.buildErrorMessage("The group with code: " + groupCodeString + " does not exist.");
+                Sender.send(errorReply, UsersManager.getUserFromId(userId).getIpAddress());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else
+        {
+            try
+            {
+                //send group
+                byte[] reply = MessageBuilder.buildClientNewGroupMessage(groupCode, groupToJoin.getName());
+                Sender.send(reply, UsersManager.getUserFromId(userId).getIpAddress());
+
+                //send Users who are in the group to the new one
+                for (User user : groupToJoin.getUsers())
+                {
+                    if (user == thisUser)
+                    {
+                        reply = MessageBuilder.buildClientNewUserMessage(groupCode, user.getId(), user.getName());
+                        Sender.send(reply, user, groupToJoin);
+                        Sender.send(reply,UsersManager.getUserFromId(userId).getIpAddress());
+                    }
+                    else
+                    {
+                        reply = MessageBuilder.buildClientNewUserMessage(groupCode, user.getId(), user.getName());
+                        Sender.send(reply, UsersManager.getUserFromId(userId).getIpAddress());
+                    }
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

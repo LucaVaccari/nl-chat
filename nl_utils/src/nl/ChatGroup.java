@@ -1,6 +1,5 @@
 package nl;
 
-import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -9,19 +8,19 @@ public class ChatGroup implements Serializable
 
     private ArrayList<User> users;
     private ArrayList<User> superUsers;
-    private final byte id;
+    private final byte code;
     private String name;
     private final ChatGroupContent chatGroupContent = new ChatGroupContent();
 
-    public ChatGroup(String name, byte id)
+    public ChatGroup(String name, byte code)
     {
         this.name = name;
-        this.id = id;
+        this.code = code;
     }
 
-    public byte getId()
+    public byte getCode()
     {
-        return id;
+        return code;
     }
 
     public String getName()

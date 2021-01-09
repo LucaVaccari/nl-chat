@@ -31,7 +31,7 @@ public class MessageBuilder
         return outputStream.toByteArray();
     }
 
-    public static byte[] buildJoinGroupMessage( byte groupToJoinCode, byte userId) throws IOException
+    public static byte[] buildJoinGroupMessage( byte groupToJoinCode, byte userId)
     {
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
@@ -43,7 +43,7 @@ public class MessageBuilder
         return outputStream.toByteArray();
     }
 
-    public static byte[] buildLeaveGroupMessage( byte groupToLeaveCode, byte userId) throws IOException
+    public static byte[] buildLeaveGroupMessage( byte groupToLeaveCode, byte userId)
     {
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
@@ -55,7 +55,7 @@ public class MessageBuilder
         return outputStream.toByteArray();
     }
 
-    public static byte[] buildRemoveGroupMessage( byte groupToRemoveCode, byte userId) throws IOException
+    public static byte[] buildRemoveGroupMessage( byte groupToRemoveCode, byte userId)
     {
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
@@ -82,17 +82,19 @@ public class MessageBuilder
 
     public static byte[] buildServerNewUserMessage(byte userId, String userName, InetAddress ipAddress) throws IOException
     {
-        // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
+        // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, 20 for the name, others for the ip
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         //outputStream.write(messageType);
         outputStream.write(0); //groupCode which is not present
         outputStream.write(userId);
         outputStream.write(userName.getBytes());
-        if (userName.getBytes().length != 20)
-        {
 
+        while(outputStream.size() != 23)
+        {
+            outputStream.write(0);
         }
+
         String temp = ipAddress.toString();
         outputStream.write(temp.getBytes());
 
@@ -114,8 +116,8 @@ public class MessageBuilder
 
     //message from server to client
 
-
-    public static byte[] buildClientNewGroupMessage(byte groupCode, String groupName) throws IOException {
+    public static byte[] buildClientNewGroupMessage(byte groupCode, String groupName) throws IOException
+    {
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -127,7 +129,8 @@ public class MessageBuilder
         return outputStream.toByteArray();
     }
 
-    public static byte[] buildClientNewUserMessage(byte groupCode, byte userId, String userName) throws IOException {
+    public static byte[] buildClientNewUserMessage(byte groupCode, byte userId, String userName) throws IOException
+    {
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -139,7 +142,8 @@ public class MessageBuilder
         return outputStream.toByteArray();
     }
 
-    public static byte[] buildRemovedGroupMessage(byte groupCode) throws IOException {
+    public static byte[] buildRemovedGroupMessage(byte groupCode)
+    {
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -150,7 +154,8 @@ public class MessageBuilder
         return outputStream.toByteArray();
     }
 
-    public static byte[] buildUserIdMessage(byte userId) throws IOException {
+    public static byte[] buildUserIdMessage(byte userId)
+    {
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -161,7 +166,8 @@ public class MessageBuilder
         return outputStream.toByteArray();
     }
 
-    public static byte[] buildClientUserChatMessage(byte groupCode, byte userId, String text) throws IOException {
+    public static byte[] buildClientUserChatMessage(byte groupCode, byte userId, String text) throws IOException
+    {
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -173,7 +179,8 @@ public class MessageBuilder
         return outputStream.toByteArray();
     }
 
-    public static byte[] buildClientTestMessage(String text) throws IOException {
+    public static byte[] buildClientTestMessage(String text) throws IOException
+    {
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -181,6 +188,19 @@ public class MessageBuilder
         outputStream.write(0); //group code which is not present
         outputStream.write(0); // userId which is not present
         outputStream.write(text.getBytes());
+
+        return outputStream.toByteArray();
+    }
+
+    public static byte[] buildErrorMessage(String error) throws IOException
+    {
+        // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        //outputStream.write(messageType);
+        outputStream.write(0); //group code which is not present
+        outputStream.write(0); // userId which is not present
+        outputStream.write(error.getBytes());
 
         return outputStream.toByteArray();
     }
