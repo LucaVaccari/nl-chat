@@ -23,31 +23,36 @@ public class FXMLController
 	public MenuItem joinGroupMenuItem;
 	public MenuItem clearGroupContentMenuItem; //TODO
 	public MenuItem leaveGroupMenuItem;
-	public MenuItem removeGroupMenuItem; //TODO
+	public MenuItem removeGroupMenuItem;
 	public MenuItem deleteMessageMenuItem; //TODO
 	public MenuItem copyMessageMenuItem; //TODO
 	public MenuItem helpMenuItem;
-	public VBox chatsVBox; //TODO
+	public VBox groupsVBox; //TODO
 	public Label groupNameLabel; //TODO
 	public Label groupIdLabel; //TODO
-	public TextField messageInputField; //TODO
+	public TextField messageInputField;
+	public Button sendMessageButton;
 
 	private static ChatGroup selectedChatGroup;
 
 	@FXML
 	public void initialize()
 	{
-		createGroupButton.setOnAction(FXMLController::OnCreateNewGroupButtonClick);
-		joinGroupButton.setOnAction(FXMLController::OnJoinGroupButtonCLick);
+		createGroupButton.setOnAction(this::OnCreateNewGroupButtonClick);
+		joinGroupButton.setOnAction(this::OnJoinGroupButtonCLick);
+
+		messageInputField.setOnAction(this::OnMessageSend);
+		sendMessageButton.setOnAction(this::OnMessageSend);
 
 		closeMenuItem.setOnAction(event -> {
 			Stage primaryStage = NLClient.getPrimaryStage();
 			primaryStage.fireEvent(new WindowEvent(primaryStage, WindowEvent.WINDOW_CLOSE_REQUEST));
 		});
 
-		newGroupMenuItem.setOnAction(FXMLController::OnCreateNewGroupButtonClick);
-		joinGroupMenuItem.setOnAction(FXMLController::OnJoinGroupButtonCLick);
-		leaveGroupMenuItem.setOnAction(FXMLController::OnLeaveGroupButtonClick);
+		newGroupMenuItem.setOnAction(this::OnCreateNewGroupButtonClick);
+		joinGroupMenuItem.setOnAction(this::OnJoinGroupButtonCLick);
+		leaveGroupMenuItem.setOnAction(this::OnLeaveGroupButtonClick);
+		removeGroupMenuItem.setOnAction(this::OnRemoveGroupButtonClick);
 
 		helpMenuItem.setOnAction(event -> {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -61,7 +66,7 @@ public class FXMLController
 				"You can invite the others by sharing the" + " group identification code."));
 	}
 
-	private static void OnCreateNewGroupButtonClick(ActionEvent actionEvent)
+	private void OnCreateNewGroupButtonClick(ActionEvent actionEvent)
 	{
 		TextInputDialog dialog = new TextInputDialog("MyGroup");
 		dialog.setTitle("New group");
@@ -88,7 +93,7 @@ public class FXMLController
 		}
 	}
 
-	private static void OnJoinGroupButtonCLick(ActionEvent actionEvent)
+	private void OnJoinGroupButtonCLick(ActionEvent actionEvent)
 	{
 		TextInputDialog dialog = new TextInputDialog("434");
 		dialog.setTitle("Join group");
@@ -105,14 +110,14 @@ public class FXMLController
 				                                                     ClientData.getInstance().getThisUser().getId());
 				Sender.send(packet, ClientData.getInstance().getServerAddress());
 			}
-			catch (IOException | NullPointerException e)
+			catch (NullPointerException e)
 			{
 				e.printStackTrace();
 			}
 		}
 	}
 
-	private static void OnLeaveGroupButtonClick(ActionEvent actionEvent)
+	private void OnLeaveGroupButtonClick(ActionEvent actionEvent)
 	{
 		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 		alert.setTitle("Leave group");
@@ -124,18 +129,56 @@ public class FXMLController
 		{
 			if (result.get() == ButtonType.OK)
 			{
-				try
-				{
-					byte[] packet = MessageBuilder.buildLeaveGroupMessage(selectedChatGroup.getId(),
-					                                                      ClientData.getInstance().getThisUser()
-					                                                                .getId());
-					Sender.send(packet, ClientData.getInstance().getServerAddress());
-				}
-				catch (IOException e)
-				{
-					e.printStackTrace();
-				}
+				byte[] packet = MessageBuilder.buildLeaveGroupMessage(selectedChatGroup.getCode(),
+				                                                      ClientData.getInstance().getThisUser()
+				                                                                .getId());
+				Sender.send(packet, ClientData.getInstance().getServerAddress());
 			}
 		}
+	}
+
+	private void OnRemoveGroupButtonClick(ActionEvent actionEvent)
+	{
+		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		alert.setTitle("Remove group");
+		alert.setHeaderText("Are you sure?");
+		alert.setContentText("You will destroy this group. All the members will be ejected and all the messages lost.\n" +
+		                     "Are you REALLY sure?");
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.isPresent())
+		{
+			if (result.get() == ButtonType.OK)
+			{
+				byte[] packet = MessageBuilder.buildRemoveGroupMessage(selectedChatGroup.getCode(),
+				                                                      ClientData.getInstance().getThisUser()
+				                                                                .getId());
+				Sender.send(packet, ClientData.getInstance().getServerAddress());
+			}
+		}
+	}
+
+	private void OnMessageSend(ActionEvent actionEvent)
+	{
+		String text = messageInputField.getText();
+
+		if (!text.equals(""))
+		{
+			try
+			{
+				byte[] packet = MessageBuilder.buildServerUserChatMessage(
+						selectedChatGroup.getCode(),
+						ClientData.getInstance().getThisUser().getId(),
+						text
+				);
+				Sender.send(packet, ClientData.getInstance().getServerAddress());
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
+
+		messageInputField.setText("");
 	}
 }

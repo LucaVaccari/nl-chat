@@ -37,11 +37,11 @@
    <SplitPane dividerPositions="0.3">
       <VBox prefHeight="462.0" prefWidth="212.0">
          <ScrollPane hbarPolicy="NEVER" pannable="true" prefHeight="461.0" prefWidth="267.0">
-            <VBox fx:id="chatsVBox" prefHeight="417.0" prefWidth="241.0" />
+            <VBox fx:id="groupsVBox" prefHeight="417.0" prefWidth="241.0" />
          </ScrollPane>
          <HBox>
-            <Button fx:id="createGroupButton" mnemonicParsing="false" prefHeight="88.0" prefWidth="229.0" text="Create"/>
-            <Button fx:id="joinGroupButton" mnemonicParsing="false" prefHeight="53.0" prefWidth="204.0" text="Join"/>
+            <Button fx:id="createGroupButton" mnemonicParsing="false" prefHeight="88.0" prefWidth="229.0" text="Create" />
+            <Button fx:id="joinGroupButton" mnemonicParsing="false" prefHeight="53.0" prefWidth="204.0" text="Join" />
          </HBox>
       </VBox>
       <VBox prefHeight="461.0" prefWidth="590.0">
@@ -55,7 +55,10 @@
                <Label fx:id="groupIdLabel" prefHeight="25.0" prefWidth="107.0" text="Group ID" />
             </VBox>
          </HBox>
-         <TextField fx:id="messageInputField" prefHeight="47.0" prefWidth="555.0" promptText="Write a message..." />
+         <HBox>
+            <TextField fx:id="messageInputField" prefHeight="47.0" prefWidth="555.0" promptText="Write a message..."/>
+            <Button fx:id="sendMessageButton" mnemonicParsing="false" prefHeight="43.0" prefWidth="165.0" text="Send"/>
+         </HBox>
       </VBox>
    </SplitPane>
 </VBox>
