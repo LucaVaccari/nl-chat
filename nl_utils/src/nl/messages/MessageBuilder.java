@@ -18,8 +18,8 @@ public class MessageBuilder
 
     public static final byte CLIENT_NEW_GROUP_MESSAGE_TYPE = 7;
     public static final byte CLIENT_NEW_USER_MESSAGE_TYPE = 8;
-    public static final byte REMOVED_GROUP_MESSAGE_TYPE = 9;
-    public static final byte USER_ID_GROUP_MESSAGE_TYPE = 10;
+    public static final byte GROUP_REMOVED_MESSAGE_TYPE = 9;
+    public static final byte USER_ID_MESSAGE_TYPE = 10;
     public static final byte CLIENT_USER_CHAT_MESSAGE_TYPE = 11;
     public static final byte ERROR_MESSAGE_TYPE = 12;
     public static final byte CLIENT_TEST_MESSAGE_TYPE = 13;
@@ -163,7 +163,7 @@ public class MessageBuilder
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        outputStream.write(REMOVED_GROUP_MESSAGE_TYPE);
+        outputStream.write(GROUP_REMOVED_MESSAGE_TYPE);
         outputStream.write(groupCode);
         outputStream.write(0); //userId which is not present
 
@@ -175,7 +175,7 @@ public class MessageBuilder
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        outputStream.write(USER_ID_GROUP_MESSAGE_TYPE);
+        outputStream.write(USER_ID_MESSAGE_TYPE);
         outputStream.write(0); //group code which is not present
         outputStream.write(userId);
 

@@ -1,7 +1,7 @@
 package it.castelli.nl.messages;
 
 import nl.messages.IMessage;
-
+import nl.messages.MessageBuilder;
 import java.util.HashMap;
 
 public class ServerMessageManager
@@ -10,11 +10,13 @@ public class ServerMessageManager
 
     static
     {
-        messageReceivers.put((byte) 0, new ServerUserChatMessage());
-        messageReceivers.put((byte) 1, new CreateGroupMessage());
-        messageReceivers.put((byte) 2, new JoinGroupMessage());
-        messageReceivers.put((byte) 3, new LeaveGroupMessage());
-        messageReceivers.put((byte) 4, new RemoveGroupMessage());
+        messageReceivers.put(MessageBuilder.CREATE_GROUP_MESSAGE_TYPE, new CreateGroupMessage());
+        messageReceivers.put(MessageBuilder.JOIN_GROUP_MESSAGE_TYPE, new JoinGroupMessage());
+        messageReceivers.put(MessageBuilder.LEAVE_GROUP_MESSAGE_TYPE, new LeaveGroupMessage());
+        messageReceivers.put(MessageBuilder.REMOVE_GROUP_MESSAGE_TYPE, new RemoveGroupMessage());
+        messageReceivers.put(MessageBuilder.SERVER_NEW_USER_MESSAGE_TYPE, new ServerNewUserMessage());
+        messageReceivers.put(MessageBuilder.SERVER_TEST_MESSAGE_TYPE, new ServerTestMessage());
+        messageReceivers.put(MessageBuilder.SERVER_USER_CHAT_MESSAGE_TYPE, new ServerUserChatMessage());
     }
 
     public static IMessage getMessageReceiver(byte messageType)
