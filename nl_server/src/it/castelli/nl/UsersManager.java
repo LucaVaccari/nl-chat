@@ -7,14 +7,14 @@ import java.util.HashMap;
 
 public class UsersManager {
 
-    private static HashMap<Integer, User> allUsers;
+    private static HashMap<Byte, User> allUsers;
     public static final String USERS_FILE_PATH = "allUser.bin";
 
     static {
-        allUsers = (HashMap<Integer, User>) Serializer.deserialize(USERS_FILE_PATH);
+        allUsers = (HashMap<Byte, User>) Serializer.deserialize(USERS_FILE_PATH);
     }
 
-    public static HashMap<Integer, User> getAllUsers()
+    public static HashMap<Byte, User> getAllUsers()
     {
         return allUsers;
     }

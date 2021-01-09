@@ -10,15 +10,15 @@ import java.util.HashMap;
 
 public class ServerGroupManager
 {
-    private static HashMap<Integer, ChatGroup> allGroups;
+    private static HashMap<Byte, ChatGroup> allGroups;
     public static final String GROUPS_FILE_PATH = "allGroups.bin";
     public static int lastGroupCode;
 
     static {
-        allGroups = (HashMap<Integer, ChatGroup>) Serializer.deserialize(GROUPS_FILE_PATH);
+        allGroups = (HashMap<Byte, ChatGroup>) Serializer.deserialize(GROUPS_FILE_PATH);
     }
 
-    public static HashMap<Integer, ChatGroup> getAllGroups()
+    public static HashMap<Byte, ChatGroup> getAllGroups()
     {
         return allGroups;
     }

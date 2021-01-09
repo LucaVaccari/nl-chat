@@ -17,6 +17,7 @@ public class NLServer
 
         Serializer.serialize(ServerGroupManager.getAllGroups(), ServerGroupManager.GROUPS_FILE_PATH);
         Serializer.serialize(UsersManager.getAllUsers(), UsersManager.USERS_FILE_PATH);
+        Serializer.serialize(ServerData.getInstance(), ServerData.SERVER_DATA_FILE_PATH);
 
 
         Thread serverThread = new Thread(new ServerReceiver(), "serverThread");

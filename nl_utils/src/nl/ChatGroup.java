@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class ChatGroup implements Serializable
 {
-    private static byte lastId = 0;
 
     private ArrayList<User> users;
     private ArrayList<User> superUsers;
@@ -14,10 +13,10 @@ public class ChatGroup implements Serializable
     private String name;
     private final ChatGroupContent chatGroupContent = new ChatGroupContent();
 
-    public ChatGroup(String name)
+    public ChatGroup(String name, byte id)
     {
         this.name = name;
-        id = lastId++;
+        this.id = id;
     }
 
     public byte getId()

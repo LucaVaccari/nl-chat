@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import nl.serialization.Serializer;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,6 +38,7 @@ public class NLClient extends Application
 	public void stop() throws Exception
 	{
 		clientThread.interrupt();
+		Serializer.serialize(ClientData.getInstance(), ClientData.CLIENT_DATA_FILE_PATH);
 		try
 		{
 			clientThread.join();

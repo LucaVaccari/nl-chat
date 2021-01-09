@@ -4,24 +4,28 @@ import java.net.InetAddress;
 
 public class User
 {
-    private static byte lastUserId = 0;
-
     private final byte id;
 
     private String name;
     private InetAddress ipAddress;
 
-    public User(String name, InetAddress ipAddress)
+    public User(String name, InetAddress ipAddress, byte id)
     {
         this.name = name;
         this.ipAddress = ipAddress;
-        id = lastUserId++;
+        this.id = id;
     }
 
-    public User(String name, int id)
+    public User(String name, byte id)
     {
         this.name = name;
-        this.id = (byte)id;
+        this.id = id;
+    }
+
+    public User(InetAddress ipAddress, byte id)
+    {
+        this.ipAddress = ipAddress;
+        this.id = id;
     }
 
     public byte getId()
