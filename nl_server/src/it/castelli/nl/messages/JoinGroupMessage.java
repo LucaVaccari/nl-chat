@@ -19,6 +19,6 @@ public class JoinGroupMessage implements IMessage {
 
         if(!groupToJoin.getUsers().contains(thisUser)) groupToJoin.getUsers().add(thisUser);
 
-        //GroupReply with group code and name of the group
+        //NewGroupMessage and some NewUserMessage
     }
 }
