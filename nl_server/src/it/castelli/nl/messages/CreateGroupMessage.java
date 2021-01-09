@@ -20,6 +20,7 @@ public class CreateGroupMessage implements IMessage {
 
         ChatGroup newGroup = new ChatGroup(newGroupName);
         newGroup.getUsers().add(UsersManager.getUserFromId(userId));
+        newGroup.getSuperUsers().add(UsersManager.getUserFromId(userId));
         ServerGroupManager.getAllGroups().put(lastGroupCode++, newGroup);
 
         //GroupReply with group code and name of the group

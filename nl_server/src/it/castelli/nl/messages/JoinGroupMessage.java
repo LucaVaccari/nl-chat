@@ -16,7 +16,8 @@ public class JoinGroupMessage implements IMessage {
         byte userId = data[2];
         ChatGroup groupToJoin = ServerGroupManager.getGroupFromCode(groupCode);
         User thisUser = UsersManager.getUserFromId(userId);
-        groupToJoin.getUsers().add(thisUser);
+
+        if(!groupToJoin.getUsers().contains(thisUser)) groupToJoin.getUsers().add(thisUser);
 
         //GroupReply with group code and name of the group
     }

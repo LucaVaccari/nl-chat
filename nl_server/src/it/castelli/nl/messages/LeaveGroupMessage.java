@@ -12,11 +12,12 @@ public class LeaveGroupMessage implements IMessage {
 
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
-        Byte groupCode = data[1];
-        Byte userId = data[2];
+        byte groupCode = data[1];
+        byte userId = data[2];
         ChatGroup groupToLeave = ServerGroupManager.getGroupFromCode(groupCode);
         User thisUser = UsersManager.getUserFromId(userId);
         groupToLeave.getUsers().remove(thisUser);
+        groupToLeave.getSuperUsers().remove(thisUser);
 
 
         //groupRemovedMessage with group id
