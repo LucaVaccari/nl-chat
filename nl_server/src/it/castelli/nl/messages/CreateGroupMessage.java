@@ -32,7 +32,7 @@ public class CreateGroupMessage implements IMessage {
 
         try {
             byte[] reply = MessageBuilder.buildClientNewGroupMessage(newGroup.getCode(), newGroup.getName());
-            Sender.send(reply, UsersManager.getUserFromId(userId).getIpAddress());
+            Sender.send(reply, UsersManager.getUserFromId(userId).getIpAddress(), Sender.CLIENT_PORT);
         } catch (IOException e) {
             e.printStackTrace();
         }

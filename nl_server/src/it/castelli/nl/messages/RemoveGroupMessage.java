@@ -24,7 +24,7 @@ public class RemoveGroupMessage implements IMessage {
         }
 
         byte[] reply = MessageBuilder.buildRemovedGroupMessage(groupCode);
-        Sender.send(reply, UsersManager.getUserFromId(userId).getIpAddress());
+        Sender.send(reply, UsersManager.getUserFromId(userId).getIpAddress(), Sender.CLIENT_PORT);
 
     }
 }

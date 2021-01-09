@@ -6,14 +6,18 @@ public class NLServer
 {
     public static void main(String[] args) throws InterruptedException {
 
-        String input = "test";
+        boolean running = true;
+        int counter = 0;
+        int lifeTime = 10; // in seconds
 
         do
         {
-            System.out.println(input);
-            /*Thread.sleep(5000);
-            input = "stop";*/
-        } while (!input.equals("stop"));
+            System.out.println("is sistema sta funzionando");
+            Thread.sleep(1000);
+            counter++;
+            if (counter > lifeTime) running = false;
+
+        } while (running);
 
         Serializer.serialize(ServerGroupManager.getAllGroups(), ServerGroupManager.GROUPS_FILE_PATH);
         Serializer.serialize(UsersManager.getAllUsers(), UsersManager.USERS_FILE_PATH);

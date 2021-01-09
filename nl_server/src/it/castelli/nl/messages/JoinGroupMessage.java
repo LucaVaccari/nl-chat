@@ -28,7 +28,7 @@ public class JoinGroupMessage implements IMessage {
             try {
                 String groupCodeString = String.valueOf(groupCode.intValue());
                 byte[] errorReply = MessageBuilder.buildErrorMessage("The group with code: " + groupCodeString + " does not exist.");
-                Sender.send(errorReply, UsersManager.getUserFromId(userId).getIpAddress());
+                Sender.send(errorReply, UsersManager.getUserFromId(userId).getIpAddress(), Sender.CLIENT_PORT);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -39,7 +39,7 @@ public class JoinGroupMessage implements IMessage {
             {
                 //send group
                 byte[] reply = MessageBuilder.buildClientNewGroupMessage(groupCode, groupToJoin.getName());
-                Sender.send(reply, UsersManager.getUserFromId(userId).getIpAddress());
+                Sender.send(reply, UsersManager.getUserFromId(userId).getIpAddress(), Sender.CLIENT_PORT);
 
                 //send Users who are in the group to the new one
                 for (User user : groupToJoin.getUsers())
@@ -47,13 +47,13 @@ public class JoinGroupMessage implements IMessage {
                     if (user == thisUser)
                     {
                         reply = MessageBuilder.buildClientNewUserMessage(groupCode, user.getId(), user.getName());
-                        Sender.send(reply, user, groupToJoin);
-                        Sender.send(reply,UsersManager.getUserFromId(userId).getIpAddress());
+                        Sender.send(reply, user, groupToJoin, Sender.CLIENT_PORT);
+                        Sender.send(reply,UsersManager.getUserFromId(userId).getIpAddress(), Sender.CLIENT_PORT);
                     }
                     else
                     {
                         reply = MessageBuilder.buildClientNewUserMessage(groupCode, user.getId(), user.getName());
-                        Sender.send(reply, UsersManager.getUserFromId(userId).getIpAddress());
+                        Sender.send(reply, UsersManager.getUserFromId(userId).getIpAddress(), Sender.CLIENT_PORT);
                     }
                 }
 
