@@ -10,9 +10,9 @@ public class ClientMessageManager
 
     static
     {
-        messageReceivers.put((byte) 0, new UserChatMessage());
-        messageReceivers.put((byte) 1, new NewGroupMessage());
-        messageReceivers.put((byte) 2, new NewUserMessage());
+        messageReceivers.put((byte) 0, new ClientUserChatMessage());
+        messageReceivers.put((byte) 1, new ClientNewGroupMessage());
+        messageReceivers.put((byte) 2, new ClientNewUserMessage());
         messageReceivers.put((byte) 3, new GroupRemovedMessage());
     }
 

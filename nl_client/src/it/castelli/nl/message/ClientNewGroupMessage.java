@@ -7,19 +7,17 @@ import nl.messages.IMessage;
 
 import java.util.Arrays;
 
-public class NewUserMessage implements IMessage {
+public class ClientNewGroupMessage implements IMessage {
 
     @Override
     public void OnReceive(byte[] data) {
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
-        Byte groupCode = data[1];
-        Byte userId = data[2];
+        byte groupCode = data[1];
         byte[] contentOfMessage = Arrays.copyOfRange(data, 3, data.length - 1);
-        String userName = new String(contentOfMessage);
-        ChatGroup thisGroup = ClientGroupManager.getGroupFromCode(groupCode);
-        User newUser = new User(userName, userId);
+        String groupName = new String(contentOfMessage);
+        ChatGroup newGroup = new ChatGroup(groupName, groupCode);
+        ClientGroupManager.getAllGroups().put(groupCode, newGroup); 
 
-        thisGroup.getUsers().add(newUser);
     }
 }

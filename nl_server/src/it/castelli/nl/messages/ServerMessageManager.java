@@ -10,7 +10,7 @@ public class ServerMessageManager
 
     static
     {
-        messageReceivers.put((byte) 0, new UserChatMessage());
+        messageReceivers.put((byte) 0, new ServerUserChatMessage());
         messageReceivers.put((byte) 1, new CreateGroupMessage());
         messageReceivers.put((byte) 2, new JoinGroupMessage());
         messageReceivers.put((byte) 3, new LeaveGroupMessage());

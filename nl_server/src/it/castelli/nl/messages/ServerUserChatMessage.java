@@ -9,7 +9,7 @@ import nl.messages.IMessage;
 
 import java.util.Arrays;
 
-public class UserChatMessage implements IMessage
+public class ServerUserChatMessage implements IMessage
 {
     @Override
     public void OnReceive(byte[] data)
@@ -25,7 +25,7 @@ public class UserChatMessage implements IMessage
 
         if (thisGroup.getUsers().contains(thisUser))
         {
-            Sender.send(data, thisUser, thisGroup);
+            //send ClientUserChatMessage
         }
 
     }

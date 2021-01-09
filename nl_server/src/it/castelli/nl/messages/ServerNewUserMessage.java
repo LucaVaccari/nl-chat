@@ -9,7 +9,7 @@ import java.net.UnknownHostException;
 import java.util.Arrays;
 
 
-public class NewUserMessage implements IMessage {
+public class ServerNewUserMessage implements IMessage {
     @Override
     public void OnReceive(byte[] data)
     {

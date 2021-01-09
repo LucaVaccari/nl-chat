@@ -11,7 +11,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.util.Arrays;
 
-public class UserChatMessage implements IMessage
+public class ClientUserChatMessage implements IMessage
 {
     @Override
     public void OnReceive(byte[] data)
