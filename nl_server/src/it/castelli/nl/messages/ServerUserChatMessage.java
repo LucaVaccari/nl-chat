@@ -6,7 +6,9 @@ import nl.ChatGroup;
 import nl.Sender;
 import nl.User;
 import nl.messages.IMessage;
+import nl.messages.MessageBuilder;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 public class ServerUserChatMessage implements IMessage
@@ -26,6 +28,13 @@ public class ServerUserChatMessage implements IMessage
         if (thisGroup.getUsers().contains(thisUser))
         {
             //send ClientUserChatMessage
+
+            try {
+                byte[] reply = MessageBuilder.buildClientUserChatMessage(groupCode, userId, textMessage);
+                Sender.send(reply, UsersManager.getUserFromId(userId), thisGroup);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
     }

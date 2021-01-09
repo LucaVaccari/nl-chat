@@ -4,7 +4,11 @@ import it.castelli.nl.ServerData;
 import it.castelli.nl.ServerGroupManager;
 import it.castelli.nl.UsersManager;
 import nl.ChatGroup;
+import nl.Sender;
 import nl.messages.IMessage;
+import nl.messages.MessageBuilder;
+
+import java.io.IOException;
 import java.util.Arrays;
 
 import static it.castelli.nl.ServerGroupManager.lastGroupCode;
@@ -26,6 +30,11 @@ public class CreateGroupMessage implements IMessage {
         ServerGroupManager.getAllGroups().put(newGroupCode, newGroup);
         ServerData.getInstance().incrementLastGroupCode();
 
-        //GroupReply with group code and name of the group
+        try {
+            byte[] reply = MessageBuilder.buildClientNewGroupMessage(newGroup.getCode(), newGroup.getName());
+            Sender.send(reply, UsersManager.getUserFromId(userId).getIpAddress());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

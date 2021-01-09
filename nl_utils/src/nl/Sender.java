@@ -9,13 +9,13 @@ public class Sender
 {
     public static final int PORT = 3482;
 
-    //send a message to one ip (used for the communications with the server)
-    public static void send(byte[] data, InetAddress serverIp)
+
+    public static void send(byte[] data, InetAddress ipAddress)
     {
         try
         {
             DatagramSocket socket = new DatagramSocket(PORT);
-            DatagramPacket packet = new DatagramPacket(data, data.length, serverIp, PORT);
+            DatagramPacket packet = new DatagramPacket(data, data.length, ipAddress, PORT);
             socket.send(packet);
         }
         catch (IOException e)

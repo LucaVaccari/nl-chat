@@ -3,8 +3,10 @@ package it.castelli.nl.messages;
 import it.castelli.nl.ServerGroupManager;
 import it.castelli.nl.UsersManager;
 import nl.ChatGroup;
+import nl.Sender;
 import nl.User;
 import nl.messages.IMessage;
+import nl.messages.MessageBuilder;
 
 public class LeaveGroupMessage implements IMessage {
     @Override
@@ -20,6 +22,7 @@ public class LeaveGroupMessage implements IMessage {
         groupToLeave.getSuperUsers().remove(thisUser);
 
 
-        //groupRemovedMessage with group id
+        byte[] reply = MessageBuilder.buildRemovedGroupMessage(groupCode);
+        Sender.send(reply, UsersManager.getUserFromId(userId).getIpAddress());
     }
 }
