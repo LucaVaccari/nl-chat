@@ -1,5 +1,7 @@
-package it.castelli.nl;
+package it.castelli.nl.graphics;
 
+import it.castelli.nl.ClientData;
+import it.castelli.nl.NLClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -38,6 +40,12 @@ public class FXMLController
 	@FXML
 	public void initialize()
 	{
+		if (ClientData.getInstance().getThisUser() == null)
+		{
+			AlertUtil.showTextInputDialogue("Pinco Pallino", "Welcome", "Welcome to nl-chat! Choose a user name",
+			                                "Name:");
+		}
+
 		createGroupButton.setOnAction(this::OnCreateNewGroupButtonClick);
 		joinGroupButton.setOnAction(this::OnJoinGroupButtonCLick);
 
@@ -95,12 +103,8 @@ public class FXMLController
 
 	private void OnJoinGroupButtonCLick(ActionEvent actionEvent)
 	{
-		TextInputDialog dialog = new TextInputDialog("434");
-		dialog.setTitle("Join group");
-		dialog.setHeaderText("Insert the code of the group you want to join");
-		dialog.setContentText("Code");
-
-		Optional<String> result = dialog.showAndWait();
+		Optional<String> result = AlertUtil
+				.showTextInputDialogue("0", "Join gorup", "Insert the code of the group you want to join", "Code: ");
 
 		if (result.isPresent())
 		{
@@ -119,19 +123,15 @@ public class FXMLController
 
 	private void OnLeaveGroupButtonClick(ActionEvent actionEvent)
 	{
-		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-		alert.setTitle("Leave group");
-		alert.setHeaderText("Are you sure?");
-		alert.setContentText("You will lose all the messages of this chat.\n" + "Do you really want to leave?");
-
-		Optional<ButtonType> result = alert.showAndWait();
+		Optional<ButtonType> result = AlertUtil.showConfirmationAlert("Leave gorup", "Are you sure?",
+		                                                              "You will lose all the messages of this chat" +
+		                                                              ".\nDo you really want to leave?");
 		if (result.isPresent())
 		{
 			if (result.get() == ButtonType.OK)
 			{
 				byte[] packet = MessageBuilder.buildLeaveGroupMessage(selectedChatGroup.getCode(),
-				                                                      ClientData.getInstance().getThisUser()
-				                                                                .getId());
+				                                                      ClientData.getInstance().getThisUser().getId());
 				Sender.send(packet, ClientData.getInstance().getServerAddress());
 			}
 		}
@@ -139,20 +139,16 @@ public class FXMLController
 
 	private void OnRemoveGroupButtonClick(ActionEvent actionEvent)
 	{
-		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-		alert.setTitle("Remove group");
-		alert.setHeaderText("Are you sure?");
-		alert.setContentText("You will destroy this group. All the members will be ejected and all the messages lost.\n" +
-		                     "Are you REALLY sure?");
-
-		Optional<ButtonType> result = alert.showAndWait();
+		Optional<ButtonType> result = AlertUtil.showConfirmationAlert("Remove group", "Are you sure?",
+		                                                              "You will destroy this group. All the members " +
+		                                                              "will be ejected and all the messages lost.\n" +
+		                                                              "Are you REALLY sure?");
 		if (result.isPresent())
 		{
 			if (result.get() == ButtonType.OK)
 			{
 				byte[] packet = MessageBuilder.buildRemoveGroupMessage(selectedChatGroup.getCode(),
-				                                                      ClientData.getInstance().getThisUser()
-				                                                                .getId());
+				                                                       ClientData.getInstance().getThisUser().getId());
 				Sender.send(packet, ClientData.getInstance().getServerAddress());
 			}
 		}
@@ -166,11 +162,9 @@ public class FXMLController
 		{
 			try
 			{
-				byte[] packet = MessageBuilder.buildServerUserChatMessage(
-						selectedChatGroup.getCode(),
-						ClientData.getInstance().getThisUser().getId(),
-						text
-				);
+				byte[] packet = MessageBuilder.buildServerUserChatMessage(selectedChatGroup.getCode(),
+				                                                          ClientData.getInstance().getThisUser()
+				                                                                    .getId(), text);
 				Sender.send(packet, ClientData.getInstance().getServerAddress());
 			}
 			catch (IOException e)

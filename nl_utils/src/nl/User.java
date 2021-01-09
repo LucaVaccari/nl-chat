@@ -1,8 +1,9 @@
 package nl;
 
+import java.io.Serializable;
 import java.net.InetAddress;
 
-public class User
+public class User implements Serializable
 {
     private final byte id;
 
@@ -52,10 +53,6 @@ public class User
     {
         this.ipAddress = ipAddress;
     }
-
-
-
-
 }
 
 

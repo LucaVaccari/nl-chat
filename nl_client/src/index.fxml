@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.castelli.nl.FXMLController">
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.castelli.nl.graphics.FXMLController">
    <MenuBar prefHeight="31.0" prefWidth="775.0">
       <Menu mnemonicParsing="false" text="System">
          <MenuItem fx:id="settingsMenuItem" mnemonicParsing="false" text="Settings" />
