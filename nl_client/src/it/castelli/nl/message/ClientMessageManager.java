@@ -1,6 +1,7 @@
 package it.castelli.nl.message;
 
 import nl.messages.IMessage;
+import nl.messages.MessageBuilder;
 
 import java.util.HashMap;
 
@@ -10,10 +11,13 @@ public class ClientMessageManager
 
     static
     {
-        messageReceivers.put((byte) 0, new ClientUserChatMessage());
-        messageReceivers.put((byte) 1, new ClientNewGroupMessage());
-        messageReceivers.put((byte) 2, new ClientNewUserMessage());
-        messageReceivers.put((byte) 3, new GroupRemovedMessage());
+        messageReceivers.put(MessageBuilder.CLIENT_NEW_GROUP_MESSAGE_TYPE, new ClientNewGroupMessage());
+        messageReceivers.put(MessageBuilder.CLIENT_NEW_USER_MESSAGE_TYPE, new ClientNewUserMessage());
+        messageReceivers.put(MessageBuilder.CLIENT_TEST_MESSAGE_TYPE, new ClientTestMessage());
+        messageReceivers.put(MessageBuilder.CLIENT_USER_CHAT_MESSAGE_TYPE, new ClientUserChatMessage());
+        messageReceivers.put(MessageBuilder.ERROR_MESSAGE_TYPE, new ErrorMessage());
+        messageReceivers.put(MessageBuilder.GROUP_REMOVED_MESSAGE_TYPE, new GroupRemovedMessage());
+        messageReceivers.put(MessageBuilder.USER_ID_MESSAGE_TYPE, new UserIdMessage());
     }
 
     public static IMessage getMessageReceiver(byte messageType)
