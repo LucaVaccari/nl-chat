@@ -15,7 +15,7 @@ public class NLServer
             System.out.println("is sistema sta funzionando");
             Thread.sleep(1000);
             counter++;
-            if (counter > lifeTime) running = false;
+            if (counter >= lifeTime) running = false;
 
         } while (running);
 
