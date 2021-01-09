@@ -11,6 +11,13 @@ public class MessageBuilder
 
     //message from client to server
 
+    /**
+     * Send a request to the server to create a new group
+     * @param userId The user creating the group
+     * @param name The name of the group
+     * @return The array of bytes to be sent
+     * @throws IOException Thrown when failing to create the packet
+     */
     public static byte[] buildCreateGroupMessage(byte userId, String name) throws IOException
     {
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others

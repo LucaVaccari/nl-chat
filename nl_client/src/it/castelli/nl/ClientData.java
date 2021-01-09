@@ -3,6 +3,7 @@ package it.castelli.nl;
 import nl.User;
 import nl.serialization.Serializer;
 import java.io.Serializable;
+import java.net.InetAddress;
 
 public class ClientData implements Serializable
 {
@@ -10,6 +11,7 @@ public class ClientData implements Serializable
     private static ClientData instance;
 
     private User thisUser;
+    private InetAddress serverAddress;
 
     private ClientData(){}
 
@@ -30,5 +32,15 @@ public class ClientData implements Serializable
     public void setThisUser(User user)
     {
         thisUser = user;
+    }
+
+    public InetAddress getServerAddress()
+    {
+        return serverAddress;
+    }
+
+    public void setServerAddress(InetAddress serverAddress)
+    {
+        this.serverAddress = serverAddress;
     }
 }

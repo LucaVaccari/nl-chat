@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -21,14 +20,15 @@
       </Menu>
       <Menu mnemonicParsing="false" text="Chat">
          <!--<MenuItem mnemonicParsing="false" text="View participants" />-->
-         <MenuItem fx:id="newChatMenuItem" mnemonicParsing="false" text="Create new" />
-         <MenuItem fx:id="clearChatContentMenuItem" mnemonicParsing="false" text="Clear content" />
-         <MenuItem fx:id="leaveChatMenuItem" mnemonicParsing="false" text="Leave" />
-         <MenuItem fx:id="removeChatMenuItem" mnemonicParsing="false" text="Remove completely" />
+         <MenuItem fx:id="newGroupMenuItem" mnemonicParsing="false" text="Create new" />
+         <MenuItem fx:id="joinGroupMenuItem" mnemonicParsing="false" text="Join" />
+         <MenuItem fx:id="clearGroupContentMenuItem" mnemonicParsing="false" text="Clear content" />
+         <MenuItem fx:id="leaveGroupMenuItem" mnemonicParsing="false" text="Leave" />
+         <MenuItem fx:id="removeGroupMenuItem" mnemonicParsing="false" text="Remove completely" />
       </Menu>
       <Menu mnemonicParsing="false" text="Message">
-         <MenuItem fx:id="deleteMessageMenuItem" mnemonicParsing="false" text="Delete"/>
-         <MenuItem fx:id="copyMessageMenuItem" mnemonicParsing="false" text="Copy"/>
+         <MenuItem fx:id="deleteMessageMenuItem" mnemonicParsing="false" text="Delete" />
+         <MenuItem fx:id="copyMessageMenuItem" mnemonicParsing="false" text="Copy" />
       </Menu>
       <Menu mnemonicParsing="false" text="Help">
          <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" text="How can I..." />
@@ -39,7 +39,10 @@
          <ScrollPane hbarPolicy="NEVER" pannable="true" prefHeight="461.0" prefWidth="267.0">
             <VBox fx:id="chatsVBox" prefHeight="417.0" prefWidth="241.0" />
          </ScrollPane>
-         <Button fx:id="createChatButton" mnemonicParsing="false" prefHeight="88.0" prefWidth="229.0" text="Create a new chat" />
+         <HBox>
+            <Button fx:id="createGroupButton" mnemonicParsing="false" prefHeight="88.0" prefWidth="229.0" text="Create"/>
+            <Button fx:id="joinGroupButton" mnemonicParsing="false" prefHeight="53.0" prefWidth="204.0" text="Join"/>
+         </HBox>
       </VBox>
       <VBox prefHeight="461.0" prefWidth="590.0">
          <HBox prefHeight="57.0" prefWidth="555.0">
@@ -52,7 +55,6 @@
                <Label fx:id="groupIdLabel" prefHeight="25.0" prefWidth="107.0" text="Group ID" />
             </VBox>
          </HBox>
-         <ListView fx:id="messageList" prefHeight="354.0" prefWidth="555.0" />
          <TextField fx:id="messageInputField" prefHeight="47.0" prefWidth="555.0" promptText="Write a message..." />
       </VBox>
    </SplitPane>

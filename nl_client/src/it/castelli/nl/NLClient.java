@@ -26,6 +26,7 @@ public class NLClient extends Application
 	public void start(Stage primaryStage)
 	{
 		clientThread = new Thread(new ClientReceiver(), "ClientThread");
+
 		NLClient.primaryStage = primaryStage;
 		Parent root = loadFXML("src/index.fxml");
 		assert root != null;
