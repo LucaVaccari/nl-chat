@@ -26,6 +26,10 @@
          <MenuItem fx:id="leaveChatMenuItem" mnemonicParsing="false" text="Leave" />
          <MenuItem fx:id="removeChatMenuItem" mnemonicParsing="false" text="Remove completely" />
       </Menu>
+      <Menu mnemonicParsing="false" text="Message">
+         <MenuItem fx:id="deleteMessageMenuItem" mnemonicParsing="false" text="Delete"/>
+         <MenuItem fx:id="copyMessageMenuItem" mnemonicParsing="false" text="Copy"/>
+      </Menu>
       <Menu mnemonicParsing="false" text="Help">
          <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" text="How can I..." />
       </Menu>
@@ -33,7 +37,7 @@
    <SplitPane dividerPositions="0.3">
       <VBox prefHeight="462.0" prefWidth="212.0">
          <ScrollPane hbarPolicy="NEVER" pannable="true" prefHeight="461.0" prefWidth="267.0">
-            <VBox fx:id="chatsVBox" prefHeight="417.0" prefWidth="241.0"/>
+            <VBox fx:id="chatsVBox" prefHeight="417.0" prefWidth="241.0" />
          </ScrollPane>
          <Button fx:id="createChatButton" mnemonicParsing="false" prefHeight="88.0" prefWidth="229.0" text="Create a new chat" />
       </VBox>

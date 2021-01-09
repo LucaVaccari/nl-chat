@@ -60,7 +60,7 @@ public class NLClient extends Application
 		FXMLLoader loader = new FXMLLoader();
 		try
 		{
-			loader.setLocation(new File("src/index.fxml").toURI().toURL());
+			loader.setLocation(new File(path).toURI().toURL());
 		}
 		catch (MalformedURLException e)
 		{

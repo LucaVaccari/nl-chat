@@ -17,7 +17,7 @@ public class NewGroupMessage implements IMessage {
         byte[] contentOfMessage = Arrays.copyOfRange(data, 3, data.length - 1);
         String groupName = new String(contentOfMessage);
         ChatGroup newGroup = new ChatGroup(groupName);
-        ClientGroupManager.getAllGroups().put(groupCode, newGroup);
+        ClientGroupManager.getAllGroups().put(groupCode, newGroup); 
 
     }
 }
