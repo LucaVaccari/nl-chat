@@ -16,9 +16,8 @@ public class ClientReceiver implements Runnable
 
     public void run()
     {
-        try
+        try (DatagramSocket socket = new DatagramSocket(Sender.PORT))
         {
-            DatagramSocket socket = new DatagramSocket(Sender.PORT);
             byte[] receiveBuffer = new byte[RECEIVE_WINDOW];
             DatagramPacket packet = new DatagramPacket(receiveBuffer, RECEIVE_WINDOW);
             while(isRunning)

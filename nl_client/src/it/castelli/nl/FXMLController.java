@@ -15,6 +15,8 @@ public class FXMLController
 	public MenuItem clearChatContentMenuItem; //TODO
 	public MenuItem leaveChatMenuItem; //TODO
 	public MenuItem removeChatMenuItem; //TODO
+	public MenuItem deleteMessageMenuItem; //TODO
+	public MenuItem copyMessageMenuItem; //TODO
 	public MenuItem helpMenuItem;
 	public VBox chatsVBox; //TODO
 	public Label groupNameLabel; //TODO

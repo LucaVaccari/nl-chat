@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class ClientGroupManager
 {
-    private static HashMap<Byte, ChatGroup> allGroups;
+    private static final HashMap<Byte, ChatGroup> allGroups;
     public static final String GROUPS_FILE_PATH = "allGroups.bin";
     public static int lastGroupCode;
 
