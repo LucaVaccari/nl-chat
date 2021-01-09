@@ -8,6 +8,22 @@ public class MessageBuilder
 {
     //message types constants
 
+    public static final byte CREATE_GROUP_MESSAGE_TYPE = 0;
+    public static final byte JOIN_GROUP_MESSAGE_TYPE = 1;
+    public static final byte LEAVE_GROUP_MESSAGE_TYPE = 2;
+    public static final byte REMOVE_GROUP_MESSAGE_TYPE = 3;
+    public static final byte SERVER_USER_CHAT_MESSAGE_TYPE = 4;
+    public static final byte SERVER_NEW_USER_MESSAGE_TYPE = 5;
+    public static final byte SERVER_TEST_MESSAGE_TYPE = 6;
+
+    public static final byte CLIENT_NEW_GROUP_MESSAGE_TYPE = 7;
+    public static final byte CLIENT_NEW_USER_MESSAGE_TYPE = 8;
+    public static final byte REMOVED_GROUP_MESSAGE_TYPE = 9;
+    public static final byte USER_ID_GROUP_MESSAGE_TYPE = 10;
+    public static final byte CLIENT_USER_CHAT_MESSAGE_TYPE = 11;
+    public static final byte ERROR_MESSAGE_TYPE = 12;
+    public static final byte CLIENT_TEST_MESSAGE_TYPE = 13;
+
 
     //message from client to server
 
@@ -23,7 +39,7 @@ public class MessageBuilder
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        //outputStream.write(messageType);
+        outputStream.write(CREATE_GROUP_MESSAGE_TYPE);
         outputStream.write(0); //groupCode which is not present
         outputStream.write(userId);
         outputStream.write(name.getBytes());
@@ -36,7 +52,7 @@ public class MessageBuilder
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        //outputStream.write(messageType);
+        outputStream.write(JOIN_GROUP_MESSAGE_TYPE);
         outputStream.write(groupToJoinCode);
         outputStream.write(userId);
 
@@ -48,7 +64,7 @@ public class MessageBuilder
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        //outputStream.write(messageType);
+        outputStream.write(LEAVE_GROUP_MESSAGE_TYPE);
         outputStream.write(groupToLeaveCode);
         outputStream.write(userId);
 
@@ -60,7 +76,7 @@ public class MessageBuilder
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        //outputStream.write(messageType);
+        outputStream.write(REMOVE_GROUP_MESSAGE_TYPE);
         outputStream.write(groupToRemoveCode);
         outputStream.write(userId);
 
@@ -72,7 +88,7 @@ public class MessageBuilder
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        //outputStream.write(messageType);
+        outputStream.write(SERVER_USER_CHAT_MESSAGE_TYPE);
         outputStream.write(groupCode);
         outputStream.write(userId);
         outputStream.write(text.getBytes());
@@ -85,7 +101,7 @@ public class MessageBuilder
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, 20 for the name, others for the ip
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        //outputStream.write(messageType);
+        outputStream.write(SERVER_NEW_USER_MESSAGE_TYPE);
         outputStream.write(0); //groupCode which is not present
         outputStream.write(userId);
         outputStream.write(userName.getBytes());
@@ -106,7 +122,7 @@ public class MessageBuilder
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        //outputStream.write(messageType);
+        outputStream.write(SERVER_TEST_MESSAGE_TYPE);
         outputStream.write(0); //groupCode which is not present
         outputStream.write(0); // userId which is not present
         outputStream.write(text.getBytes());
@@ -121,7 +137,7 @@ public class MessageBuilder
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        //outputStream.write(messageType);
+        outputStream.write(CLIENT_NEW_GROUP_MESSAGE_TYPE);
         outputStream.write(groupCode);
         outputStream.write(0); //userId which is not present
         outputStream.write(groupName.getBytes());
@@ -134,7 +150,7 @@ public class MessageBuilder
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        //outputStream.write(messageType);
+        outputStream.write(CLIENT_NEW_USER_MESSAGE_TYPE);
         outputStream.write(groupCode);
         outputStream.write(userId);
         outputStream.write(userName.getBytes());
@@ -147,7 +163,7 @@ public class MessageBuilder
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        //outputStream.write(messageType);
+        outputStream.write(REMOVED_GROUP_MESSAGE_TYPE);
         outputStream.write(groupCode);
         outputStream.write(0); //userId which is not present
 
@@ -159,7 +175,7 @@ public class MessageBuilder
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        //outputStream.write(messageType);
+        outputStream.write(USER_ID_GROUP_MESSAGE_TYPE);
         outputStream.write(0); //group code which is not present
         outputStream.write(userId);
 
@@ -171,22 +187,9 @@ public class MessageBuilder
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        //outputStream.write(messageType);
+        outputStream.write(CLIENT_USER_CHAT_MESSAGE_TYPE);
         outputStream.write(groupCode);
         outputStream.write(userId);
-        outputStream.write(text.getBytes());
-
-        return outputStream.toByteArray();
-    }
-
-    public static byte[] buildClientTestMessage(String text) throws IOException
-    {
-        // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
-
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        //outputStream.write(messageType);
-        outputStream.write(0); //group code which is not present
-        outputStream.write(0); // userId which is not present
         outputStream.write(text.getBytes());
 
         return outputStream.toByteArray();
@@ -197,11 +200,25 @@ public class MessageBuilder
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        //outputStream.write(messageType);
+        outputStream.write(ERROR_MESSAGE_TYPE);
         outputStream.write(0); //group code which is not present
         outputStream.write(0); // userId which is not present
         outputStream.write(error.getBytes());
 
         return outputStream.toByteArray();
     }
+
+    public static byte[] buildClientTestMessage(String text) throws IOException
+    {
+        // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        outputStream.write(CLIENT_TEST_MESSAGE_TYPE);
+        outputStream.write(0); //group code which is not present
+        outputStream.write(0); // userId which is not present
+        outputStream.write(text.getBytes());
+
+        return outputStream.toByteArray();
+    }
+
 }
