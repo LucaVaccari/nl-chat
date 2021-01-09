@@ -30,7 +30,7 @@ public class ServerNewUserMessage implements IMessage {
             UsersManager.getAllUsers().put(newId, newUser);
 
             byte[] reply = MessageBuilder.buildUserIdMessage(newId);
-            Sender.send(reply, newUser.getIpAddress(), Sender.CLIENT_PORT);
+            Sender.sendToClient(reply, newUser.getIpAddress());
 
         } catch (UnknownHostException e) {
             e.printStackTrace();

@@ -93,7 +93,7 @@ public class FXMLController
 		{
 			byte[] packet = MessageBuilder
 					.buildCreateGroupMessage(ClientData.getInstance().getThisUser().getId(), result.get());
-			Sender.send(packet, ClientData.getInstance().getServerAddress());
+			Sender.sendToServer(packet, ClientData.getInstance().getServerAddress());
 		}
 		catch (IOException | NullPointerException e)
 		{
@@ -112,7 +112,7 @@ public class FXMLController
 			{
 				byte[] packet = MessageBuilder.buildJoinGroupMessage(Byte.parseByte(result.get(), 10),
 				                                                     ClientData.getInstance().getThisUser().getId());
-				Sender.send(packet, ClientData.getInstance().getServerAddress());
+				Sender.sendToServer(packet, ClientData.getInstance().getServerAddress());
 			}
 			catch (NullPointerException e)
 			{
@@ -132,7 +132,7 @@ public class FXMLController
 			{
 				byte[] packet = MessageBuilder.buildLeaveGroupMessage(selectedChatGroup.getCode(),
 				                                                      ClientData.getInstance().getThisUser().getId());
-				Sender.send(packet, ClientData.getInstance().getServerAddress());
+				Sender.sendToServer(packet, ClientData.getInstance().getServerAddress());
 			}
 		}
 	}
@@ -149,7 +149,7 @@ public class FXMLController
 			{
 				byte[] packet = MessageBuilder.buildRemoveGroupMessage(selectedChatGroup.getCode(),
 				                                                       ClientData.getInstance().getThisUser().getId());
-				Sender.send(packet, ClientData.getInstance().getServerAddress());
+				Sender.sendToServer(packet, ClientData.getInstance().getServerAddress());
 			}
 		}
 	}
@@ -165,7 +165,7 @@ public class FXMLController
 				byte[] packet = MessageBuilder.buildServerUserChatMessage(selectedChatGroup.getCode(),
 				                                                          ClientData.getInstance().getThisUser()
 				                                                                    .getId(), text);
-				Sender.send(packet, ClientData.getInstance().getServerAddress());
+				Sender.sendToServer(packet, ClientData.getInstance().getServerAddress());
 			}
 			catch (IOException e)
 			{

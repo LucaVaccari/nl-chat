@@ -8,11 +8,14 @@ public class NLServer
 
         boolean running = true;
         int counter = 0;
-        int lifeTime = 10; // in seconds
+        int lifeTime = 100; // in seconds
+
+        Thread serverThread = new Thread(new ServerReceiver(), "serverThread");
+        serverThread.start();
 
         do
         {
-            System.out.println("is sistema sta funzionando");
+
             Thread.sleep(1000);
             counter++;
             if (counter >= lifeTime) running = false;
@@ -24,7 +27,6 @@ public class NLServer
         Serializer.serialize(ServerData.getInstance(), ServerData.SERVER_DATA_FILE_PATH);
 
 
-        Thread serverThread = new Thread(new ServerReceiver(), "serverThread");
         serverThread.interrupt();
         try
         {

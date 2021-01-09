@@ -117,7 +117,7 @@ public class MessageBuilder
         return outputStream.toByteArray();
     }
 
-    public static byte[] buildServerTestMessage(String text) throws IOException
+    public static byte[] buildServerTestMessage(String test) throws IOException
     {
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
@@ -125,7 +125,7 @@ public class MessageBuilder
         outputStream.write(SERVER_TEST_MESSAGE_TYPE);
         outputStream.write(0); //groupCode which is not present
         outputStream.write(0); // userId which is not present
-        outputStream.write(text.getBytes());
+        outputStream.write(test.getBytes());
 
         return outputStream.toByteArray();
     }

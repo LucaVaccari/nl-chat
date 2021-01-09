@@ -31,7 +31,7 @@ public class ServerUserChatMessage implements IMessage
 
             try {
                 byte[] reply = MessageBuilder.buildClientUserChatMessage(groupCode, userId, textMessage);
-                Sender.send(reply, UsersManager.getUserFromId(userId), thisGroup, Sender.CLIENT_PORT);
+                Sender.sendToClient(reply, UsersManager.getUserFromId(userId), thisGroup);
             } catch (IOException e) {
                 e.printStackTrace();
             }

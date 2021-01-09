@@ -23,6 +23,6 @@ public class LeaveGroupMessage implements IMessage {
 
 
         byte[] reply = MessageBuilder.buildRemovedGroupMessage(groupCode);
-        Sender.send(reply, UsersManager.getUserFromId(userId).getIpAddress(), Sender.CLIENT_PORT);
+        Sender.sendToClient(reply, UsersManager.getUserFromId(userId).getIpAddress());
     }
 }

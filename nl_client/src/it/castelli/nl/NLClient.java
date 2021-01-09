@@ -5,10 +5,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import nl.Sender;
+import nl.messages.MessageBuilder;
 import nl.serialization.Serializer;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.MalformedURLException;
 
 public class NLClient extends Application
@@ -26,6 +29,21 @@ public class NLClient extends Application
 	public void start(Stage primaryStage)
 	{
 		clientThread = new Thread(new ClientReceiver(), "ClientThread");
+		clientThread.start();
+
+		//start test
+
+		String test = "Hello World!";
+		try {
+			byte[] packet = MessageBuilder.buildServerTestMessage(test);
+			Sender.sendToServer(packet, InetAddress.getLocalHost());
+			System.out.println("è stato inviato un messaggio all'indirizzo: "+ InetAddress.getLocalHost().toString() + "alla porta: "
+			+ Sender.SERVER_RECEIVE_PORT);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		//end test
 
 		NLClient.primaryStage = primaryStage;
 		Parent root = loadFXML("src/index.fxml");
