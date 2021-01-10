@@ -7,13 +7,17 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
-
+/**
+ * Thread for receiving messages from the server
+ */
 public class ClientReceiver implements Runnable
 {
     public static final int RECEIVE_WINDOW = 2048;
     private boolean isRunning = true;
 
-
+    /**
+     * The run() function from the Runnable interface is called when the thread starts
+     */
     public void run()
     {
         try (DatagramSocket socket = new DatagramSocket(Sender.CLIENT_RECEIVE_PORT))
@@ -32,6 +36,9 @@ public class ClientReceiver implements Runnable
         }
     }
 
+    /**
+     * Called when the thread is interrupted (not sure)
+     */
     public void interrupt()
     {
         isRunning = false;

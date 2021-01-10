@@ -8,14 +8,16 @@ import nl.messages.IMessage;
 
 import java.util.Arrays;
 
-public class UserIdMessage implements IMessage {
+public class UserIdMessage implements IMessage
+{
 
-    @Override
-    public void OnReceive(byte[] data) {
-        // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
+	@Override
+	public void OnReceive(byte[] data)
+	{
+		// syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
-        Byte userId = data[2];
-        User currentUser = ClientData.getInstance().getThisUser();
-        ClientData.getInstance().setThisUser(new User(currentUser.getName(), currentUser.getIpAddress(), userId));
-    }
+		byte userId = data[2];
+		User currentUser = ClientData.getInstance().getThisUser();
+		ClientData.getInstance().setThisUser(new User(currentUser.getName(), currentUser.getIpAddress(), userId));
+	}
 }

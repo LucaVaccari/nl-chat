@@ -40,10 +40,19 @@ public class FXMLController
 	@FXML
 	public void initialize()
 	{
+		// register screen
 		if (ClientData.getInstance().getThisUser() == null)
 		{
-			AlertUtil.showTextInputDialogue("Pinco Pallino", "Welcome", "Welcome to nl-chat! Choose a user name",
-			                                "Name:");
+			String userName;
+			do
+			{
+				Optional<String> name = AlertUtil
+						.showTextInputDialogue("Pinco Pallino", "Welcome", "Welcome to nl-chat! Choose a user name",
+						                       "Name:");
+				userName = name.orElse("");
+			} while (userName.length() <= 0 || userName.length() > 20);
+
+			// TODO send a message to the server to register a user
 		}
 
 		createGroupButton.setOnAction(this::OnCreateNewGroupButtonClick);
@@ -54,7 +63,8 @@ public class FXMLController
 
 		closeMenuItem.setOnAction(event -> {
 			Stage primaryStage = NLClient.getPrimaryStage();
-			primaryStage.fireEvent(new WindowEvent(primaryStage, WindowEvent.WINDOW_CLOSE_REQUEST));
+			primaryStage.fireEvent(
+					new WindowEvent(primaryStage, WindowEvent.WINDOW_CLOSE_REQUEST));
 		});
 
 		newGroupMenuItem.setOnAction(this::OnCreateNewGroupButtonClick);
@@ -62,12 +72,9 @@ public class FXMLController
 		leaveGroupMenuItem.setOnAction(this::OnLeaveGroupButtonClick);
 		removeGroupMenuItem.setOnAction(this::OnRemoveGroupButtonClick);
 
-		helpMenuItem.setOnAction(event -> {
-			Alert alert = new Alert(Alert.AlertType.INFORMATION);
-			alert.setHeaderText("If you want help...");
-			alert.setContentText("Contact the developers if you can't understand.");
-			alert.show();
-		});
+		helpMenuItem.setOnAction(event -> AlertUtil.showInformationAlert("Help", "If you want help...",
+		                                                                 "Contact the developers if you can't " +
+		                                                                 "understand."));
 
 		createGroupButton.setTooltip(new Tooltip(
 				"Create a new chat where you can write" + " messages to other people.\n" +
@@ -104,7 +111,7 @@ public class FXMLController
 	private void OnJoinGroupButtonCLick(ActionEvent actionEvent)
 	{
 		Optional<String> result = AlertUtil
-				.showTextInputDialogue("0", "Join gorup", "Insert the code of the group you want to join", "Code: ");
+				.showTextInputDialogue("0", "Join group", "Insert the code of the group you want to join", "Code: ");
 
 		if (result.isPresent())
 		{
@@ -123,7 +130,7 @@ public class FXMLController
 
 	private void OnLeaveGroupButtonClick(ActionEvent actionEvent)
 	{
-		Optional<ButtonType> result = AlertUtil.showConfirmationAlert("Leave gorup", "Are you sure?",
+		Optional<ButtonType> result = AlertUtil.showConfirmationAlert("Leave group", "Are you sure?",
 		                                                              "You will lose all the messages of this chat" +
 		                                                              ".\nDo you really want to leave?");
 		if (result.isPresent())
@@ -164,7 +171,7 @@ public class FXMLController
 			{
 				byte[] packet = MessageBuilder.buildServerUserChatMessage(selectedChatGroup.getCode(),
 				                                                          ClientData.getInstance().getThisUser()
-				                                                                    .getId(), text);
+						                                                          .getId(), text);
 				Sender.sendToServer(packet, ClientData.getInstance().getServerAddress());
 			}
 			catch (IOException e)

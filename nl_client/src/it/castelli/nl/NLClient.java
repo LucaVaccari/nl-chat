@@ -34,12 +34,16 @@ public class NLClient extends Application
 		//start test
 
 		String test = "Hello World!";
-		try {
+		try
+		{
 			byte[] packet = MessageBuilder.buildServerTestMessage(test);
 			Sender.sendToServer(packet, InetAddress.getLocalHost());
-			System.out.println("è stato inviato un messaggio all'indirizzo: "+ InetAddress.getLocalHost().toString() + "alla porta: "
-			+ Sender.SERVER_RECEIVE_PORT);
-		} catch (IOException e) {
+			System.out.println("è stato inviato un messaggio all'indirizzo: " + InetAddress.getLocalHost().toString() +
+			                   "alla porta: "
+			                   + Sender.SERVER_RECEIVE_PORT);
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 
@@ -69,11 +73,22 @@ public class NLClient extends Application
 		super.stop();
 	}
 
+	/**
+	 * Getter for the primary javaFX stage
+	 *
+	 * @return The primary javaFX stage
+	 */
 	public static Stage getPrimaryStage()
 	{
 		return primaryStage;
 	}
 
+	/**
+	 * Load an FXML file (FX Markup Language, javaFX XML file)
+	 *
+	 * @param path The path of the FXML file
+	 * @return The loaded JavaFX component
+	 */
 	public static Parent loadFXML(String path)
 	{
 		FXMLLoader loader = new FXMLLoader();
