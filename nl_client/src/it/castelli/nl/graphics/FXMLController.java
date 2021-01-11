@@ -13,10 +13,13 @@ import it.castelli.nl.Sender;
 import it.castelli.nl.messages.MessageBuilder;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.Optional;
 
 public class FXMLController
 {
+	private static FXMLController mainFXMLController;
+
 	public Button createGroupButton;
 	public Button joinGroupButton;
 	public MenuItem settingsMenuItem; //TODO
@@ -29,7 +32,7 @@ public class FXMLController
 	public MenuItem deleteMessageMenuItem; //TODO
 	public MenuItem copyMessageMenuItem; //TODO
 	public MenuItem helpMenuItem;
-	public VBox groupsVBox; //TODO
+	public ListView<VBox> chatGroupListView; //TODO
 	public Label groupNameLabel; //TODO
 	public Label groupIdLabel; //TODO
 	public TextField messageInputField;
@@ -40,6 +43,8 @@ public class FXMLController
 	@FXML
 	public void initialize()
 	{
+		mainFXMLController = this;
+
 		// register screen
 		if (ClientData.getInstance().getThisUser() == null)
 		{
@@ -52,7 +57,14 @@ public class FXMLController
 				userName = name.orElse("");
 			} while (userName.length() <= 0 || userName.length() > 20);
 
-			// TODO send a message to the server to register a user
+			try
+			{
+				byte[] data = MessageBuilder.buildServerNewUserMessage(userName, InetAddress.getLocalHost());
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
 		}
 
 		createGroupButton.setOnAction(this::OnCreateNewGroupButtonClick);
@@ -181,5 +193,14 @@ public class FXMLController
 		}
 
 		messageInputField.setText("");
+	}
+
+	/**
+	 * Singleton getter
+	 * @return The only existing instance of FXMLController
+	 */
+	public static FXMLController get()
+	{
+		return mainFXMLController;
 	}
 }

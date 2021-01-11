@@ -17,7 +17,10 @@ public class ClientData implements Serializable
 	private User thisUser;
 	private InetAddress serverAddress;
 
-	private ClientData() {}
+	/**
+	 * DO NOT USE FOR ANY REASON
+	 */
+	public ClientData() {}
 
 	/**
 	 * Getter for the singleton instance

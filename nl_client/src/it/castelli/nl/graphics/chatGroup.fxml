@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="51.0" prefWidth="204.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.castelli.nl.graphics.ChatGroupFXMLController">
+    <HBox>
+        <Label fx:id="groupNameLabel" prefHeight="31.0" prefWidth="118.0" text="Group name">
+            <font>
+                <Font name="System Bold" size="15.0" />
+            </font>
+        </Label>
+        <Label fx:id="groupCodeLabel" prefHeight="32.0" prefWidth="112.0" text="Group code" />
+    </HBox>
+    <Label fx:id="lastMessageLabel" text="Last message" />
+</VBox>

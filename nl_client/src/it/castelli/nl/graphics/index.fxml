@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -37,7 +38,7 @@
    <SplitPane dividerPositions="0.3">
       <VBox prefHeight="462.0" prefWidth="212.0">
          <ScrollPane hbarPolicy="NEVER" pannable="true" prefHeight="461.0" prefWidth="267.0">
-            <VBox fx:id="groupsVBox" prefHeight="417.0" prefWidth="241.0" />
+            <ListView fx:id="chatGroupListView" prefHeight="415.0" prefWidth="239.0" />
          </ScrollPane>
          <HBox>
             <Button fx:id="createGroupButton" mnemonicParsing="false" prefHeight="88.0" prefWidth="229.0" text="Create" />
@@ -56,8 +57,8 @@
             </VBox>
          </HBox>
          <HBox>
-            <TextField fx:id="messageInputField" prefHeight="47.0" prefWidth="555.0" promptText="Write a message..."/>
-            <Button fx:id="sendMessageButton" mnemonicParsing="false" prefHeight="43.0" prefWidth="165.0" text="Send"/>
+            <TextField fx:id="messageInputField" prefHeight="47.0" prefWidth="555.0" promptText="Write a message..." />
+            <Button fx:id="sendMessageButton" mnemonicParsing="false" prefHeight="43.0" prefWidth="165.0" text="Send" />
          </HBox>
       </VBox>
    </SplitPane>

@@ -1,17 +1,19 @@
 package it.castelli.nl;
 
+import it.castelli.nl.messages.MessageBuilder;
+import it.castelli.nl.serialization.Serializer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import it.castelli.nl.messages.MessageBuilder;
-import it.castelli.nl.serialization.Serializer;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class NLClient extends Application
 {
@@ -37,8 +39,8 @@ public class NLClient extends Application
 		{
 			byte[] packet = MessageBuilder.buildServerTestMessage(test);
 			Sender.sendToServer(packet, InetAddress.getLocalHost());
-			System.out.println("è stato inviato un messaggio all'indirizzo: " + InetAddress.getLocalHost().toString() +
-			                   "alla porta: "
+			System.out.println("a message has been sent to the address: " + InetAddress.getLocalHost().toString() +
+			                   "at the port: "
 			                   + Sender.SERVER_RECEIVE_PORT);
 		}
 		catch (IOException e)
@@ -49,7 +51,7 @@ public class NLClient extends Application
 		//end test
 
 		NLClient.primaryStage = primaryStage;
-		Parent root = loadFXML("src/index.fxml");
+		Parent root = loadFXML("src/it/castelli/nl/graphics/index.fxml");
 		assert root != null;
 		Scene mainScene = new Scene(root);
 		primaryStage.setScene(mainScene);
@@ -90,6 +92,9 @@ public class NLClient extends Application
 	 */
 	public static Parent loadFXML(String path)
 	{
+		if (!Files.exists(Paths.get(path)))
+			return null;
+
 		FXMLLoader loader = new FXMLLoader();
 		try
 		{
@@ -108,5 +113,28 @@ public class NLClient extends Application
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	/**
+	 * Load an FXML file and return its loader
+	 * @param path The path of the FXML file
+	 * @return The FXMLLoader object used to load the file
+	 */
+	public static FXMLLoader getFXMLLoader(String path)
+	{
+		if (!Files.exists(Paths.get(path)))
+			return null;
+
+		FXMLLoader loader = new FXMLLoader();
+		try
+		{
+			loader.setLocation(new File(path).toURI().toURL());
+			return loader;
+		}
+		catch (MalformedURLException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
 	}
 }
