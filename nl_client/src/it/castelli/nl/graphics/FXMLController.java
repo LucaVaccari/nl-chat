@@ -5,8 +5,10 @@ import it.castelli.nl.message.ClientMessageManager;
 import it.castelli.nl.messages.MessageBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -30,13 +32,15 @@ public class FXMLController
 	public MenuItem deleteMessageMenuItem; //TODO
 	public MenuItem copyMessageMenuItem; //TODO
 	public MenuItem helpMenuItem;
-	public ListView<VBox> chatGroupListView; //TODO
+	public ListView<ChatGroupElement> chatGroupListView; //TODO
 	public Label groupNameLabel; //TODO
 	public Label groupIdLabel; //TODO
 	public TextField messageInputField;
 	public Button sendMessageButton;
 
 	private static ChatGroup selectedChatGroup;
+
+	public Stage settingsStage;
 
 	@FXML
 	public void initialize()
@@ -55,8 +59,7 @@ public class FXMLController
 
 				userName = name.orElse("");
 
-				if (name.isEmpty())
-					System.exit(0);
+				if (name.isEmpty()) System.exit(0);
 			} while (userName.length() <= 0 || userName.length() > 20);
 
 			try
@@ -77,10 +80,21 @@ public class FXMLController
 		messageInputField.setOnAction(this::OnMessageSend);
 		sendMessageButton.setOnAction(this::OnMessageSend);
 
+		settingsMenuItem.setOnAction(event -> {
+			settingsStage = new Stage();
+			settingsStage.setTitle("Settings");
+			settingsStage.setAlwaysOnTop(true);
+			settingsStage.initModality(Modality.APPLICATION_MODAL);
+			settingsStage.setResizable(false);
+			Parent root = NLClient.loadFXML("src/it/castelli/nl/graphics/settingsMenu.fxml");
+			assert root != null;
+			Scene settingsScene = new Scene(root);
+			settingsStage.setScene(settingsScene);
+			settingsStage.showAndWait();
+		});
 		closeMenuItem.setOnAction(event -> {
 			Stage primaryStage = NLClient.getPrimaryStage();
-			primaryStage.fireEvent(
-					new WindowEvent(primaryStage, WindowEvent.WINDOW_CLOSE_REQUEST));
+			primaryStage.fireEvent(new WindowEvent(primaryStage, WindowEvent.WINDOW_CLOSE_REQUEST));
 		});
 
 		newGroupMenuItem.setOnAction(this::OnCreateNewGroupButtonClick);
@@ -91,6 +105,12 @@ public class FXMLController
 		helpMenuItem.setOnAction(event -> AlertUtil.showInformationAlert("Help", "If you want help...",
 		                                                                 "Contact the developers if you can't " +
 		                                                                 "understand."));
+
+		chatGroupListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+		chatGroupListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			selectedChatGroup = newValue.getChatGroup();
+			// TODO show the panel with the messages
+		});
 
 		createGroupButton.setTooltip(new Tooltip(
 				"Create a new chat where you can write" + " messages to other people.\n" +
@@ -128,7 +148,7 @@ public class FXMLController
 		try
 		{
 			ClientMessageManager.getMessageReceiver(MessageBuilder.CLIENT_NEW_GROUP_MESSAGE_TYPE)
-					.OnReceive(MessageBuilder.buildClientNewGroupMessage((byte) 3, result.get()));
+			                    .OnReceive(MessageBuilder.buildClientNewGroupMessage((byte) 3, result.get()));
 		}
 		catch (IOException e)
 		{
@@ -199,7 +219,7 @@ public class FXMLController
 			{
 				byte[] packet = MessageBuilder.buildServerUserChatMessage(selectedChatGroup.getCode(),
 				                                                          ClientData.getInstance().getThisUser()
-						                                                          .getId(), text);
+				                                                                    .getId(), text);
 				Sender.sendToServer(packet, ClientData.getInstance().getServerAddress());
 			}
 			catch (IOException e)

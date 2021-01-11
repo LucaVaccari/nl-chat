@@ -9,7 +9,6 @@ import it.castelli.nl.graphics.FXMLController;
 import it.castelli.nl.messages.IMessage;
 import it.castelli.nl.serialization.Serializer;
 
-import java.io.Serial;
 import java.util.Arrays;
 
 /**
@@ -24,7 +23,7 @@ public class ClientNewGroupMessage implements IMessage
 		// syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
 		byte groupCode = data[1];
-		byte[] contentOfMessage = Arrays.copyOfRange(data, 3, data.length - 1);
+		byte[] contentOfMessage = Arrays.copyOfRange(data, 3, data.length);
 		String groupName = new String(contentOfMessage);
 		ChatGroup newGroup = new ChatGroup(groupName, groupCode);
 		ClientGroupManager.getAllGroups().put(groupCode, newGroup);

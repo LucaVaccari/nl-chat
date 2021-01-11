@@ -19,7 +19,7 @@ public class ChatGroupElement extends VBox
 	public Label groupCodeLabel;
 	public Label lastMessageLabel;
 
-	public ChatGroup chatGroup;
+	private ChatGroup chatGroup;
 
 	public ChatGroupElement(ChatGroup chatGroup)
 	{
@@ -41,5 +41,14 @@ public class ChatGroupElement extends VBox
 		{
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * Getter for the chat group bound to this UI element
+	 * @return The chat group bound to this UI element
+	 */
+	public ChatGroup getChatGroup()
+	{
+		return chatGroup;
 	}
 }

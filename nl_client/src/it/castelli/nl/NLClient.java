@@ -51,12 +51,12 @@ public class NLClient extends Application
 		clientThread = new Thread(new ClientReceiver(), "ClientThread");
 		clientThread.start();
 
-
 		NLClient.primaryStage = primaryStage;
 		Parent root = loadFXML("src/it/castelli/nl/graphics/index.fxml");
 		assert root != null;
 		Scene mainScene = new Scene(root);
 		primaryStage.setScene(mainScene);
+		primaryStage.setResizable(false);
 		primaryStage.show();
 	}
 
@@ -74,6 +74,8 @@ public class NLClient extends Application
 			e.printStackTrace();
 		}
 		super.stop();
+
+		System.exit(0);
 	}
 
 	/**
