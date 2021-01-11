@@ -5,7 +5,9 @@ import it.castelli.nl.ClientGroupManager;
 import it.castelli.nl.graphics.ChatGroupElement;
 import it.castelli.nl.graphics.FXMLController;
 import it.castelli.nl.messages.IMessage;
+import it.castelli.nl.serialization.Serializer;
 
+import java.io.Serial;
 import java.util.Arrays;
 
 /**
@@ -24,6 +26,8 @@ public class ClientNewGroupMessage implements IMessage
 		String groupName = new String(contentOfMessage);
 		ChatGroup newGroup = new ChatGroup(groupName, groupCode);
 		ClientGroupManager.getAllGroups().put(groupCode, newGroup);
+
+		Serializer.serialize(ClientGroupManager.getAllGroups(), ClientGroupManager.GROUPS_FILE_PATH);
 
 		FXMLController.get().chatGroupListView.getItems().add(new ChatGroupElement(newGroup));
 	}
