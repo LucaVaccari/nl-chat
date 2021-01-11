@@ -14,7 +14,8 @@ import java.util.Arrays;
 public class ServerNewUserMessage implements IMessage
 {
 	@Override
-	public void OnReceive(byte[] data) {
+	public void OnReceive(byte[] data)
+	{
 		// syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id,  20 bytes for the name,
 		// others for the ip
 
@@ -41,6 +42,5 @@ public class ServerNewUserMessage implements IMessage
 		catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
-
 	}
 }

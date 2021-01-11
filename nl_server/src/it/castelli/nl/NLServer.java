@@ -8,7 +8,7 @@ public class NLServer
 
         boolean running = true;
         int counter = 0;
-        int lifeTime = 20; // in seconds
+        int lifeTime = 100; // in seconds
 
         Thread serverThread = new Thread(new ServerReceiver(), "serverThread");
         serverThread.start();

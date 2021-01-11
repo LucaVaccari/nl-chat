@@ -2,6 +2,7 @@ package it.castelli.nl;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * A group containing users. Every user member can send a message and all the others will receive it.
@@ -9,8 +10,8 @@ import java.util.ArrayList;
  */
 public class ChatGroup implements Serializable
 {
-	private ArrayList<User> users;
-	private ArrayList<User> superUsers;
+	private HashSet<User> users = new HashSet<>();
+	private HashSet<User> superUsers = new HashSet<>();
 	private final byte code;
 	private String name;
 	private final ChatGroupContent chatGroupContent = new ChatGroupContent();
@@ -57,7 +58,7 @@ public class ChatGroup implements Serializable
 	 * Getter for the users of the group
 	 * @return The list of users of the group
 	 */
-	public ArrayList<User> getUsers()
+	public HashSet<User> getUsers()
 	{
 		return users;
 	}
@@ -75,7 +76,7 @@ public class ChatGroup implements Serializable
 	 * Getter for the list of super users (with more privileges)
 	 * @return The list of super users
 	 */
-	public ArrayList<User> getSuperUsers()
+	public HashSet<User> getSuperUsers()
 	{
 		return superUsers;
 	}

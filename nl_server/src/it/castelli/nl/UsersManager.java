@@ -34,7 +34,7 @@ public class UsersManager
      * @param id The id of the user to get
      * @return The user with the corresponding id
      */
-	public static User getUserFromId(int id)
+	public static User getUserFromId(byte id)
 	{
 		return allUsers.get(id);
 	}

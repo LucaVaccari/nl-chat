@@ -9,11 +9,12 @@ import java.util.HashMap;
  */
 public class ClientGroupManager
 {
-    private static final HashMap<Byte, ChatGroup> allGroups;
+    private static HashMap<Byte, ChatGroup> allGroups;
     public static final String GROUPS_FILE_PATH = "allGroups.bin";
 
     static {
         allGroups = (HashMap<Byte, ChatGroup>) Serializer.deserialize(GROUPS_FILE_PATH);
+        if (allGroups == null) allGroups = new HashMap<>();
     }
 
     /**

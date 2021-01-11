@@ -1,11 +1,12 @@
 package it.castelli.nl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Contains the possible content of a group (like messages)
  */
-public class ChatGroupContent
+public class ChatGroupContent implements Serializable
 {
 	private final ArrayList<String> userMessages = new ArrayList<>();
 

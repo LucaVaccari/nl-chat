@@ -24,13 +24,6 @@ public class NLClient extends Application
 	public static void main(String[] args)
 	{
 		launch(args);
-	}
-
-	@Override
-	public void start(Stage primaryStage)
-	{
-		clientThread = new Thread(new ClientReceiver(), "ClientThread");
-		clientThread.start();
 
 		//start test
 
@@ -41,8 +34,8 @@ public class NLClient extends Application
 			Sender.sendToServer(packet, InetAddress.getLocalHost());
 			System.out.println("è stato mandato nome: " + test);
 			System.out.println("è stato inviato un messaggio all'indirizzo: " + InetAddress.getLocalHost().toString() +
-			                   "alla porta: "
-			                   + Sender.SERVER_RECEIVE_PORT);
+					"alla porta: "
+					+ Sender.SERVER_RECEIVE_PORT);
 		}
 		catch (IOException e)
 		{
@@ -50,6 +43,14 @@ public class NLClient extends Application
 		}
 
 		//end test
+	}
+
+	@Override
+	public void start(Stage primaryStage)
+	{
+		clientThread = new Thread(new ClientReceiver(), "ClientThread");
+		clientThread.start();
+
 
 		NLClient.primaryStage = primaryStage;
 		Parent root = loadFXML("src/it/castelli/nl/graphics/index.fxml");
