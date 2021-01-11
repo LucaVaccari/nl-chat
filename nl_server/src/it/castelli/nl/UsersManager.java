@@ -16,6 +16,8 @@ public class UsersManager
 	static
 	{
 		allUsers = (HashMap<Byte, User>) Serializer.deserialize(USERS_FILE_PATH);
+
+		if (allUsers == null) allUsers = new HashMap<>();
 	}
 
     /**

@@ -154,8 +154,7 @@ public class MessageBuilder
 			outputStream.write(0);
 		}
 
-		String temp = ipAddress.toString();
-		outputStream.write(temp.getBytes());
+		outputStream.write(ipAddress.getAddress());
 
 		return outputStream.toByteArray();
 	}

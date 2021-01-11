@@ -1,10 +1,12 @@
 package it.castelli.nl;
 
+import it.castelli.nl.messages.MessageBuilder;
 import it.castelli.nl.messages.ServerMessageManager;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
 
 /**
  * Thread for receiving messages from the client
@@ -44,6 +46,7 @@ public class ServerReceiver implements Runnable
 	 */
 	public void interrupt()
 	{
+		System.out.println("ServerReceiver is not working anymore");
 		isRunning = false;
 	}
 }

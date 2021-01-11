@@ -16,6 +16,7 @@ public class ServerGroupManager
 	static
 	{
 		allGroups = (HashMap<Byte, ChatGroup>) Serializer.deserialize(GROUPS_FILE_PATH);
+		if(allGroups == null) allGroups = new HashMap<>();
 	}
 
 	/**

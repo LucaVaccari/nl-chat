@@ -41,7 +41,7 @@ public class Serializer
 		}
 		catch (IOException ex)
 		{
-			System.out.println("IOException is caught");
+			System.out.println("The file doesn't exist yet");
 		}
 
 		return null;
@@ -71,7 +71,7 @@ public class Serializer
 		}
 		catch (IOException ex)
 		{
-			System.out.println("IOException is caught");
+			System.out.println("Error serializing the object");
 		}
 	}
 

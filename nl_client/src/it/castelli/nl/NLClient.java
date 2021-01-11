@@ -34,13 +34,14 @@ public class NLClient extends Application
 
 		//start test
 
-		String test = "Hello World!";
+		String test = "Piero";
 		try
 		{
-			byte[] packet = MessageBuilder.buildServerTestMessage(test);
+			byte[] packet = MessageBuilder.buildServerNewUserMessage(test, InetAddress.getLocalHost());
 			Sender.sendToServer(packet, InetAddress.getLocalHost());
-			System.out.println("a message has been sent to the address: " + InetAddress.getLocalHost().toString() +
-			                   "at the port: "
+			System.out.println("è stato mandato nome: " + test);
+			System.out.println("è stato inviato un messaggio all'indirizzo: " + InetAddress.getLocalHost().toString() +
+			                   "alla porta: "
 			                   + Sender.SERVER_RECEIVE_PORT);
 		}
 		catch (IOException e)
