@@ -16,7 +16,8 @@ public class ClientReceiver implements Runnable
     private boolean isRunning = true;
 
     /**
-     * The run() function from the Runnable interface is called when the thread starts
+     * The run() function from the Runnable interface is called when the thread starts.
+     * This one infinitely waits for packets, until the end of the program.
      */
     public void run()
     {

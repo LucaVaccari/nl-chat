@@ -2,58 +2,77 @@ package nl.serialization;
 
 import java.io.*;
 
-public class Serializer {
+/**
+ * Util class providing serialization methods
+ */
+public class Serializer
+{
 
-    public static Serializable deserialize(String path)
-    {
-        Serializable object;
-        try
-        {
-            // Reading the object from a file
-            FileInputStream file = new FileInputStream(path);
-            ObjectInputStream in = new ObjectInputStream(file);
+	/**
+	 * Read a file and deserialize it
+	 *
+	 * @param path The path of the file to read
+	 * @return The just deserialized Serializable object
+	 */
+	public static Serializable deserialize(String path)
+	{
+		Serializable object;
+		try
+		{
+			// Reading the object from a file
+			FileInputStream file = new FileInputStream(path);
+			ObjectInputStream in = new ObjectInputStream(file);
 
-            // Method for deserialization of object
-            try {
-                object = (Serializable) in.readObject();
-                return object;
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+			// Method for deserialization of object
+			try
+			{
+				object = (Serializable) in.readObject();
+				return object;
+			}
+			catch (IOException | ClassNotFoundException e)
+			{
+				e.printStackTrace();
+			}
 
-            in.close();
-            file.close();
+			in.close();
+			file.close();
 
-            System.out.println("Object has been deserialized ");
-        }
-        catch(IOException ex)
-        {
-            System.out.println("IOException is caught");
-        }
+			System.out.println("Object has been deserialized ");
+		}
+		catch (IOException ex)
+		{
+			System.out.println("IOException is caught");
+		}
 
-        return null;
-    }
+		return null;
+	}
 
-    public static void serialize(Serializable obj, String path)
-    {
-        try
-        {
-            //Saving of object in a file
-            FileOutputStream file = new FileOutputStream(path);
-            ObjectOutputStream out = new ObjectOutputStream(file);
+	/**
+	 * Serialize an object and store it on a file
+	 *
+	 * @param obj  The Serializable object to be serialized
+	 * @param path The path of the file to store the serialized object in
+	 */
+	public static void serialize(Serializable obj, String path)
+	{
+		try
+		{
+			//Saving of object in a file
+			FileOutputStream file = new FileOutputStream(path);
+			ObjectOutputStream out = new ObjectOutputStream(file);
 
-            // Method for serialization of object
-            out.writeObject(obj);
+			// Method for serialization of object
+			out.writeObject(obj);
 
-            out.close();
-            file.close();
+			out.close();
+			file.close();
 
-            System.out.println("Object has been serialized");
-        }
-        catch(IOException ex)
-        {
-            System.out.println("IOException is caught");
-        }
-    }
+			System.out.println("Object has been serialized");
+		}
+		catch (IOException ex)
+		{
+			System.out.println("IOException is caught");
+		}
+	}
 
 }

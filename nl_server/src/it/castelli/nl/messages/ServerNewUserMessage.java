@@ -12,29 +12,33 @@ import java.net.UnknownHostException;
 import java.util.Arrays;
 
 
-public class ServerNewUserMessage implements IMessage {
-    @Override
-    public void OnReceive(byte[] data)
-    {
-        // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, 20 bytes for the name, others for the ip
+public class ServerNewUserMessage implements IMessage
+{
+	@Override
+	public void OnReceive(byte[] data)
+	{
+		// syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, 20 bytes for the name,
+        // others for the ip
 
-        byte[] byteName = Arrays.copyOfRange(data, 3, 3 + 20 - 1);
-        String name = new String(byteName);
-        byte[] byteUserIP = Arrays.copyOfRange(data, 3 + 20 - 1, data.length - 1);
-        try
-        {
-            InetAddress userIP = InetAddress.getByAddress(byteUserIP);
-            byte newId = ServerData.getInstance().getLastUserId();
-            User newUser = new User(name, userIP, newId);
-            ServerData.getInstance().incrementLastUserId();
-            UsersManager.getAllUsers().put(newId, newUser);
+		byte[] byteName = Arrays.copyOfRange(data, 3, 3 + 20 - 1);
+		String name = new String(byteName);
+		byte[] byteUserIP = Arrays.copyOfRange(data, 3 + 20 - 1, data.length - 1);
+		try
+		{
+			InetAddress userIP = InetAddress.getByAddress(byteUserIP);
+			byte newId = ServerData.getInstance().getLastUserId();
+			User newUser = new User(name, userIP, newId);
+			ServerData.getInstance().incrementLastUserId();
+			UsersManager.getAllUsers().put(newId, newUser);
 
-            byte[] reply = MessageBuilder.buildUserIdMessage(newId);
-            Sender.sendToClient(reply, newUser.getIpAddress());
+			byte[] reply = MessageBuilder.buildUserIdMessage(newId);
+			Sender.sendToClient(reply, newUser.getIpAddress());
 
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
+		}
+		catch (UnknownHostException e)
+		{
+			e.printStackTrace();
+		}
 
-    }
+	}
 }
