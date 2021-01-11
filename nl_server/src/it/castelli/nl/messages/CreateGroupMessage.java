@@ -28,6 +28,7 @@ public class CreateGroupMessage implements IMessage {
         ServerData.getInstance().incrementLastGroupCode();
 
         Serializer.serialize(ServerGroupManager.getAllGroups(), ServerGroupManager.GROUPS_FILE_PATH);
+        Serializer.serialize(ServerData.getInstance(), ServerData.SERVER_DATA_FILE_PATH);
 
         System.out.println("The group " + newGroupName + " has been created with the groupCode of: " + newGroupCode + " and it contains the user: " + userId);
 

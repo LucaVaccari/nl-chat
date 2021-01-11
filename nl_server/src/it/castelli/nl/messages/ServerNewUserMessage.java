@@ -33,6 +33,7 @@ public class ServerNewUserMessage implements IMessage
 			UsersManager.getAllUsers().put(newId, newUser);
 
 			Serializer.serialize(UsersManager.getAllUsers(), UsersManager.USERS_FILE_PATH);
+			Serializer.serialize(ServerData.getInstance(), ServerData.SERVER_DATA_FILE_PATH);
 
 			System.out.println("new User created with name: " + name + ", IP address: " + userIP.getHostAddress() + " and userId: " + newId);
 

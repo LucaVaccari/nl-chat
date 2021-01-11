@@ -4,6 +4,7 @@ import it.castelli.nl.ClientGroupManager;
 import it.castelli.nl.ChatGroup;
 import it.castelli.nl.User;
 import it.castelli.nl.messages.IMessage;
+import it.castelli.nl.serialization.Serializer;
 
 import java.util.Arrays;
 
@@ -19,6 +20,8 @@ public class ClientNewUserMessage implements IMessage {
         String userName = new String(contentOfMessage);
         ChatGroup thisGroup = ClientGroupManager.getGroupFromCode(groupCode);
         User newUser = new User(userName, userId);
+
+        Serializer.serialize(ClientGroupManager.getAllGroups(), ClientGroupManager.GROUPS_FILE_PATH);
 
         thisGroup.getUsers().add(newUser);
     }
