@@ -1,5 +1,6 @@
 package it.castelli.nl.message;
 
+import it.castelli.nl.ClientData;
 import it.castelli.nl.ClientGroupManager;
 import it.castelli.nl.ChatGroup;
 import it.castelli.nl.User;
@@ -22,6 +23,7 @@ public class ClientNewUserMessage implements IMessage {
         User newUser = new User(userName, userId);
 
         Serializer.serialize(ClientGroupManager.getAllGroups(), ClientGroupManager.GROUPS_FILE_PATH);
+        Serializer.serialize(ClientData.getInstance(), ClientData.CLIENT_DATA_FILE_PATH);
 
         thisGroup.getUsers().add(newUser);
     }

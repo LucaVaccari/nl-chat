@@ -42,15 +42,13 @@ public class JoinGroupMessage implements IMessage {
                 //send Users who are in the group to the new one
                 for (User user : groupToJoin.getUsers())
                 {
+                    reply = MessageBuilder.buildClientNewUserMessage(groupCode, user.getId(), user.getName());
                     if (user == thisUser)
                     {
-                        reply = MessageBuilder.buildClientNewUserMessage(groupCode, user.getId(), user.getName());
                         Sender.sendToClient(reply, user, groupToJoin);
-                        Sender.sendToClient(reply,UsersManager.getUserFromId(userId).getIpAddress());
                     }
                     else
                     {
-                        reply = MessageBuilder.buildClientNewUserMessage(groupCode, user.getId(), user.getName());
                         Sender.sendToClient(reply, UsersManager.getUserFromId(userId).getIpAddress());
                     }
                 }

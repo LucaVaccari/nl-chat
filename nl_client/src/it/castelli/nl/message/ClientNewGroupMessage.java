@@ -1,7 +1,9 @@
 package it.castelli.nl.message;
 
 import it.castelli.nl.ChatGroup;
+import it.castelli.nl.ClientData;
 import it.castelli.nl.ClientGroupManager;
+import it.castelli.nl.User;
 import it.castelli.nl.graphics.ChatGroupElement;
 import it.castelli.nl.graphics.FXMLController;
 import it.castelli.nl.messages.IMessage;
@@ -27,7 +29,11 @@ public class ClientNewGroupMessage implements IMessage
 		ChatGroup newGroup = new ChatGroup(groupName, groupCode);
 		ClientGroupManager.getAllGroups().put(groupCode, newGroup);
 
+		User thisUser = ClientData.getInstance().getThisUser();
+		newGroup.getUsers().add(thisUser);
+
 		Serializer.serialize(ClientGroupManager.getAllGroups(), ClientGroupManager.GROUPS_FILE_PATH);
+		Serializer.serialize(ClientData.getInstance(), ClientData.CLIENT_DATA_FILE_PATH);
 
 		FXMLController.get().chatGroupListView.getItems().add(new ChatGroupElement(newGroup));
 	}
