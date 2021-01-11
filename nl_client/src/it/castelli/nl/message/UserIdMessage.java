@@ -15,5 +15,6 @@ public class UserIdMessage implements IMessage
 		byte userId = data[2];
 		User currentUser = ClientData.getInstance().getThisUser();
 		ClientData.getInstance().setThisUser(new User(currentUser.getName(), currentUser.getIpAddress(), userId));
+		System.out.println("User id received: " + String.valueOf(userId));
 	}
 }

@@ -37,7 +37,7 @@ public class Serializer
 			in.close();
 			file.close();
 
-			System.out.println("Object has been deserialized ");
+			System.out.println("Object has been deserialized");
 		}
 		catch (IOException ex)
 		{

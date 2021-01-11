@@ -4,6 +4,7 @@ import it.castelli.nl.serialization.Serializer;
 
 import java.io.Serializable;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
  * Contains all the shared data every class of the client might need.
@@ -24,6 +25,7 @@ public class ClientData implements Serializable
 
 	/**
 	 * Getter for the singleton instance
+	 *
 	 * @return The singleton instance
 	 */
 	public static ClientData getInstance()
@@ -67,6 +69,18 @@ public class ClientData implements Serializable
 	 */
 	public InetAddress getServerAddress()
 	{
+		if (serverAddress == null)
+		{
+			try
+			{
+				setServerAddress(InetAddress.getLocalHost());
+			}
+			catch (UnknownHostException e)
+			{
+				e.printStackTrace();
+			}
+		}
+
 		return serverAddress;
 	}
 

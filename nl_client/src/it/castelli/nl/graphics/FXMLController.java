@@ -1,16 +1,14 @@
 package it.castelli.nl.graphics;
 
-import it.castelli.nl.ClientData;
-import it.castelli.nl.NLClient;
+import it.castelli.nl.*;
+import it.castelli.nl.message.ClientMessageManager;
+import it.castelli.nl.messages.MessageBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import it.castelli.nl.ChatGroup;
-import it.castelli.nl.Sender;
-import it.castelli.nl.messages.MessageBuilder;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -54,12 +52,18 @@ public class FXMLController
 				Optional<String> name = AlertUtil
 						.showTextInputDialogue("Pinco Pallino", "Welcome", "Welcome to nl-chat! Choose a user name",
 						                       "Name:");
+
 				userName = name.orElse("");
+
+				if (name.isEmpty())
+					System.exit(0);
 			} while (userName.length() <= 0 || userName.length() > 20);
 
 			try
 			{
+				ClientData.getInstance().setThisUser(new User(userName, InetAddress.getLocalHost(), (byte) 0));
 				byte[] data = MessageBuilder.buildServerNewUserMessage(userName, InetAddress.getLocalHost());
+				Sender.sendToServer(data, ClientData.getInstance().getThisUser().getIpAddress());
 			}
 			catch (IOException e)
 			{
@@ -118,6 +122,12 @@ public class FXMLController
 		{
 			e.printStackTrace();
 		}
+
+		System.out.println("TESTING GROUP CREATION");
+		// TEMP TEMP TEMP TEMP
+		ClientMessageManager.getMessageReceiver(MessageBuilder.USER_ID_MESSAGE_TYPE)
+				.OnReceive(MessageBuilder.buildUserIdMessage((byte) 3));
+		chatGroupListView.getItems().add(new ChatGroupElement(new ChatGroup("Sus", (byte) 2)));
 	}
 
 	private void OnJoinGroupButtonCLick(ActionEvent actionEvent)
@@ -197,6 +207,7 @@ public class FXMLController
 
 	/**
 	 * Singleton getter
+	 *
 	 * @return The only existing instance of FXMLController
 	 */
 	public static FXMLController get()
