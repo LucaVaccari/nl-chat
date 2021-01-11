@@ -1,7 +1,5 @@
 package it.castelli.nl.messages;
 
-import nl.messages.IMessage;
-
 import java.util.Arrays;
 
 public class ServerTestMessage implements IMessage {

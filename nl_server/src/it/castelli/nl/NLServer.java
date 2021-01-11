@@ -1,6 +1,6 @@
 package it.castelli.nl;
 
-import nl.serialization.Serializer;
+import it.castelli.nl.serialization.Serializer;
 
 public class NLServer
 {

@@ -2,11 +2,9 @@ package it.castelli.nl.messages;
 
 import it.castelli.nl.ServerGroupManager;
 import it.castelli.nl.UsersManager;
-import nl.ChatGroup;
-import nl.Sender;
-import nl.User;
-import nl.messages.IMessage;
-import nl.messages.MessageBuilder;
+import it.castelli.nl.ChatGroup;
+import it.castelli.nl.Sender;
+import it.castelli.nl.User;
 
 public class RemoveGroupMessage implements IMessage {
     @Override

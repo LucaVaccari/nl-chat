@@ -2,10 +2,8 @@ package it.castelli.nl.messages;
 
 import it.castelli.nl.ServerData;
 import it.castelli.nl.UsersManager;
-import nl.Sender;
-import nl.User;
-import nl.messages.IMessage;
-import nl.messages.MessageBuilder;
+import it.castelli.nl.Sender;
+import it.castelli.nl.User;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

@@ -1,12 +1,8 @@
 package it.castelli.nl.message;
 
 import it.castelli.nl.ClientData;
-import it.castelli.nl.ClientGroupManager;
-import nl.ChatGroup;
-import nl.User;
-import nl.messages.IMessage;
-
-import java.util.Arrays;
+import it.castelli.nl.User;
+import it.castelli.nl.messages.IMessage;
 
 public class UserIdMessage implements IMessage
 {

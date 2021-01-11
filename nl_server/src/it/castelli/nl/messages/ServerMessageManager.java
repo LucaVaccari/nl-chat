@@ -1,8 +1,5 @@
 package it.castelli.nl.messages;
 
-import nl.messages.IMessage;
-import nl.messages.MessageBuilder;
-
 import java.util.HashMap;
 
 /**

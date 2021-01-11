@@ -1,7 +1,7 @@
 package it.castelli.nl.message;
 
 import it.castelli.nl.graphics.AlertUtil;
-import nl.messages.IMessage;
+import it.castelli.nl.messages.IMessage;
 
 public class ClientTestMessage implements IMessage
 {

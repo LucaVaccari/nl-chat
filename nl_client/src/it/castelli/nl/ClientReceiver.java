@@ -1,7 +1,6 @@
 package it.castelli.nl;
 
 import it.castelli.nl.message.ClientMessageManager;
-import nl.Sender;
 
 import java.io.IOException;
 import java.net.DatagramPacket;

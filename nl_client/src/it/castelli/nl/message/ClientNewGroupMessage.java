@@ -1,9 +1,8 @@
 package it.castelli.nl.message;
 
 import it.castelli.nl.ClientGroupManager;
-import nl.ChatGroup;
-import nl.User;
-import nl.messages.IMessage;
+import it.castelli.nl.ChatGroup;
+import it.castelli.nl.messages.IMessage;
 
 import java.util.Arrays;
 

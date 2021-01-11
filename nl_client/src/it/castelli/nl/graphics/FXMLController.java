@@ -8,9 +8,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import nl.ChatGroup;
-import nl.Sender;
-import nl.messages.MessageBuilder;
+import it.castelli.nl.ChatGroup;
+import it.castelli.nl.Sender;
+import it.castelli.nl.messages.MessageBuilder;
 
 import java.io.IOException;
 import java.util.Optional;

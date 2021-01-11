@@ -1,4 +1,4 @@
-package nl.serialization;
+package it.castelli.nl.serialization;
 
 import java.io.*;
 

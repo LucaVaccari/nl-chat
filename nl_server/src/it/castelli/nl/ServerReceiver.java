@@ -1,6 +1,5 @@
 package it.castelli.nl;
 
-import nl.Sender;
 import it.castelli.nl.messages.ServerMessageManager;
 
 import java.io.IOException;

@@ -5,9 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import nl.Sender;
-import nl.messages.MessageBuilder;
-import nl.serialization.Serializer;
+import it.castelli.nl.messages.MessageBuilder;
+import it.castelli.nl.serialization.Serializer;
 
 import java.io.File;
 import java.io.IOException;

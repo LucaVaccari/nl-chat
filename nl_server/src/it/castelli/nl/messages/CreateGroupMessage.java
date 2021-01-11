@@ -3,15 +3,11 @@ package it.castelli.nl.messages;
 import it.castelli.nl.ServerData;
 import it.castelli.nl.ServerGroupManager;
 import it.castelli.nl.UsersManager;
-import nl.ChatGroup;
-import nl.Sender;
-import nl.messages.IMessage;
-import nl.messages.MessageBuilder;
+import it.castelli.nl.ChatGroup;
+import it.castelli.nl.Sender;
 
 import java.io.IOException;
 import java.util.Arrays;
-
-import static it.castelli.nl.ServerGroupManager.lastGroupCode;
 
 public class CreateGroupMessage implements IMessage {
     @Override

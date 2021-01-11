@@ -1,9 +1,7 @@
 package it.castelli.nl;
 
-import nl.User;
-import nl.serialization.Serializer;
+import it.castelli.nl.serialization.Serializer;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**

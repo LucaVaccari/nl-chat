@@ -1,7 +1,6 @@
 package it.castelli.nl;
 
-import nl.ChatGroup;
-import nl.serialization.Serializer;
+import it.castelli.nl.serialization.Serializer;
 
 import java.util.HashMap;
 

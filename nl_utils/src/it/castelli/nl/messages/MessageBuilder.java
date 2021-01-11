@@ -1,4 +1,4 @@
-package nl.messages;
+package it.castelli.nl.messages;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
