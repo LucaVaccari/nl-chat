@@ -9,29 +9,39 @@ import java.util.HashMap;
  */
 public class ClientGroupManager
 {
-    private static final HashMap<Byte, ChatGroup> allGroups;
-    public static final String GROUPS_FILE_PATH = "allGroups.bin";
+	private static final HashMap<Byte, ChatGroup> allGroups;
+	public static final String GROUPS_FILE_PATH = "allGroups.bin";
 
-    static {
-        allGroups = (HashMap<Byte, ChatGroup>) Serializer.deserialize(GROUPS_FILE_PATH);
-    }
+	static
+	{
+		HashMap<Byte, ChatGroup> allGroupsTemp;
+		allGroupsTemp = (HashMap<Byte, ChatGroup>) Serializer.deserialize(GROUPS_FILE_PATH);
 
-    /**
-     * Getter for the HashMap containing all groups mapped to their codes
-     * @return The HashMap of the groups
-     */
-    public static HashMap<Byte, ChatGroup> getAllGroups()
-    {
-        return allGroups;
-    }
+		if (allGroupsTemp == null)
+			allGroupsTemp = new HashMap<>();
 
-    /**
-     * Shortcut for getAllGroups().get(code)
-     * @param code The code of the group to be got
-     * @return The ChatGroup corresponding to the code provided
-     */
-    public static ChatGroup getGroupFromCode(byte code)
-    {
-        return allGroups.get(code);
-    }
+
+		allGroups = allGroupsTemp;
+	}
+
+	/**
+	 * Getter for the HashMap containing all groups mapped to their codes
+	 *
+	 * @return The HashMap of the groups
+	 */
+	public static HashMap<Byte, ChatGroup> getAllGroups()
+	{
+		return allGroups;
+	}
+
+	/**
+	 * Shortcut for getAllGroups().get(code)
+	 *
+	 * @param code The code of the group to be got
+	 * @return The ChatGroup corresponding to the code provided
+	 */
+	public static ChatGroup getGroupFromCode(byte code)
+	{
+		return allGroups.get(code);
+	}
 }

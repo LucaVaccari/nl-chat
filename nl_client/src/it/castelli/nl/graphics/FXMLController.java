@@ -123,11 +123,17 @@ public class FXMLController
 			e.printStackTrace();
 		}
 
-		System.out.println("TESTING GROUP CREATION");
 		// TEMP TEMP TEMP TEMP
-		ClientMessageManager.getMessageReceiver(MessageBuilder.USER_ID_MESSAGE_TYPE)
-				.OnReceive(MessageBuilder.buildUserIdMessage((byte) 3));
-		chatGroupListView.getItems().add(new ChatGroupElement(new ChatGroup("Sus", (byte) 2)));
+		System.out.println("TESTING GROUP CREATION");
+		try
+		{
+			ClientMessageManager.getMessageReceiver(MessageBuilder.CLIENT_NEW_GROUP_MESSAGE_TYPE)
+					.OnReceive(MessageBuilder.buildClientNewGroupMessage((byte) 3, result.get()));
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	private void OnJoinGroupButtonCLick(ActionEvent actionEvent)
