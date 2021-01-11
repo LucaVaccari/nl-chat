@@ -18,11 +18,12 @@ public class RemoveGroupMessage implements IMessage {
         User thisUser = UsersManager.getUserFromId(userId);
         if (groupToRemove.getSuperUsers().contains(thisUser))
         {
+            byte[] reply = MessageBuilder.buildRemovedGroupMessage(groupCode);
+            Sender.sendToClient(reply, thisUser.getIpAddress());
+            Sender.sendToClient(reply, thisUser, groupToRemove);
+
             ServerGroupManager.getAllGroups().remove(groupCode);
         }
-
-        byte[] reply = MessageBuilder.buildRemovedGroupMessage(groupCode);
-        Sender.sendToClient(reply, UsersManager.getUserFromId(userId).getIpAddress());
 
     }
 }
