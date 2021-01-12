@@ -18,6 +18,8 @@ import java.util.Optional;
 
 public class FXMLController
 {
+	public static final String SETTINGS_MENU_FXML_PATH = "src/it/castelli/nl/graphics/settingsMenu.fxml";
+
 	private static FXMLController mainFXMLController;
 
 	public Button createGroupButton;
@@ -86,7 +88,7 @@ public class FXMLController
 			settingsStage.setAlwaysOnTop(true);
 			settingsStage.initModality(Modality.APPLICATION_MODAL);
 			settingsStage.setResizable(false);
-			Parent root = NLClient.loadFXML("src/it/castelli/nl/graphics/settingsMenu.fxml");
+			Parent root = NLClient.loadFXML(SETTINGS_MENU_FXML_PATH);
 			assert root != null;
 			Scene settingsScene = new Scene(root);
 			settingsStage.setScene(settingsScene);
@@ -148,7 +150,7 @@ public class FXMLController
 		try
 		{
 			ClientMessageManager.getMessageReceiver(MessageBuilder.CLIENT_NEW_GROUP_MESSAGE_TYPE)
-			                    .OnReceive(MessageBuilder.buildClientNewGroupMessage((byte) 3, result.get()));
+					.OnReceive(MessageBuilder.buildClientNewGroupMessage((byte) 3, result.get()));
 		}
 		catch (IOException e)
 		{
@@ -219,7 +221,7 @@ public class FXMLController
 			{
 				byte[] packet = MessageBuilder.buildServerUserChatMessage(selectedChatGroup.getCode(),
 				                                                          ClientData.getInstance().getThisUser()
-				                                                                    .getId(), text);
+						                                                          .getId(), text);
 				Sender.sendToServer(packet, ClientData.getInstance().getServerAddress());
 			}
 			catch (IOException e)
