@@ -33,7 +33,7 @@ public class ServerGroupManager
 	 * @param code The code of the group to be got
 	 * @return The ChatGroup corresponding to the code provided
 	 */
-	public static ChatGroup getGroupFromCode(int code)
+	public static ChatGroup getGroupFromCode(byte code)
 	{
 		return allGroups.get(code);
 	}

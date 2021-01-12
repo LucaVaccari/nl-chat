@@ -1,6 +1,10 @@
 package it.castelli.nl.messages;
 
-import it.castelli.nl.*;
+import it.castelli.nl.ServerGroupManager;
+import it.castelli.nl.UsersManager;
+import it.castelli.nl.ChatGroup;
+import it.castelli.nl.Sender;
+import it.castelli.nl.User;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -18,6 +22,8 @@ public class ServerUserChatMessage implements IMessage
 		String textMessage = new String(contentOfMessage);
 		ChatGroup thisGroup = ServerGroupManager.getGroupFromCode(groupCode);
 		User thisUser = UsersManager.getUserFromId(userId);
+
+		System.out.println("a user message has arrived from user: " + userId + " in the group with code: " + groupCode);
 
 		if (thisGroup.getUsers().contains(thisUser))
 		{

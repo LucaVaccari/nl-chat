@@ -2,6 +2,8 @@ package it.castelli.nl;
 
 import it.castelli.nl.serialization.Serializer;
 
+import java.io.Console;
+
 public class NLServer
 {
     public static void main(String[] args) throws InterruptedException {
@@ -12,10 +14,8 @@ public class NLServer
 
         Thread serverThread = new Thread(new ServerReceiver(), "serverThread");
         serverThread.start();
-
         do
         {
-
             Thread.sleep(1000);
             counter++;
             if (counter >= lifeTime) running = false;
