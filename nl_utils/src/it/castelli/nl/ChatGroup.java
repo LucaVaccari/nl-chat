@@ -1,7 +1,6 @@
 package it.castelli.nl;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -10,14 +9,15 @@ import java.util.HashSet;
  */
 public class ChatGroup implements Serializable
 {
-	private HashSet<User> users = new HashSet<>();
-	private HashSet<User> superUsers = new HashSet<>();
+	private final HashSet<User> users = new HashSet<>();
+	private final HashSet<User> superUsers = new HashSet<>();
 	private final byte code;
 	private String name;
 	private final ChatGroupContent chatGroupContent = new ChatGroupContent();
 
 	/**
 	 * Constructor taking the name and the code of the group
+	 *
 	 * @param name The name of the group
 	 * @param code The code of the group
 	 */
@@ -29,6 +29,7 @@ public class ChatGroup implements Serializable
 
 	/**
 	 * Getter for the code of the group
+	 *
 	 * @return The code of the group
 	 */
 	public byte getCode()
@@ -38,6 +39,7 @@ public class ChatGroup implements Serializable
 
 	/**
 	 * Getter for the name of the group
+	 *
 	 * @return The name of the group
 	 */
 	public String getName()
@@ -47,6 +49,7 @@ public class ChatGroup implements Serializable
 
 	/**
 	 * Setter for the name of the group
+	 *
 	 * @param name The new name for the group
 	 */
 	public void setName(String name)
@@ -56,6 +59,7 @@ public class ChatGroup implements Serializable
 
 	/**
 	 * Getter for the users of the group
+	 *
 	 * @return The list of users of the group
 	 */
 	public HashSet<User> getUsers()
@@ -65,6 +69,7 @@ public class ChatGroup implements Serializable
 
 	/**
 	 * The getter for the chat group content, containing all the messages of the chat
+	 *
 	 * @return The ChatGroupContent
 	 */
 	public ChatGroupContent getChatGroupContent()
@@ -74,6 +79,7 @@ public class ChatGroup implements Serializable
 
 	/**
 	 * Getter for the list of super users (with more privileges)
+	 *
 	 * @return The list of super users
 	 */
 	public HashSet<User> getSuperUsers()

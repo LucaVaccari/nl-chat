@@ -1,5 +1,6 @@
 package it.castelli.nl.message;
 
+import it.castelli.nl.ChatGroupMessage;
 import it.castelli.nl.ClientGroupManager;
 import it.castelli.nl.ChatGroup;
 
@@ -10,27 +11,29 @@ import java.util.Arrays;
 
 public class ClientUserChatMessage implements IMessage
 {
-    @Override
-    public void OnReceive(byte[] data)
-    {
-        // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
+	@Override
+	public void OnReceive(byte[] data)
+	{
+		// syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
-        Byte groupCode = data[1];
-        Byte userId = data[2];
-        byte[] contentOfMessage = Arrays.copyOfRange(data, 3, data.length - 1);
-        String textMessage = new String(contentOfMessage);
-        ChatGroup thisGroup = ClientGroupManager.getGroupFromCode(groupCode);
-        String senderName = "";
+		byte groupCode = data[1];
+		byte userId = data[2];
+		byte[] contentOfMessage = Arrays.copyOfRange(data, 3, data.length - 1);
+		String textMessage = new String(contentOfMessage);
+		ChatGroup thisGroup = ClientGroupManager.getGroupFromCode(groupCode);
+		User thisUser = null;
+		for (User user : thisGroup.getUsers())
+		{
+			if (user.getId() == userId)
+			{
+				thisUser = user;
+			}
+		}
 
-        for (User user : thisGroup.getUsers()) {
-            if (user.getId() == userId)
-            {
-                senderName = user.getName();
-            }
-        }
-        if (senderName == "") senderName = "Stranger";
-        String message = senderName + " > " + textMessage;
-        thisGroup.getChatGroupContent().getUserMessages().add(message);
+		if (thisUser == null)
+			thisUser = new User("Stranger", (byte) 0);
+		thisGroup.getChatGroupContent().getUserMessages()
+				.add(new ChatGroupMessage(thisUser, thisGroup, textMessage));
 
-    }
+	}
 }

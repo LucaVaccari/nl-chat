@@ -206,9 +206,8 @@ public class FXMLController
 		{
 			try
 			{
-				byte[] packet = MessageBuilder.buildServerUserChatMessage(selectedChatGroup.getCode(),
-				                                                          ClientData.getInstance().getThisUser()
-						                                                          .getId(), text);
+				byte[] packet = MessageBuilder.buildServerUserChatMessage(
+						new ChatGroupMessage(ClientData.getInstance().getThisUser(), selectedChatGroup, text));
 				Sender.sendToServer(packet, ClientData.getInstance().getServerAddress());
 			}
 			catch (IOException e)

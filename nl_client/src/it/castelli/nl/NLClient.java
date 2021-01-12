@@ -57,6 +57,7 @@ public class NLClient extends Application
 		Scene mainScene = new Scene(root);
 		primaryStage.setScene(mainScene);
 		primaryStage.setResizable(false);
+		primaryStage.setTitle("nl-chat");
 		primaryStage.show();
 	}
 

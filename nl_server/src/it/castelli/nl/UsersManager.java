@@ -9,7 +9,6 @@ import java.util.HashMap;
  */
 public class UsersManager
 {
-
 	private static HashMap<Byte, User> allUsers;
 	public static final String USERS_FILE_PATH = "allUser.bin";
 

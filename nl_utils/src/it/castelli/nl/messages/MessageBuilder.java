@@ -1,5 +1,7 @@
 package it.castelli.nl.messages;
 
+import it.castelli.nl.ChatGroupMessage;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
@@ -111,21 +113,19 @@ public class MessageBuilder
 	/**
 	 * Build a packet which contains a user chat message sent by the client to the server
 	 *
-	 * @param groupCode The code of the group to sent the user message in
-	 * @param userId    The id of the user sending the user message
-	 * @param text      The content of the user message
+	 * @param message The user chat message to be sent
 	 * @return The array of bytes to be sent
 	 * @throws IOException Thrown when failing to create the packet
 	 */
-	public static byte[] buildServerUserChatMessage(byte groupCode, byte userId, String text) throws IOException
+	public static byte[] buildServerUserChatMessage(ChatGroupMessage message) throws IOException
 	{
 		// syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		outputStream.write(SERVER_USER_CHAT_MESSAGE_TYPE);
-		outputStream.write(groupCode);
-		outputStream.write(userId);
-		outputStream.write(text.getBytes());
+		outputStream.write(message.getChatGroup().getCode());
+		outputStream.write(message.getUserSender().getId());
+		outputStream.write(message.getMessageContent().getBytes());
 
 		return outputStream.toByteArray();
 	}
@@ -265,21 +265,19 @@ public class MessageBuilder
 	/**
 	 * Build a packet which contains a user message to be sent to all users of a group.
 	 *
-	 * @param groupCode The code of the group to send the user message in
-	 * @param userId    The id of the user sending the user message
-	 * @param text      The content of the user message
+	 * @param message The user chat message to be sent
 	 * @return The array of bytes to be sent
 	 * @throws IOException Thrown when failing to build the packet
 	 */
-	public static byte[] buildClientUserChatMessage(byte groupCode, byte userId, String text) throws IOException
+	public static byte[] buildClientUserChatMessage(ChatGroupMessage message) throws IOException
 	{
 		// syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		outputStream.write(CLIENT_USER_CHAT_MESSAGE_TYPE);
-		outputStream.write(groupCode);
-		outputStream.write(userId);
-		outputStream.write(text.getBytes());
+		outputStream.write(message.getChatGroup().getCode());
+		outputStream.write(message.getUserSender().getId());
+		outputStream.write(message.getMessageContent().getBytes());
 
 		return outputStream.toByteArray();
 	}
