@@ -2,7 +2,9 @@ package it.castelli.nl.graphics;
 
 import it.castelli.nl.ChatGroup;
 import it.castelli.nl.NLClient;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
@@ -11,17 +13,19 @@ import java.io.IOException;
 /**
  * Controller for any ChatGroup graphic object
  */
-public class ChatGroupElement extends VBox
+public class ChatGroupComponent extends VBox
 {
 	private static final String FXML_FILE_PATH = "src/it/castelli/nl/graphics/chatGroup.fxml";
 
 	public Label groupNameLabel;
 	public Label groupCodeLabel;
-	public Label lastMessageLabel;
+	public Label lastMessageLabel; // TODO
 
-	private ChatGroup chatGroup;
+	private final ChatGroup chatGroup;
 
-	public ChatGroupElement(ChatGroup chatGroup)
+	private final ChatComponent chatComponent;
+
+	public ChatGroupComponent(ChatGroup chatGroup)
 	{
 		this.chatGroup = chatGroup;
 
@@ -41,6 +45,8 @@ public class ChatGroupElement extends VBox
 		{
 			e.printStackTrace();
 		}
+
+		chatComponent = new ChatComponent(chatGroup);
 	}
 
 	/**
@@ -50,5 +56,15 @@ public class ChatGroupElement extends VBox
 	public ChatGroup getChatGroup()
 	{
 		return chatGroup;
+	}
+
+	/**
+	 * Shows the messages and some information of the ChatGroup in the UI
+	 */
+	public void showChat()
+	{
+		ObservableList<Node> chatGroupElementChildren = FXMLController.get().chatElementParent.getChildren();
+		chatGroupElementChildren.clear();
+		chatGroupElementChildren.add(chatComponent);
 	}
 }

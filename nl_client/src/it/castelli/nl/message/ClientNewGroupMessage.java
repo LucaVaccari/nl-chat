@@ -4,7 +4,7 @@ import it.castelli.nl.ChatGroup;
 import it.castelli.nl.ClientData;
 import it.castelli.nl.ClientGroupManager;
 import it.castelli.nl.User;
-import it.castelli.nl.graphics.ChatGroupElement;
+import it.castelli.nl.graphics.ChatGroupComponent;
 import it.castelli.nl.graphics.FXMLController;
 import it.castelli.nl.messages.IMessage;
 import it.castelli.nl.serialization.Serializer;
@@ -34,6 +34,6 @@ public class ClientNewGroupMessage implements IMessage
 		Serializer.serialize(ClientGroupManager.getAllGroups(), ClientGroupManager.GROUPS_FILE_PATH);
 		Serializer.serialize(ClientData.getInstance(), ClientData.CLIENT_DATA_FILE_PATH);
 
-		FXMLController.get().chatGroupListView.getItems().add(new ChatGroupElement(newGroup));
+		FXMLController.get().chatGroupListView.getItems().add(new ChatGroupComponent(newGroup));
 	}
 }

@@ -1,13 +1,13 @@
 package it.castelli.nl.graphics;
 
 import it.castelli.nl.*;
-import it.castelli.nl.message.ClientMessageManager;
 import it.castelli.nl.messages.MessageBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -34,12 +34,11 @@ public class FXMLController
 	public MenuItem deleteMessageMenuItem; //TODO
 	public MenuItem copyMessageMenuItem; //TODO
 	public MenuItem helpMenuItem;
-	public ListView<ChatGroupElement> chatGroupListView; //TODO
-	public Label groupNameLabel; //TODO
-	public Label groupIdLabel; //TODO
+	public ListView<ChatGroupComponent> chatGroupListView; //TODO
 	public TextField messageInputField;
 	public Button sendMessageButton;
 
+	public Pane chatElementParent;
 	private static ChatGroup selectedChatGroup;
 
 	public Stage settingsStage;
@@ -111,7 +110,7 @@ public class FXMLController
 		chatGroupListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 		chatGroupListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			selectedChatGroup = newValue.getChatGroup();
-			// TODO show the panel with the messages
+			newValue.showChat();
 		});
 
 		createGroupButton.setTooltip(new Tooltip(
@@ -141,18 +140,6 @@ public class FXMLController
 			Sender.sendToServer(packet, ClientData.getInstance().getServerAddress());
 		}
 		catch (IOException | NullPointerException e)
-		{
-			e.printStackTrace();
-		}
-
-		// TEMP TEMP TEMP TEMP
-		System.out.println("TESTING GROUP CREATION");
-		try
-		{
-			ClientMessageManager.getMessageReceiver(MessageBuilder.CLIENT_NEW_GROUP_MESSAGE_TYPE)
-					.OnReceive(MessageBuilder.buildClientNewGroupMessage((byte) 3, result.get()));
-		}
-		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
