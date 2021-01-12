@@ -23,6 +23,8 @@ public class ServerUserChatMessage implements IMessage
         ChatGroup thisGroup = ServerGroupManager.getGroupFromCode(groupCode);
         User thisUser = UsersManager.getUserFromId(userId);
 
+        System.out.println("a user message has arrived from user: " + userId + " in the group with code: " + groupCode);
+
         if (thisGroup.getUsers().contains(thisUser))
         {
             //send ClientUserChatMessage

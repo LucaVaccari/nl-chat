@@ -199,7 +199,7 @@ public class MessageBuilder
 		outputStream.write(0); //userId which is not present
 		outputStream.write(groupName.getBytes());
 
-		System.out.println("Creating new group: " + groupName);
+		System.out.println("Sending ClintNewGroupMessage");
 
 		return outputStream.toByteArray();
 	}

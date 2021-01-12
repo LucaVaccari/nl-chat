@@ -24,25 +24,6 @@ public class NLClient extends Application
 	public static void main(String[] args)
 	{
 		launch(args);
-
-		//start test
-
-		String test = "Piero";
-		try
-		{
-			byte[] packet = MessageBuilder.buildServerNewUserMessage(test, InetAddress.getLocalHost());
-			Sender.sendToServer(packet, InetAddress.getLocalHost());
-			System.out.println("è stato mandato nome: " + test);
-			System.out.println("è stato inviato un messaggio all'indirizzo: " + InetAddress.getLocalHost().toString() +
-					"alla porta: "
-					+ Sender.SERVER_RECEIVE_PORT);
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-
-		//end test
 	}
 
 	@Override
