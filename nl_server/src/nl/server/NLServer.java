@@ -1,5 +1,6 @@
-package it.castelli.nl;
+package nl.server;
 
+import it.castelli.nl.*;
 import it.castelli.nl.messages.MessageBuilder;
 import it.castelli.nl.serialization.Serializer;
 
@@ -14,7 +15,7 @@ public class NLServer
         int counter = 0;
         int lifeTime = 100; // in seconds
 
-        Thread serverThread = new Thread(new ServerReceiver(), "serverThread");
+        Thread serverThread = new Thread(new ConnectionReceiver(), "serverThread");
         serverThread.start();
 
         try
@@ -27,9 +28,10 @@ public class NLServer
             e.printStackTrace();
         }
 
-        do
+        while (running)
         {
-        } while (running);
+            //send all the messages in the users queues
+        }
 
         Serializer.serialize(ServerGroupManager.getAllGroups(), ServerGroupManager.GROUPS_FILE_PATH);
         Serializer.serialize(UsersManager.getAllUsers(), UsersManager.USERS_FILE_PATH);

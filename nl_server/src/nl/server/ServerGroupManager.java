@@ -1,5 +1,6 @@
-package it.castelli.nl;
+package nl.server;
 
+import it.castelli.nl.ChatGroup;
 import it.castelli.nl.serialization.Serializer;
 
 import java.io.IOException;

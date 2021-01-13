@@ -1,4 +1,6 @@
-package it.castelli.nl.messages;
+package nl.server.messages;
+
+import it.castelli.nl.messages.IMessage;
 
 import java.util.Arrays;
 

@@ -26,6 +26,7 @@ public class ClientReceiver implements Runnable
             DatagramPacket packet = new DatagramPacket(receiveBuffer, RECEIVE_WINDOW);
             while(isRunning)
             {
+                System.out.println("ClientReceiver is working on port: " + Sender.CLIENT_RECEIVE_PORT);
                 socket.receive(packet);
                 System.out.println("A packet has been received from " + packet.getAddress().getHostAddress());
                 ClientMessageManager.getMessageReceiver(receiveBuffer[0]).OnReceive(receiveBuffer);

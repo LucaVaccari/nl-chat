@@ -1,6 +1,10 @@
-package it.castelli.nl.messages;
+package nl.server.messages;
 
 import it.castelli.nl.*;
+import it.castelli.nl.messages.IMessage;
+import it.castelli.nl.messages.MessageBuilder;
+import nl.server.ServerGroupManager;
+import nl.server.UsersManager;
 
 import java.io.IOException;
 import java.util.Arrays;

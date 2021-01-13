@@ -1,10 +1,12 @@
-package it.castelli.nl.messages;
+package nl.server.messages;
 
-import it.castelli.nl.ServerGroupManager;
-import it.castelli.nl.UsersManager;
+import it.castelli.nl.User;
+import it.castelli.nl.messages.IMessage;
+import it.castelli.nl.messages.MessageBuilder;
+import nl.server.ServerGroupManager;
+import nl.server.UsersManager;
 import it.castelli.nl.ChatGroup;
 import it.castelli.nl.Sender;
-import it.castelli.nl.User;
 
 import java.io.IOException;
 

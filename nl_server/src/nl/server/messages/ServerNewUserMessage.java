@@ -1,9 +1,11 @@
-package it.castelli.nl.messages;
+package nl.server.messages;
 
-import it.castelli.nl.ServerData;
-import it.castelli.nl.UsersManager;
-import it.castelli.nl.Sender;
 import it.castelli.nl.User;
+import it.castelli.nl.messages.IMessage;
+import it.castelli.nl.messages.MessageBuilder;
+import nl.server.ServerData;
+import nl.server.UsersManager;
+import it.castelli.nl.Sender;
 import it.castelli.nl.serialization.Serializer;
 
 import java.net.InetAddress;
