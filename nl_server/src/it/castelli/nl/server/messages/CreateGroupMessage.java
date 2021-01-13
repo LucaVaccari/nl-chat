@@ -5,10 +5,7 @@ import it.castelli.nl.ChatGroup;
 import it.castelli.nl.User;
 import it.castelli.nl.messages.MessageBuilder;
 import it.castelli.nl.serialization.Serializer;
-import it.castelli.nl.server.Connection;
-import it.castelli.nl.server.ServerData;
-import it.castelli.nl.server.GroupManager;
-import it.castelli.nl.server.UsersManager;
+import it.castelli.nl.server.*;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -49,7 +46,7 @@ public class CreateGroupMessage implements IMessage{
 		try
 		{
 			byte[] reply = MessageBuilder.buildClientNewGroupMessage(newGroup.getCode(), newGroup.getName());
-			//Sender.sendToClient(reply, thisUser.getIpAddress());
+			Sender.sendToUser(reply, thisUser);
 		}
 		catch (IOException e)
 		{

@@ -52,6 +52,12 @@ public class UsersManager
 		return allUsers.get(id).getIncomingMessages();
 	}
 
+	public static LinkedList<byte[]> getQueueFromUser(User user)
+	{
+		byte id = user.getId();
+		return allUsers.get(id).getIncomingMessages();
+	}
+
 	public static class AdvancedUser implements Serializable
 	{
 		private User user;

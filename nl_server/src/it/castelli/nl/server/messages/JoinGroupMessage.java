@@ -4,6 +4,7 @@ import it.castelli.nl.User;
 import it.castelli.nl.messages.MessageBuilder;
 import it.castelli.nl.server.Connection;
 import it.castelli.nl.server.GroupManager;
+import it.castelli.nl.server.Sender;
 import it.castelli.nl.server.UsersManager;
 import it.castelli.nl.ChatGroup;
 
@@ -20,41 +21,50 @@ public class JoinGroupMessage implements IMessage {
         ChatGroup groupToJoin = GroupManager.getGroupFromCode(groupCode);
         User thisUser = UsersManager.getUserFromId(userId);
 
-        if(!groupToJoin.getUsers().contains(thisUser)) groupToJoin.getUsers().add(thisUser);
+
 
         if(groupToJoin == null)
         {
-            try {
+            //the group doesn't exist -> error message
+            try
+            {
                 String groupCodeString = String.valueOf(groupCode.intValue());
                 byte[] errorReply = MessageBuilder.buildErrorMessage("The group with code: " + groupCodeString + " does not exist.");
-                //Sender.sendToClient(errorReply, UsersManager.getUserFromId(userId).getIpAddress());
-            } catch (IOException e) {
+                Sender.sendToUser(errorReply, thisUser);
+            }
+            catch (IOException e)
+            {
+                System.out.println("IOException in " + this.toString() + " during the error reply creation");
                 e.printStackTrace();
             }
         }
         else
         {
+            //the group exists
+
+            //the user is added to the group
+            groupToJoin.getUsers().add(thisUser);
+
+            //communication to inform others that a new User joined the group and transmission of the group to the user
             try
             {
                 //send group
                 byte[] reply = MessageBuilder.buildClientNewGroupMessage(groupCode, groupToJoin.getName());
-                //Sender.sendToClient(reply, UsersManager.getUserFromId(userId).getIpAddress());
+                Sender.sendToUser(reply, thisUser);
 
-                //send Users who are in the group to the new one
+                //sends Users who are in the group to the new one and sends the new one to others
                 for (User user : groupToJoin.getUsers())
                 {
                     reply = MessageBuilder.buildClientNewUserMessage(groupCode, user.getId(), user.getName());
                     if (user == thisUser)
-                    {
-                        //Sender.sendToClient(reply, user, groupToJoin);
-                    }
+                        Sender.sendToOthersInGroup(reply, thisUser, groupToJoin);
                     else
-                    {
-                        //Sender.sendToClient(reply, UsersManager.getUserFromId(userId).getIpAddress());
-                    }
+                        Sender.sendToUser(reply, thisUser);
                 }
-
-            } catch (IOException e) {
+            }
+            catch (IOException e)
+            {
+                System.out.println("IOException in " + this.toString() + " during reply creation");
                 e.printStackTrace();
             }
         }
