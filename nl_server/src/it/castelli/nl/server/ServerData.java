@@ -1,4 +1,4 @@
-package nl.server;
+package it.castelli.nl.server;
 
 import it.castelli.nl.serialization.Serializer;
 

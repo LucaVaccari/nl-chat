@@ -1,12 +1,12 @@
-package nl.server;
+package it.castelli.nl.server;
 
 import it.castelli.nl.User;
 import it.castelli.nl.serialization.Serializer;
 
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.Socket;
+import java.io.Serializable;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 /**
  * Handles all the users of the application
@@ -42,36 +42,41 @@ public class UsersManager
      * @param id The id of the user to get
      * @return The user with the corresponding id
      */
-	public static AdvancedUser getUserFromId(byte id)
+	public static User getUserFromId(byte id)
 	{
-		return allUsers.get(id);
+		return allUsers.get(id).getUser();
 	}
 
-	/**
-	 * Gets the user which has the given IP address
-	 * @param IPAddress The ip of the user to get
-	 * @return the user with the corresponding IP
-	 */
-	public static AdvancedUser getUserFromIp(InetAddress IPAddress)
+	public static LinkedList<byte[]> getQueueFromId(byte id)
 	{
-		for (AdvancedUser user : allUsers.values()) {
-			if (user.getIpAddress() == IPAddress)
-				return user;
+		return allUsers.get(id).getIncomingMessages();
+	}
+
+	public static class AdvancedUser implements Serializable
+	{
+		private User user;
+		private LinkedList<byte[]> incomingMessages;
+
+		public AdvancedUser(User user)
+		{
+			this.user = user;
 		}
-		return null;
+
+		public User getUser() {
+			return user;
+		}
+
+		public void setUser(User user) {
+			this.user = user;
+		}
+
+		public LinkedList<byte[]> getIncomingMessages() {
+			return incomingMessages;
+		}
+
+		public void setIncomingMessages(LinkedList<byte[]> incomingMessages) {
+			this.incomingMessages = incomingMessages;
+		}
 	}
 
-	public static void addConnectionToUser(InetAddress IPAddress, Socket socket)
-	{
-		AdvancedUser user = getUserFromIp(IPAddress);
-		if (user != null)
-			user.setConnection(socket);
-	}
-
-	public static void removeConnectionToUser(InetAddress IPAddress)
-	{
-		AdvancedUser user = getUserFromIp(IPAddress);
-		if (user != null)
-			user.setConnection(null);
-	}
 }

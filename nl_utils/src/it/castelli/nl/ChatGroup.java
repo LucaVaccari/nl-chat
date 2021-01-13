@@ -9,8 +9,8 @@ import java.util.HashSet;
  */
 public class ChatGroup implements Serializable
 {
-	private final HashSet<User> users = new HashSet<>();
-	private final HashSet<User> superUsers = new HashSet<>();
+	protected final HashSet<User> users;
+	protected final HashSet<User> superUsers;
 	private final byte code;
 	private String name;
 	private final ChatGroupContent chatGroupContent = new ChatGroupContent();
@@ -25,6 +25,8 @@ public class ChatGroup implements Serializable
 	{
 		this.name = name;
 		this.code = code;
+		superUsers = new HashSet<User>();
+		users = new HashSet<User>();
 	}
 
 	/**

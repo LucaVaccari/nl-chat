@@ -1,7 +1,6 @@
 package it.castelli.nl.message;
 
 import it.castelli.nl.graphics.AlertUtil;
-import it.castelli.nl.messages.IMessage;
 import javafx.application.Platform;
 
 /**

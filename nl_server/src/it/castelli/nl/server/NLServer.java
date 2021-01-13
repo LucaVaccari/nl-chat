@@ -1,19 +1,17 @@
-package nl.server;
+package it.castelli.nl.server;
 
-import it.castelli.nl.*;
+import it.castelli.nl.Sender;
 import it.castelli.nl.messages.MessageBuilder;
 import it.castelli.nl.serialization.Serializer;
-
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.InetAddress;
 
 public class NLServer
 {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, IOException {
 
         boolean running = true;
-        int counter = 0;
-        int lifeTime = 100; // in seconds
 
         Thread serverThread = new Thread(new ConnectionReceiver(), "serverThread");
         serverThread.start();
@@ -31,6 +29,7 @@ public class NLServer
         while (running)
         {
             //send all the messages in the users queues
+
         }
 
         Serializer.serialize(GroupManager.getAllGroups(), GroupManager.GROUPS_FILE_PATH);

@@ -1,13 +1,14 @@
-package nl.server.messages;
+package it.castelli.nl.server.messages;
 
-import it.castelli.nl.*;
-import it.castelli.nl.messages.IMessage;
+
+import it.castelli.nl.ChatGroup;
+import it.castelli.nl.User;
 import it.castelli.nl.messages.MessageBuilder;
 import it.castelli.nl.serialization.Serializer;
-import nl.server.AdvancedUser;
-import nl.server.ServerData;
-import nl.server.GroupManager;
-import nl.server.UsersManager;
+import it.castelli.nl.server.Connection;
+import it.castelli.nl.server.ServerData;
+import it.castelli.nl.server.GroupManager;
+import it.castelli.nl.server.UsersManager;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -15,10 +16,9 @@ import java.util.Arrays;
 /**
  * Request sent by the client to create a new group
  */
-public class CreateGroupMessage implements IMessage
-{
+public class CreateGroupMessage implements IMessage{
 	@Override
-	public void OnReceive(byte[] data)
+	public void OnReceive(byte[] data, Connection connection)
 	{
 		// syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 		byte userId = data[2];
@@ -49,7 +49,7 @@ public class CreateGroupMessage implements IMessage
 		try
 		{
 			byte[] reply = MessageBuilder.buildClientNewGroupMessage(newGroup.getCode(), newGroup.getName());
-			Sender.sendToClient(reply, thisUser.getIpAddress());
+			//Sender.sendToClient(reply, thisUser.getIpAddress());
 		}
 		catch (IOException e)
 		{

@@ -1,16 +1,15 @@
-package nl.server.messages;
+package it.castelli.nl.server.messages;
 
 import it.castelli.nl.User;
-import it.castelli.nl.messages.IMessage;
 import it.castelli.nl.messages.MessageBuilder;
-import nl.server.GroupManager;
-import nl.server.UsersManager;
+import it.castelli.nl.server.Connection;
+import it.castelli.nl.server.GroupManager;
+import it.castelli.nl.server.UsersManager;
 import it.castelli.nl.ChatGroup;
-import it.castelli.nl.Sender;
 
 public class LeaveGroupMessage implements IMessage {
     @Override
-    public void OnReceive(byte[] data) {
+    public void OnReceive(byte[] data, Connection connection) {
 
         // syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
@@ -23,6 +22,6 @@ public class LeaveGroupMessage implements IMessage {
 
 
         byte[] reply = MessageBuilder.buildRemovedGroupMessage(groupCode);
-        Sender.sendToClient(reply, UsersManager.getUserFromId(userId).getIpAddress());
+        //Sender.sendToClient(reply, UsersManager.getUserFromId(userId).getIpAddress());
     }
 }

@@ -1,12 +1,10 @@
-package nl.server.messages;
+package it.castelli.nl.server.messages;
 
 import it.castelli.nl.User;
-import it.castelli.nl.messages.IMessage;
 import it.castelli.nl.messages.MessageBuilder;
-import nl.server.AdvancedUser;
-import nl.server.ServerData;
-import nl.server.UsersManager;
-import it.castelli.nl.Sender;
+import it.castelli.nl.server.Connection;
+import it.castelli.nl.server.ServerData;
+import it.castelli.nl.server.UsersManager;
 import it.castelli.nl.serialization.Serializer;
 
 import java.net.InetAddress;
@@ -16,10 +14,9 @@ import java.util.Arrays;
 /**
  * Received when a new user request to register
  */
-public class NewUserMessage implements IMessage
-{
+public class NewUserMessage implements IMessage {
 	@Override
-	public void OnReceive(byte[] data)
+	public void OnReceive(byte[] data, Connection connection)
 	{
 		// syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id,  20 bytes for the name,
 		// others for the ip
@@ -34,8 +31,8 @@ public class NewUserMessage implements IMessage
 			byte newId = ServerData.getInstance().getLastUserId();
 			ServerData.getInstance().incrementLastUserId();
 
-			AdvancedUser newUser = new AdvancedUser(name, userIP, newId);
-			UsersManager.getAllUsers().put(newId, newUser);
+			User newUser = new User(name, newId);
+			UsersManager.getAllUsers().put(newId, new UsersManager.AdvancedUser(newUser));
 
 			Serializer.serialize(UsersManager.getAllUsers(), UsersManager.USERS_FILE_PATH);
 			Serializer.serialize(ServerData.getInstance(), ServerData.SERVER_DATA_FILE_PATH);
@@ -44,7 +41,7 @@ public class NewUserMessage implements IMessage
 			                   " and userId: " + newId);
 
 			byte[] reply = MessageBuilder.buildUserIdMessage(newId);
-			Sender.sendToClient(reply, newUser.getIpAddress());
+			//Sender.sendToClient(reply, newUser.getIpAddress());
 		}
 		catch (UnknownHostException e)
 		{

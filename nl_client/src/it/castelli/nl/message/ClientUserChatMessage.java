@@ -5,7 +5,6 @@ import it.castelli.nl.ClientGroupManager;
 import it.castelli.nl.ChatGroup;
 
 import it.castelli.nl.User;
-import it.castelli.nl.messages.IMessage;
 import javafx.application.Platform;
 
 import java.util.Arrays;

@@ -1,7 +1,6 @@
 package it.castelli.nl.message;
 
 import it.castelli.nl.ClientGroupManager;
-import it.castelli.nl.messages.IMessage;
 
 /**
  * A group has been removed.

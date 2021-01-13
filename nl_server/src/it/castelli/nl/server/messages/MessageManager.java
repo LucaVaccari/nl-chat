@@ -1,6 +1,6 @@
-package nl.server.messages;
+package it.castelli.nl.server.messages;
 
-import it.castelli.nl.messages.IMessage;
+
 import it.castelli.nl.messages.MessageBuilder;
 
 import java.util.HashMap;
