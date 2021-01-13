@@ -28,7 +28,7 @@ public class Sender
 		{
 			DatagramPacket packet = new DatagramPacket(data, data.length, ipAddress, destinationPort);
 			socket.send(packet);
-
+			System.out.println("Sending a packet to " + ipAddress.getHostAddress() + " on port " + destinationPort);
 		}
 		catch (IOException e)
 		{

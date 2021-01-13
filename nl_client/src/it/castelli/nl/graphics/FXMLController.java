@@ -135,8 +135,10 @@ public class FXMLController
 
 		try
 		{
+			User thisUser = ClientData.getInstance().getThisUser();
+			System.out.println("User with id " + thisUser.getId() + " is trying to create the group " + result.get());
 			byte[] packet = MessageBuilder
-					.buildCreateGroupMessage(ClientData.getInstance().getThisUser().getId(), result.get());
+					.buildCreateGroupMessage(thisUser.getId(), result.get());
 			Sender.sendToServer(packet, ClientData.getInstance().getServerAddress());
 		}
 		catch (IOException | NullPointerException e)

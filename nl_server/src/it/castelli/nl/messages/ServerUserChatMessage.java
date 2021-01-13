@@ -28,18 +28,23 @@ public class ServerUserChatMessage implements IMessage
 		if (thisGroup.getUsers().contains(thisUser))
 		{
 			//send ClientUserChatMessage
-
 			try
 			{
 				byte[] reply = MessageBuilder.buildClientUserChatMessage(new ChatGroupMessage(thisUser, thisGroup,
 				                                                                              textMessage));
 				for (User user : thisGroup.getUsers())
+				{
 					Sender.sendToClient(reply, user.getIpAddress());
+				}
 			}
 			catch (IOException e)
 			{
 				e.printStackTrace();
 			}
+		}
+		else
+		{
+			System.out.println(thisUser.getName() + " is not part of " + thisGroup.getName());
 		}
 
 	}

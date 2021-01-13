@@ -1,8 +1,10 @@
 package it.castelli.nl;
 
+import it.castelli.nl.messages.MessageBuilder;
 import it.castelli.nl.serialization.Serializer;
 
-import java.io.Console;
+import java.io.IOException;
+import java.net.InetAddress;
 
 public class NLServer
 {
@@ -14,12 +16,19 @@ public class NLServer
 
         Thread serverThread = new Thread(new ServerReceiver(), "serverThread");
         serverThread.start();
+
+        try
+        {
+            byte[] packet = MessageBuilder.buildClientTestMessage("Test");
+            Sender.sendToClient(packet, InetAddress.getLocalHost());
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
         do
         {
-            Thread.sleep(1000);
-            counter++;
-            if (counter >= lifeTime) running = false;
-
         } while (running);
 
         Serializer.serialize(ServerGroupManager.getAllGroups(), ServerGroupManager.GROUPS_FILE_PATH);

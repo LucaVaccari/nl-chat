@@ -27,6 +27,7 @@ public class ClientReceiver implements Runnable
             while(isRunning)
             {
                 socket.receive(packet);
+                System.out.println("A packet has been received from " + packet.getAddress().getHostAddress());
                 ClientMessageManager.getMessageReceiver(receiveBuffer[0]).OnReceive(receiveBuffer);
             }
         }

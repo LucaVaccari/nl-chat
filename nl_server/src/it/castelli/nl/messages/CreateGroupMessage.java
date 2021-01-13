@@ -1,10 +1,6 @@
 package it.castelli.nl.messages;
 
-import it.castelli.nl.ServerData;
-import it.castelli.nl.ServerGroupManager;
-import it.castelli.nl.UsersManager;
-import it.castelli.nl.ChatGroup;
-import it.castelli.nl.Sender;
+import it.castelli.nl.*;
 import it.castelli.nl.serialization.Serializer;
 
 import java.io.IOException;
@@ -25,8 +21,16 @@ public class CreateGroupMessage implements IMessage
 
 		byte newGroupCode = ServerData.getInstance().getLastGroupCode();
 		ChatGroup newGroup = new ChatGroup(newGroupName, newGroupCode);
-		newGroup.getUsers().add(UsersManager.getUserFromId(userId));
-		newGroup.getSuperUsers().add(UsersManager.getUserFromId(userId));
+
+		User thisUser = UsersManager.getUserFromId(userId);
+		if (thisUser == null)
+		{
+			System.out.println("Cannot find user with id " + userId + ". Group " + newGroupName + " not created.");
+			return;
+		}
+
+		newGroup.getUsers().add(thisUser);
+		newGroup.getSuperUsers().add(thisUser);
 		ServerGroupManager.getAllGroups().put(newGroupCode, newGroup);
 		ServerData.getInstance().incrementLastGroupCode();
 
@@ -39,7 +43,7 @@ public class CreateGroupMessage implements IMessage
 		try
 		{
 			byte[] reply = MessageBuilder.buildClientNewGroupMessage(newGroup.getCode(), newGroup.getName());
-			Sender.sendToClient(reply, UsersManager.getUserFromId(userId).getIpAddress());
+			Sender.sendToClient(reply, thisUser.getIpAddress());
 		}
 		catch (IOException e)
 		{

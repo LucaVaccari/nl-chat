@@ -10,7 +10,9 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 
-
+/**
+ * Received when a new user request to register
+ */
 public class ServerNewUserMessage implements IMessage
 {
 	@Override
@@ -35,12 +37,14 @@ public class ServerNewUserMessage implements IMessage
 			Serializer.serialize(UsersManager.getAllUsers(), UsersManager.USERS_FILE_PATH);
 			Serializer.serialize(ServerData.getInstance(), ServerData.SERVER_DATA_FILE_PATH);
 
-			System.out.println("new User created with name: " + name + ", IP address: " + userIP.getHostAddress() + " and userId: " + newId);
+			System.out.println("new User created with name: " + name + ", IP address: " + userIP.getHostAddress() +
+			                   " and userId: " + newId);
 
 			byte[] reply = MessageBuilder.buildUserIdMessage(newId);
 			Sender.sendToClient(reply, newUser.getIpAddress());
 		}
-		catch (UnknownHostException e) {
+		catch (UnknownHostException e)
+		{
 			e.printStackTrace();
 		}
 	}

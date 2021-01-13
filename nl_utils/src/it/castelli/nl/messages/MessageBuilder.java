@@ -46,7 +46,7 @@ public class MessageBuilder
 
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		outputStream.write(CREATE_GROUP_MESSAGE_TYPE);
-		outputStream.write(0); //groupCode which is not present
+		outputStream.write((byte)0); //groupCode which is not present
 		outputStream.write(userId);
 		outputStream.write(name.getBytes());
 
@@ -145,13 +145,13 @@ public class MessageBuilder
 
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		outputStream.write(SERVER_NEW_USER_MESSAGE_TYPE);
-		outputStream.write(0); //groupCode which is not present
-		outputStream.write(0);
+		outputStream.write((byte)0); //groupCode which is not present
+		outputStream.write((byte)0);
 		outputStream.write(userName.getBytes());
 
 		while (outputStream.size() != 23)
 		{
-			outputStream.write(0);
+			outputStream.write((byte)0);
 		}
 
 		outputStream.write(ipAddress.getAddress());
@@ -172,8 +172,8 @@ public class MessageBuilder
 
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		outputStream.write(SERVER_TEST_MESSAGE_TYPE);
-		outputStream.write(0); //groupCode which is not present
-		outputStream.write(0); // userId which is not present
+		outputStream.write((byte)0); //groupCode which is not present
+		outputStream.write((byte)0); // userId which is not present
 		outputStream.write(test.getBytes());
 
 		return outputStream.toByteArray();
@@ -196,7 +196,7 @@ public class MessageBuilder
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		outputStream.write(CLIENT_NEW_GROUP_MESSAGE_TYPE);
 		outputStream.write(groupCode);
-		outputStream.write(0); //userId which is not present
+		outputStream.write((byte)0); //userId which is not present
 		outputStream.write(groupName.getBytes());
 
 		System.out.println("Sending ClintNewGroupMessage packet");
@@ -239,7 +239,7 @@ public class MessageBuilder
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		outputStream.write(GROUP_REMOVED_MESSAGE_TYPE);
 		outputStream.write(groupCode);
-		outputStream.write(0); //userId which is not present
+		outputStream.write((byte)0); //userId which is not present
 
 		return outputStream.toByteArray();
 	}
@@ -256,8 +256,10 @@ public class MessageBuilder
 
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		outputStream.write(USER_ID_MESSAGE_TYPE);
-		outputStream.write(0); //group code which is not present
+		outputStream.write((byte)0); //group code which is not present
 		outputStream.write(userId);
+
+		System.out.println("Creating a message of type: UserIdMessage with user id = " + userId);
 
 		return outputStream.toByteArray();
 	}
@@ -295,8 +297,8 @@ public class MessageBuilder
 
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		outputStream.write(ERROR_MESSAGE_TYPE);
-		outputStream.write(0); //group code which is not present
-		outputStream.write(0); // userId which is not present
+		outputStream.write((byte)0); //group code which is not present
+		outputStream.write((byte)0); // userId which is not present
 		outputStream.write(error.getBytes());
 
 		return outputStream.toByteArray();
@@ -315,8 +317,8 @@ public class MessageBuilder
 
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		outputStream.write(CLIENT_TEST_MESSAGE_TYPE);
-		outputStream.write(0); //group code which is not present
-		outputStream.write(0); // userId which is not present
+		outputStream.write((byte)0); //group code which is not present
+		outputStream.write((byte)0); // userId which is not present
 		outputStream.write(text.getBytes());
 
 		return outputStream.toByteArray();

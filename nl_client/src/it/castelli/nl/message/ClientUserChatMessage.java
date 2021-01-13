@@ -6,9 +6,13 @@ import it.castelli.nl.ChatGroup;
 
 import it.castelli.nl.User;
 import it.castelli.nl.messages.IMessage;
+import javafx.application.Platform;
 
 import java.util.Arrays;
 
+/**
+ * New user chat message sent by a user on a group
+ */
 public class ClientUserChatMessage implements IMessage
 {
 	@Override
@@ -32,8 +36,11 @@ public class ClientUserChatMessage implements IMessage
 
 		if (thisUser == null)
 			thisUser = new User("Stranger", (byte) 0);
-		thisGroup.getChatGroupContent().getUserMessages()
-				.add(new ChatGroupMessage(thisUser, thisGroup, textMessage));
 
+		System.out.println(thisUser.getName() + ": " + textMessage);
+
+		User finalThisUser = thisUser;
+		Platform.runLater(() -> thisGroup.getChatGroupContent().getUserMessages()
+				.add(new ChatGroupMessage(finalThisUser, thisGroup, textMessage)));
 	}
 }
