@@ -55,7 +55,7 @@ public class UsersManager
 	public static class AdvancedUser implements Serializable
 	{
 		private User user;
-		private LinkedList<byte[]> incomingMessages;
+		private LinkedList<byte[]> incomingMessages	= new LinkedList<>();
 
 		public AdvancedUser(User user)
 		{
