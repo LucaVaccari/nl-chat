@@ -2,6 +2,7 @@ package it.castelli.nl;
 
 import it.castelli.nl.serialization.Serializer;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -11,12 +12,17 @@ public class ServerGroupManager
 {
 	private static HashMap<Byte, ChatGroup> allGroups;
 	public static final String GROUPS_FILE_PATH = "allGroups.bin";
-	public static int lastGroupCode;
 
 	static
 	{
-		allGroups = (HashMap<Byte, ChatGroup>) Serializer.deserialize(GROUPS_FILE_PATH);
-		if(allGroups == null) allGroups = new HashMap<>();
+		try
+		{
+			allGroups = (HashMap<Byte, ChatGroup>) Serializer.deserialize(GROUPS_FILE_PATH);
+		}
+		catch (IOException | ClassNotFoundException e)
+		{
+			allGroups = new HashMap<>();
+		}
 	}
 
 	/**

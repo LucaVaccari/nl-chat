@@ -2,6 +2,7 @@ package it.castelli.nl;
 
 import it.castelli.nl.serialization.Serializer;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -27,11 +28,14 @@ public class ServerData implements Serializable
 	{
 		if (instance == null)
 		{
-			instance = (ServerData) Serializer.deserialize(SERVER_DATA_FILE_PATH);
-		}
-		if (instance == null)
-		{
-			instance = new ServerData();
+			try
+			{
+				instance = (ServerData) Serializer.deserialize(SERVER_DATA_FILE_PATH);
+			}
+			catch (IOException | ClassNotFoundException e)
+			{
+				instance = new ServerData();
+			}
 		}
 
 		return instance;

@@ -2,6 +2,7 @@ package it.castelli.nl;
 
 import it.castelli.nl.serialization.Serializer;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -14,9 +15,14 @@ public class UsersManager
 
 	static
 	{
-		allUsers = (HashMap<Byte, User>) Serializer.deserialize(USERS_FILE_PATH);
-
-		if (allUsers == null) allUsers = new HashMap<>();
+		try
+		{
+			allUsers = (HashMap<Byte, User>) Serializer.deserialize(USERS_FILE_PATH);
+		}
+		catch (IOException | ClassNotFoundException e)
+		{
+			allUsers = new HashMap<>();
+		}
 	}
 
     /**

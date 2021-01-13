@@ -4,6 +4,7 @@ import it.castelli.nl.graphics.ChatGroupComponent;
 import it.castelli.nl.graphics.FXMLController;
 import it.castelli.nl.serialization.Serializer;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -16,9 +17,16 @@ public class ClientGroupManager
 
 	static
 	{
-		allGroups = (HashMap<Byte, ChatGroup>) Serializer.deserialize(GROUPS_FILE_PATH);
-		if (allGroups == null) allGroups = new HashMap<>();
+		try
+		{
+			allGroups = (HashMap<Byte, ChatGroup>) Serializer.deserialize(GROUPS_FILE_PATH);
+		}
+		catch (IOException | ClassNotFoundException e)
+		{
+			allGroups = new HashMap<>();
+		}
 
+		assert allGroups != null;
 		for (ChatGroup group : allGroups.values())
 		{
 			FXMLController.get().chatGroupListView.getItems().add(new ChatGroupComponent(group));
@@ -45,4 +53,6 @@ public class ClientGroupManager
 	{
 		return allGroups.get(code);
 	}
+
+	public static void init() {}
 }

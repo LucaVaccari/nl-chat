@@ -14,35 +14,15 @@ public class Serializer
 	 * @param path The path of the file to read
 	 * @return The just deserialized Serializable object
 	 */
-	public static Serializable deserialize(String path)
+	public static Serializable deserialize(String path) throws IOException, ClassNotFoundException
 	{
 		Serializable object;
-		try
+		try (FileInputStream file = new FileInputStream(path);
+		     ObjectInputStream in = new ObjectInputStream(file))
 		{
-			// Reading the object from a file
-			FileInputStream file = new FileInputStream(path);
-			ObjectInputStream in = new ObjectInputStream(file);
-
-			// Method for deserialization of object
-			try
-			{
-				object = (Serializable) in.readObject();
-				return object;
-			}
-			catch (IOException | ClassNotFoundException e)
-			{
-				e.printStackTrace();
-			}
-
-			in.close();
-			file.close();
+			object = (Serializable) in.readObject();
+			return object;
 		}
-		catch (IOException ex)
-		{
-			System.out.println("The file" + path + " doesn't exist yet");
-		}
-
-		return null;
 	}
 
 	/**

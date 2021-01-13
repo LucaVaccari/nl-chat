@@ -1,14 +1,14 @@
 package it.castelli.nl.messages;
 
-import it.castelli.nl.ServerGroupManager;
-import it.castelli.nl.UsersManager;
-import it.castelli.nl.ChatGroup;
-import it.castelli.nl.Sender;
-import it.castelli.nl.User;
+import it.castelli.nl.*;
 
 import java.io.IOException;
 import java.util.Arrays;
 
+/**
+ * Class which handles receiving user chat messages on the server.
+ * It forwards the message to all of the users of a group
+ */
 public class ServerUserChatMessage implements IMessage
 {
 	@Override
@@ -18,7 +18,7 @@ public class ServerUserChatMessage implements IMessage
 
 		byte groupCode = data[1];
 		byte userId = data[2];
-		byte[] contentOfMessage = Arrays.copyOfRange(data, 3, data.length - 1);
+		byte[] contentOfMessage = Arrays.copyOfRange(data, 3, data.length);
 		String textMessage = new String(contentOfMessage);
 		ChatGroup thisGroup = ServerGroupManager.getGroupFromCode(groupCode);
 		User thisUser = UsersManager.getUserFromId(userId);
@@ -33,7 +33,8 @@ public class ServerUserChatMessage implements IMessage
 			{
 				byte[] reply = MessageBuilder.buildClientUserChatMessage(new ChatGroupMessage(thisUser, thisGroup,
 				                                                                              textMessage));
-				Sender.sendToClient(reply, UsersManager.getUserFromId(userId), thisGroup);
+				for (User user : thisGroup.getUsers())
+					Sender.sendToClient(reply, user.getIpAddress());
 			}
 			catch (IOException e)
 			{

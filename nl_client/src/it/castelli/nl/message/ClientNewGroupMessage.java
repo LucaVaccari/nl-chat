@@ -8,6 +8,7 @@ import it.castelli.nl.graphics.ChatGroupComponent;
 import it.castelli.nl.graphics.FXMLController;
 import it.castelli.nl.messages.IMessage;
 import it.castelli.nl.serialization.Serializer;
+import javafx.application.Platform;
 
 import java.util.Arrays;
 
@@ -34,6 +35,7 @@ public class ClientNewGroupMessage implements IMessage
 		Serializer.serialize(ClientGroupManager.getAllGroups(), ClientGroupManager.GROUPS_FILE_PATH);
 		Serializer.serialize(ClientData.getInstance(), ClientData.CLIENT_DATA_FILE_PATH);
 
-		FXMLController.get().chatGroupListView.getItems().add(new ChatGroupComponent(newGroup));
+		// prevent the UI update to be executed on the secondary thread
+		Platform.runLater(() -> FXMLController.get().chatGroupListView.getItems().add(new ChatGroupComponent(newGroup)));
 	}
 }

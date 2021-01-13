@@ -3,6 +3,9 @@ package it.castelli.nl.message;
 import it.castelli.nl.graphics.AlertUtil;
 import it.castelli.nl.messages.IMessage;
 
+/**
+ * Test message received by the client
+ */
 public class ClientTestMessage implements IMessage
 {
 	@Override
