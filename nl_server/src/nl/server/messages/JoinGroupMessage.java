@@ -3,7 +3,8 @@ package nl.server.messages;
 import it.castelli.nl.User;
 import it.castelli.nl.messages.IMessage;
 import it.castelli.nl.messages.MessageBuilder;
-import nl.server.ServerGroupManager;
+import nl.server.AdvancedUser;
+import nl.server.GroupManager;
 import nl.server.UsersManager;
 import it.castelli.nl.ChatGroup;
 import it.castelli.nl.Sender;
@@ -18,7 +19,7 @@ public class JoinGroupMessage implements IMessage {
 
         Byte groupCode = data[1];
         byte userId = data[2];
-        ChatGroup groupToJoin = ServerGroupManager.getGroupFromCode(groupCode);
+        ChatGroup groupToJoin = GroupManager.getGroupFromCode(groupCode);
         User thisUser = UsersManager.getUserFromId(userId);
 
         if(!groupToJoin.getUsers().contains(thisUser)) groupToJoin.getUsers().add(thisUser);

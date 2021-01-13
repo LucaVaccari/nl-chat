@@ -4,7 +4,7 @@ import it.castelli.nl.messages.IMessage;
 
 import java.util.Arrays;
 
-public class ServerTestMessage implements IMessage {
+public class TestMessage implements IMessage {
 
     @Override
     public void OnReceive(byte[] data)

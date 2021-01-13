@@ -9,7 +9,7 @@ import java.util.HashMap;
 /**
  * Handles all of the existing groups
  */
-public class ServerGroupManager
+public class GroupManager
 {
 	private static HashMap<Byte, ChatGroup> allGroups;
 	public static final String GROUPS_FILE_PATH = "allGroups.bin";

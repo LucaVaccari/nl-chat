@@ -3,7 +3,7 @@ package nl.server.messages;
 import it.castelli.nl.User;
 import it.castelli.nl.messages.IMessage;
 import it.castelli.nl.messages.MessageBuilder;
-import nl.server.ServerGroupManager;
+import nl.server.GroupManager;
 import nl.server.UsersManager;
 import it.castelli.nl.ChatGroup;
 import it.castelli.nl.Sender;
@@ -16,7 +16,7 @@ public class RemoveGroupMessage implements IMessage {
 
         byte groupCode = data[1];
         byte userId = data[2];
-        ChatGroup groupToRemove = ServerGroupManager.getGroupFromCode(groupCode);
+        ChatGroup groupToRemove = GroupManager.getGroupFromCode(groupCode);
         User thisUser = UsersManager.getUserFromId(userId);
         if (groupToRemove.getSuperUsers().contains(thisUser))
         {
@@ -24,7 +24,7 @@ public class RemoveGroupMessage implements IMessage {
             Sender.sendToClient(reply, thisUser.getIpAddress());
             Sender.sendToClient(reply, thisUser, groupToRemove);
 
-            ServerGroupManager.getAllGroups().remove(groupCode);
+            GroupManager.getAllGroups().remove(groupCode);
         }
 
     }

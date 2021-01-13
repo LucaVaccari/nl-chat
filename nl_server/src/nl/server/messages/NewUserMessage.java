@@ -3,6 +3,7 @@ package nl.server.messages;
 import it.castelli.nl.User;
 import it.castelli.nl.messages.IMessage;
 import it.castelli.nl.messages.MessageBuilder;
+import nl.server.AdvancedUser;
 import nl.server.ServerData;
 import nl.server.UsersManager;
 import it.castelli.nl.Sender;
@@ -15,7 +16,7 @@ import java.util.Arrays;
 /**
  * Received when a new user request to register
  */
-public class ServerNewUserMessage implements IMessage
+public class NewUserMessage implements IMessage
 {
 	@Override
 	public void OnReceive(byte[] data)
@@ -33,7 +34,7 @@ public class ServerNewUserMessage implements IMessage
 			byte newId = ServerData.getInstance().getLastUserId();
 			ServerData.getInstance().incrementLastUserId();
 
-			User newUser = new User(name, userIP, newId);
+			AdvancedUser newUser = new AdvancedUser(name, userIP, newId);
 			UsersManager.getAllUsers().put(newId, newUser);
 
 			Serializer.serialize(UsersManager.getAllUsers(), UsersManager.USERS_FILE_PATH);

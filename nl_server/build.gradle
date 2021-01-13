@@ -3,7 +3,7 @@ plugins {
     id 'application'
 }
 
-mainClassName = "it.castelli.nl.NLServer"
+mainClassName = "it.castelli.nl.server.NLServer"
 
 dependencies {
     compile project(':nl_utils')
@@ -18,12 +18,12 @@ sourceSets {
 }
 
 application {
-    mainClass = 'it.castelli.nl.NLServer'
+    mainClass = 'it.castelli.nl.server.NLServer'
 }
 jar {
     manifest {
         attributes(
-            'Main-Class': 'it.castelli.nl.NLServer'
+            'Main-Class': 'it.castelli.nl.server.NLServer'
         )
     }
 

@@ -3,7 +3,7 @@ package nl.server.messages;
 import it.castelli.nl.*;
 import it.castelli.nl.messages.IMessage;
 import it.castelli.nl.messages.MessageBuilder;
-import nl.server.ServerGroupManager;
+import nl.server.GroupManager;
 import nl.server.UsersManager;
 
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.util.Arrays;
  * Class which handles receiving user chat messages on the server.
  * It forwards the message to all of the users of a group
  */
-public class ServerUserChatMessage implements IMessage
+public class UserChatMessage implements IMessage
 {
 	@Override
 	public void OnReceive(byte[] data)
@@ -24,7 +24,7 @@ public class ServerUserChatMessage implements IMessage
 		byte userId = data[2];
 		byte[] contentOfMessage = Arrays.copyOfRange(data, 3, data.length);
 		String textMessage = new String(contentOfMessage);
-		ChatGroup thisGroup = ServerGroupManager.getGroupFromCode(groupCode);
+		ChatGroup thisGroup = GroupManager.getGroupFromCode(groupCode);
 		User thisUser = UsersManager.getUserFromId(userId);
 
 		System.out.println("a user message has arrived from user: " + userId + " in the group with code: " + groupCode);

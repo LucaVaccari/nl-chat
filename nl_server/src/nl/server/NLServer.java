@@ -33,7 +33,7 @@ public class NLServer
             //send all the messages in the users queues
         }
 
-        Serializer.serialize(ServerGroupManager.getAllGroups(), ServerGroupManager.GROUPS_FILE_PATH);
+        Serializer.serialize(GroupManager.getAllGroups(), GroupManager.GROUPS_FILE_PATH);
         Serializer.serialize(UsersManager.getAllUsers(), UsersManager.USERS_FILE_PATH);
         Serializer.serialize(ServerData.getInstance(), ServerData.SERVER_DATA_FILE_PATH);
 

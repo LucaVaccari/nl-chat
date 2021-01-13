@@ -4,8 +4,9 @@ import it.castelli.nl.*;
 import it.castelli.nl.messages.IMessage;
 import it.castelli.nl.messages.MessageBuilder;
 import it.castelli.nl.serialization.Serializer;
+import nl.server.AdvancedUser;
 import nl.server.ServerData;
-import nl.server.ServerGroupManager;
+import nl.server.GroupManager;
 import nl.server.UsersManager;
 
 import java.io.IOException;
@@ -36,10 +37,10 @@ public class CreateGroupMessage implements IMessage
 
 		newGroup.getUsers().add(thisUser);
 		newGroup.getSuperUsers().add(thisUser);
-		ServerGroupManager.getAllGroups().put(newGroupCode, newGroup);
+		GroupManager.getAllGroups().put(newGroupCode, newGroup);
 		ServerData.getInstance().incrementLastGroupCode();
 
-		Serializer.serialize(ServerGroupManager.getAllGroups(), ServerGroupManager.GROUPS_FILE_PATH);
+		Serializer.serialize(GroupManager.getAllGroups(), GroupManager.GROUPS_FILE_PATH);
 		Serializer.serialize(ServerData.getInstance(), ServerData.SERVER_DATA_FILE_PATH);
 
 		System.out.println("The group " + newGroupName + " has been created with the groupCode of: " + newGroupCode +
