@@ -4,6 +4,7 @@ import it.castelli.nl.User;
 import it.castelli.nl.messages.MessageBuilder;
 import it.castelli.nl.server.Connection;
 import it.castelli.nl.server.GroupManager;
+import it.castelli.nl.server.Sender;
 import it.castelli.nl.server.UsersManager;
 import it.castelli.nl.ChatGroup;
 
@@ -22,6 +23,6 @@ public class LeaveGroupMessage implements IMessage {
 
 
         byte[] reply = MessageBuilder.buildRemovedGroupMessage(groupCode);
-        //Sender.sendToClient(reply, UsersManager.getUserFromId(userId).getIpAddress());
+        Sender.sendToUser(reply, thisUser);
     }
 }

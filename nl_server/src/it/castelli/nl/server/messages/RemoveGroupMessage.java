@@ -4,9 +4,10 @@ import it.castelli.nl.User;
 import it.castelli.nl.messages.MessageBuilder;
 import it.castelli.nl.server.Connection;
 import it.castelli.nl.server.GroupManager;
+import it.castelli.nl.server.Sender;
 import it.castelli.nl.server.UsersManager;
 import it.castelli.nl.ChatGroup;
-import it.castelli.nl.Sender;
+
 
 public class RemoveGroupMessage implements IMessage{
     @Override
@@ -21,8 +22,7 @@ public class RemoveGroupMessage implements IMessage{
         if (groupToRemove.getSuperUsers().contains(thisUser))
         {
             byte[] reply = MessageBuilder.buildRemovedGroupMessage(groupCode);
-            //Sender.sendToClient(reply, thisUser.getIpAddress());
-            //Sender.sendToClient(reply, thisUser, groupToRemove);
+            Sender.sendToGroup(reply, groupToRemove);
 
             GroupManager.getAllGroups().remove(groupCode);
         }
