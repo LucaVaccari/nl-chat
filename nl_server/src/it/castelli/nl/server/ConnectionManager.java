@@ -34,14 +34,16 @@ public class ConnectionManager implements Runnable
                             //System.out.println("the connection has an existing user " + advancedUser.getUser().getId() + " who has a queue of size " + advancedUser.getIncomingMessages().size());
                             byte[] message = advancedUser.getIncomingMessages().poll();
                             if (message != null)
+                            {
                                 out.write(message);
-                            System.out.println("Reply sent to user with code: " + advancedUser.getUser().getId());
-
+                                System.out.println("Reply sent to user with code: " + advancedUser.getUser().getId());
+                            }
                         }
                     }
                     catch (IOException e)
                     {
-                        e.printStackTrace();
+                        connection.interrupt();
+                        allConnections.remove(connection);
                     }
                 }
                 else
