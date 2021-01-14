@@ -20,8 +20,7 @@ public class JoinGroupMessage implements IMessage {
         byte userId = data[2];
         ChatGroup groupToJoin = GroupManager.getGroupFromCode(groupCode);
         User thisUser = UsersManager.getUserFromId(userId);
-
-
+        connection.setUser(thisUser);
 
         if(groupToJoin == null)
         {

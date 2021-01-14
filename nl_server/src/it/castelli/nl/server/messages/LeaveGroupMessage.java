@@ -18,6 +18,7 @@ public class LeaveGroupMessage implements IMessage {
         byte userId = data[2];
         ChatGroup groupToLeave = GroupManager.getGroupFromCode(groupCode);
         User thisUser = UsersManager.getUserFromId(userId);
+        connection.setUser(thisUser);
         groupToLeave.getUsers().remove(thisUser);
         groupToLeave.getSuperUsers().remove(thisUser);
 

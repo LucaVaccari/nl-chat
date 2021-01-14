@@ -1,9 +1,13 @@
 package it.castelli.nl.server.messages;
 
-import it.castelli.nl.*;
+
+import it.castelli.nl.ChatGroup;
+import it.castelli.nl.ChatGroupMessage;
+import it.castelli.nl.User;
 import it.castelli.nl.messages.MessageBuilder;
 import it.castelli.nl.server.Connection;
 import it.castelli.nl.server.GroupManager;
+import it.castelli.nl.server.Sender;
 import it.castelli.nl.server.UsersManager;
 
 import java.io.IOException;
@@ -25,6 +29,7 @@ public class UserChatMessage implements IMessage {
 		String textMessage = new String(contentOfMessage);
 		ChatGroup thisGroup = GroupManager.getGroupFromCode(groupCode);
 		User thisUser = UsersManager.getUserFromId(userId);
+		connection.setUser(thisUser);
 
 		System.out.println("a user message has arrived from user: " + userId + " in the group with code: " + groupCode);
 
@@ -33,12 +38,8 @@ public class UserChatMessage implements IMessage {
 			//send ClientUserChatMessage
 			try
 			{
-				byte[] reply = MessageBuilder.buildClientUserChatMessage(new ChatGroupMessage(thisUser, thisGroup,
-				                                                                              textMessage));
-				for (User user : thisGroup.getUsers())
-				{
-					//Sender.sendToClient(reply, user.getIpAddress());
-				}
+				byte[] reply = MessageBuilder.buildClientUserChatMessage(new ChatGroupMessage(thisUser, thisGroup, textMessage));
+				Sender.sendToOthersInGroup(reply, thisUser, thisGroup);
 			}
 			catch (IOException e)
 			{

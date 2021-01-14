@@ -26,11 +26,13 @@ public class CreateGroupMessage implements IMessage{
 		ChatGroup newGroup = new ChatGroup(newGroupName, newGroupCode);
 
 		User thisUser = UsersManager.getUserFromId(userId);
-		if (thisUser == null)
-		{
-			System.out.println("Cannot find user with id " + userId + ". Group " + newGroupName + " not created.");
-			return;
-		}
+		connection.setUser(thisUser);
+
+//		if (thisUser == null)
+//		{
+//			System.out.println("Cannot find user with id " + userId + ". Group " + newGroupName + " not created.");
+//			return;
+//		}
 
 		newGroup.getUsers().add(thisUser);
 		newGroup.getSuperUsers().add(thisUser);

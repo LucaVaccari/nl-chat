@@ -166,14 +166,14 @@ public class MessageBuilder
 	 * @return The array of bytes to be sent
 	 * @throws IOException Thrown when failing to build the packet
 	 */
-	public static byte[] buildServerTestMessage(String test) throws IOException
+	public static byte[] buildServerTestMessage(String test, byte userId) throws IOException
 	{
 		// syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		outputStream.write(SERVER_TEST_MESSAGE_TYPE);
 		outputStream.write((byte)0); //groupCode which is not present
-		outputStream.write((byte)0); // userId which is not present
+		outputStream.write(userId);
 		outputStream.write(test.getBytes());
 
 		return outputStream.toByteArray();

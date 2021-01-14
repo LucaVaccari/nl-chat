@@ -34,6 +34,7 @@ public class NewUserMessage implements IMessage {
 
 			User newUser = new User(name, newId);
 			UsersManager.getAllUsers().put(newId, new UsersManager.AdvancedUser(newUser));
+			connection.setUser(newUser);
 
 			Serializer.serialize(UsersManager.getAllUsers(), UsersManager.USERS_FILE_PATH);
 			Serializer.serialize(ServerData.getInstance(), ServerData.SERVER_DATA_FILE_PATH);
