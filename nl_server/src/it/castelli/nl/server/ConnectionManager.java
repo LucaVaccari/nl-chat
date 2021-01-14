@@ -3,6 +3,7 @@ package it.castelli.nl.server;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashSet;
+import java.util.Objects;
 
 public class ConnectionManager implements Runnable
 {
@@ -30,16 +31,10 @@ public class ConnectionManager implements Runnable
                         UsersManager.AdvancedUser advancedUser = connection.getAdvancedUser();
                         if (advancedUser != null)
                         {
-                            System.out.println("the connection has an existing user");
-                            System.out.println("the length of the queue is: " +
+                            System.out.println("the connection has an existing user " + advancedUser.getUser().getId() + " who has a queue of size " +
                                     advancedUser.getIncomingMessages().size());
-                            for (byte[] message : advancedUser.getIncomingMessages())
-                            {
-                                System.out.println("the length of the queue is: " +
-                                        advancedUser.getIncomingMessages().size());
-                                out.write(message);
-                                System.out.println("a message in the queue has been sent");
-                            }
+                            out.write(Objects.requireNonNull(advancedUser.getIncomingMessages().poll()));
+                            //todo rewrite the line above
                         }
                     }
                     catch (IOException e)

@@ -58,9 +58,9 @@ public class Connection implements Runnable
 	 * Setter for the client's user
 	 * @param user The client's user
 	 */
-	public void setUser(User user)
+	public void setUser(UsersManager.AdvancedUser user)
 	{
-		this.user = new UsersManager.AdvancedUser(user);
+		this.user = user;
 	}
 
 	public void interrupt()

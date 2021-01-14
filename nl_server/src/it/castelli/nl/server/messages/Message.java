@@ -17,7 +17,7 @@ public abstract class Message
 	public void onReceive(byte[] data, Connection connection)
 	{
 		byte userId = data[2];
-		User thisUser = UsersManager.getUserFromId(userId);
+		UsersManager.AdvancedUser thisUser = UsersManager.getAllUsers().get(userId);
 		if (connection.getAdvancedUser() == null)
 			connection.setUser(thisUser);
 	}

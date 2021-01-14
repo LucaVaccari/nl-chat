@@ -30,7 +30,9 @@ public class NewUserMessage extends Message
 		ServerData.getInstance().incrementLastUserId();
 
 		User newUser = new User(name, newId);
-		UsersManager.getAllUsers().put(newId, new UsersManager.AdvancedUser(newUser));
+
+		UsersManager.AdvancedUser newAdvancedUser = new UsersManager.AdvancedUser(newUser);
+		UsersManager.getAllUsers().put(newId, newAdvancedUser);
 
 		Serializer.serialize(UsersManager.getAllUsers(), UsersManager.USERS_FILE_PATH);
 		Serializer.serialize(ServerData.getInstance(), ServerData.SERVER_DATA_FILE_PATH);
@@ -38,7 +40,7 @@ public class NewUserMessage extends Message
 		System.out.println("new User created with name: " + name + " and userId: " + newId);
 
 		if (connection.getAdvancedUser() == null)
-			connection.setUser(newUser);
+			connection.setUser(newAdvancedUser);
 
 		byte[] reply = MessageBuilder.buildUserIdMessage(newId);
 		System.out.println("Created UserIdMessage fromNewUserMessage in the onReceive method");
