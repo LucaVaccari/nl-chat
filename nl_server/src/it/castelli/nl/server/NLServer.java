@@ -28,7 +28,6 @@ public class NLServer
 		while (running)
 		{
 			//send all the messages in the users queues
-
 		}
 
 		Serializer.serialize(GroupManager.getAllGroups(), GroupManager.GROUPS_FILE_PATH);

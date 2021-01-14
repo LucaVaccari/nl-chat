@@ -54,6 +54,7 @@ public class CreateGroupMessage extends Message
 		try
 		{
 			byte[] reply = MessageBuilder.buildClientNewGroupMessage(newGroup.getCode(), newGroup.getName());
+			System.out.println("Created ClientNewGroupMessage from CreateGroupMessage in the onReceive method");
 			Sender.sendToUser(reply, thisUser);
 		}
 		catch (IOException e)

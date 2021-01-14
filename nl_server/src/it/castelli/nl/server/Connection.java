@@ -37,8 +37,8 @@ public class Connection implements Runnable
 			byte[] data = new byte[RECEIVE_WINDOW];
 			while (true)
 			{
-				in.read(data);
-				MessageManager.getMessageReceiver(data[0]).onReceive(data, this);
+				if(in.read(data) > 0)
+					MessageManager.getMessageReceiver(data[0]).onReceive(data, this);
 			}
 		}
 		catch (IOException e)
