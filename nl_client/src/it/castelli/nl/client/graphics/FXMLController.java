@@ -1,8 +1,11 @@
 package it.castelli.nl.client.graphics;
 
+import it.castelli.nl.ChatGroup;
+import it.castelli.nl.ChatGroupMessage;
+import it.castelli.nl.User;
 import it.castelli.nl.client.ClientData;
 import it.castelli.nl.client.NLClient;
-import it.castelli.nl.*;
+import it.castelli.nl.client.Sender;
 import it.castelli.nl.messages.MessageBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -69,7 +72,7 @@ public class FXMLController
 			{
 				ClientData.getInstance().setThisUser(new User(userName, (byte) 0));
 				byte[] data = MessageBuilder.buildServerNewUserMessage(userName, InetAddress.getLocalHost());
-				Sender.sendToServer(data, ClientData.getInstance().getServerAddress());
+				Sender.send(data);
 			}
 			catch (IOException e)
 			{
@@ -141,7 +144,7 @@ public class FXMLController
 			System.out.println("User with id " + thisUser.getId() + " is trying to create the group " + result.get());
 			byte[] packet = MessageBuilder
 					.buildCreateGroupMessage(thisUser.getId(), result.get());
-			Sender.sendToServer(packet, ClientData.getInstance().getServerAddress());
+			Sender.send(packet);
 		}
 		catch (IOException | NullPointerException e)
 		{
@@ -160,7 +163,7 @@ public class FXMLController
 			{
 				byte[] packet = MessageBuilder.buildJoinGroupMessage(Byte.parseByte(result.get(), 10),
 				                                                     ClientData.getInstance().getThisUser().getId());
-				Sender.sendToServer(packet, ClientData.getInstance().getServerAddress());
+				Sender.send(packet);
 			}
 			catch (NullPointerException e)
 			{
@@ -180,7 +183,7 @@ public class FXMLController
 			{
 				byte[] packet = MessageBuilder.buildLeaveGroupMessage(selectedChatGroup.getCode(),
 				                                                      ClientData.getInstance().getThisUser().getId());
-				Sender.sendToServer(packet, ClientData.getInstance().getServerAddress());
+				Sender.send(packet);
 			}
 		}
 	}
@@ -197,7 +200,7 @@ public class FXMLController
 			{
 				byte[] packet = MessageBuilder.buildRemoveGroupMessage(selectedChatGroup.getCode(),
 				                                                       ClientData.getInstance().getThisUser().getId());
-				Sender.sendToServer(packet, ClientData.getInstance().getServerAddress());
+				Sender.send(packet);
 			}
 		}
 	}
@@ -212,7 +215,7 @@ public class FXMLController
 			{
 				byte[] packet = MessageBuilder.buildServerUserChatMessage(
 						new ChatGroupMessage(ClientData.getInstance().getThisUser(), selectedChatGroup, text));
-				Sender.sendToServer(packet, ClientData.getInstance().getServerAddress());
+				Sender.send(packet);
 			}
 			catch (IOException e)
 			{
