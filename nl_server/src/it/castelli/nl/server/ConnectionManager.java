@@ -16,6 +16,7 @@ public class ConnectionManager implements Runnable
     @Override
     public void run() {
 
+        System.out.println("ConnectionManager is working correctly");
         while (isRunning)
         {
             for (Connection connection : allConnections)
@@ -25,8 +26,21 @@ public class ConnectionManager implements Runnable
                     try
                     {
                         OutputStream out = connection.getSocket().getOutputStream();
-                        for (byte[] message : connection.getAdvancedUser().getIncomingMessages())
-                            out.write(message);
+
+                        UsersManager.AdvancedUser advancedUser = connection.getAdvancedUser();
+                        if (advancedUser != null)
+                        {
+                            System.out.println("the connection has an existing user");
+                            System.out.println("the length of the queue is: " +
+                                    advancedUser.getIncomingMessages().size());
+                            for (byte[] message : advancedUser.getIncomingMessages())
+                            {
+                                System.out.println("the length of the queue is: " +
+                                        advancedUser.getIncomingMessages().size());
+                                out.write(message);
+                                System.out.println("a message in the queue has been sent");
+                            }
+                        }
                     }
                     catch (IOException e)
                     {

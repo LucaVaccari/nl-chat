@@ -14,6 +14,7 @@ public class Sender
 	public static void sendToUser(byte[] data, User user)
 	{
 		UsersManager.getQueueFromUser(user).add(data);
+		System.out.println("data added to the queue of the user: " + user.getId());
 	}
 
 	/**

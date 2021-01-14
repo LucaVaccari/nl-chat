@@ -27,15 +27,6 @@ public class NLClient extends Application
 	@Override
 	public void start(Stage primaryStage)
 	{
-		NLClient.primaryStage = primaryStage;
-		Parent root = loadFXML(INDEX_FXML_FILE_PATH);
-		assert root != null;
-		Scene mainScene = new Scene(root);
-		primaryStage.setScene(mainScene);
-		primaryStage.setResizable(false);
-		primaryStage.setTitle("nl-chat");
-		primaryStage.show();
-
 		ClientReceiver receiver = new ClientReceiver();
 		clientThread = new Thread(receiver, "ClientThread");
 		clientThread.start();
@@ -48,6 +39,15 @@ public class NLClient extends Application
 		{
 			e.printStackTrace();
 		}
+
+		NLClient.primaryStage = primaryStage;
+		Parent root = loadFXML(INDEX_FXML_FILE_PATH);
+		assert root != null;
+		Scene mainScene = new Scene(root);
+		primaryStage.setScene(mainScene);
+		primaryStage.setResizable(false);
+		primaryStage.setTitle("nl-chat");
+		primaryStage.show();
 
 		primaryStage.setOnCloseRequest(event -> {
 			receiver.interrupt();

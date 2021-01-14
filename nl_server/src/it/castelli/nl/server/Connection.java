@@ -34,6 +34,7 @@ public class Connection implements Runnable
 			while (true)
 			{
 				if(in.read(data) > 0)
+					System.out.println("a new message has been received");
 					MessageManager.getMessageReceiver(data[0]).onReceive(data, this);
 			}
 		}

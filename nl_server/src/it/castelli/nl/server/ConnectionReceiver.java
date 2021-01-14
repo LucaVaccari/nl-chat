@@ -29,10 +29,12 @@ public class ConnectionReceiver implements Runnable
 					Socket connectionSocket = welcomeSocket.accept();
 					System.out.println("New connection established with " + connectionSocket.getInetAddress().getHostAddress());
 					//generate thread for the receiver connection
-					Thread connectionThread = new Thread(new Connection(connectionSocket));
+					Connection newConnection = new Connection(connectionSocket);
+					Thread connectionThread = new Thread(newConnection);
 					connectionThread.start();
 
-					// TODO add connection to connection manager (then close them)
+					NLServer.getConnectionManager().getAllConnections().add(newConnection);
+
 				}
 				catch (IOException e)
 				{

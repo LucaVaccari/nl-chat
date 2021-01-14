@@ -80,6 +80,7 @@ public class FXMLController
 				ClientData.getInstance().setThisUser(new User(userName, (byte) 0));
 				byte[] data = MessageBuilder.buildServerNewUserMessage(userName, InetAddress.getLocalHost());
 				Sender.send(data);
+				System.out.println("a NewUserMessage has been created");
 			}
 			catch (IOException e)
 			{

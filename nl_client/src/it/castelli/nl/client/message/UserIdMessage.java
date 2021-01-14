@@ -14,6 +14,7 @@ public class UserIdMessage implements IMessage
 		// syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
 		byte userId = data[2];
+		System.out.println("The new id of the user has been received. Now the user has id = " + userId);
 		User currentUser = ClientData.getInstance().getThisUser();
 		ClientData.getInstance().setThisUser(new User(currentUser.getName(), userId));
 		System.out.println("User id received: " + String.valueOf(userId));

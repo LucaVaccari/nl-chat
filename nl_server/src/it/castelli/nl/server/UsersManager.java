@@ -26,6 +26,8 @@ public class UsersManager
 		{
 			allUsers = new HashMap<>();
 		}
+		if (allUsers == null)
+			allUsers = new HashMap<>();
 	}
 
     /**
