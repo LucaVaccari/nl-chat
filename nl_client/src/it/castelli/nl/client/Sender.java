@@ -26,6 +26,7 @@ public class Sender
 
 	/**
 	 * Setter for the OutputStream of the class
+	 *
 	 * @param outStream The new OutputStream
 	 */
 	public static void setOutStream(OutputStream outStream)

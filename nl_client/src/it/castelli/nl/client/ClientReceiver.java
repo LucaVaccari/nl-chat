@@ -1,5 +1,6 @@
 package it.castelli.nl.client;
 
+import it.castelli.nl.GeneralData;
 import it.castelli.nl.client.graphics.AlertUtil;
 import it.castelli.nl.client.message.ClientMessageManager;
 import javafx.application.Platform;
@@ -24,8 +25,7 @@ public class ClientReceiver implements Runnable
 	 */
 	public void run()
 	{
-		try (Socket socket = new Socket(ClientData.getInstance().getServerAddress(),
-		                                it.castelli.nl.Sender.SERVER_RECEIVE_PORT);
+		try (Socket socket = new Socket(ClientData.getInstance().getServerAddress(), GeneralData.SERVER_RECEIVE_PORT);
 		     InputStream inStream = socket.getInputStream();
 		     OutputStream outStream = socket.getOutputStream())
 		{
@@ -33,7 +33,7 @@ public class ClientReceiver implements Runnable
 			Sender.setOutStream(outStream);
 			while (isRunning)
 			{
-				System.out.println("ClientReceiver is working on port: " + it.castelli.nl.Sender.SERVER_RECEIVE_PORT);
+				System.out.println("ClientReceiver is working on port: " + GeneralData.SERVER_RECEIVE_PORT);
 				//noinspection ResultOfMethodCallIgnored
 				inStream.read(receiveBuffer);
 				System.out.println("A packet has been received from " + socket.getInetAddress().getHostAddress());
