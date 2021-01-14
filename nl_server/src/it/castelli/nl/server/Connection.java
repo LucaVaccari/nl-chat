@@ -15,7 +15,6 @@ public class Connection implements Runnable
 {
 	public static final int RECEIVE_WINDOW = 2048;
 	private final Socket connectionSocket;
-	//	private final InetAddress ipAddress;
 	private User user;
 
 	/**

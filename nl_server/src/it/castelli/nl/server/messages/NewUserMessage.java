@@ -44,6 +44,7 @@ public class NewUserMessage extends Message
 			                   " and userId: " + newId);
 
 			byte[] reply = MessageBuilder.buildUserIdMessage(newId);
+			System.out.println("Created UserIdMessage fromNewUserMessage in the onReceive method");
 			Sender.sendToUser(reply, newUser);
 		}
 		catch (UnknownHostException e)

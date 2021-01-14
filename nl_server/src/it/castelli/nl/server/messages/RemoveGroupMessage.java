@@ -23,6 +23,7 @@ public class RemoveGroupMessage extends Message
 		if (groupToRemove.getSuperUsers().contains(thisUser))
 		{
 			byte[] reply = MessageBuilder.buildRemovedGroupMessage(groupCode);
+			System.out.println("Created RemovedGroupMessage from RemoveGroupMessage in the onReceive method");
 			Sender.sendToGroup(reply, groupToRemove);
 
 			GroupManager.getAllGroups().remove(groupCode);

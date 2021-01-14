@@ -50,12 +50,14 @@ public class JoinGroupMessage extends Message
 			{
 				//send group
 				byte[] reply = MessageBuilder.buildClientNewGroupMessage(groupCode, groupToJoin.getName());
+				System.out.println("Created ClientNewGroupMessage from JoinGroupMessage in the onReceive method");
 				Sender.sendToUser(reply, thisUser);
 
 				//sends Users who are in the group to the new one and sends the new one to others
 				for (User user : groupToJoin.getUsers())
 				{
 					reply = MessageBuilder.buildClientNewUserMessage(groupCode, user.getId(), user.getName());
+					System.out.println("Created ClientNewUserMessage from JoinGroupMessage in the onReceive method");
 					if (user == thisUser)
 						Sender.sendToOthersInGroup(reply, thisUser, groupToJoin);
 					else
@@ -64,7 +66,7 @@ public class JoinGroupMessage extends Message
 			}
 			catch (IOException e)
 			{
-				System.out.println("IOException in " + this.toString() + " during reply creation");
+				System.out.println("IOException in " + this.toString() + " during reply creation in JoinGroupMessage");
 				e.printStackTrace();
 			}
 		}
