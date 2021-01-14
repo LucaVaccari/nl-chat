@@ -25,6 +25,7 @@ public class ClientMessageManager
 
 	/**
 	 * Returns the MessageReceiver (implementation of IMessage, with OnReceive function) bound to the code specified
+	 *
 	 * @param messageType The code of the corresponding message receiver
 	 * @return The message receiver corresponding to the code
 	 */

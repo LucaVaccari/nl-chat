@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-
-
-<TitledPane animated="false" prefHeight="84.0" prefWidth="200.0" text="Settings" textAlignment="CENTER"
-            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+<TitledPane xmlns:fx="http://javafx.com/fxml/1" animated="false" prefHeight="84.0" prefWidth="200.0" text="Settings"
+            textAlignment="CENTER" xmlns="http://javafx.com/javafx/11.0.1"
             fx:controller="it.castelli.nl.client.graphics.SettingsMenuController">
     <VBox>
         <HBox prefHeight="46.0" prefWidth="200.0">

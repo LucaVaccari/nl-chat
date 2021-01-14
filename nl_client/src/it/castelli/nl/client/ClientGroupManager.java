@@ -1,7 +1,7 @@
 package it.castelli.nl.client;
 
-import it.castelli.nl.client.graphics.ChatGroupComponent;
 import it.castelli.nl.ChatGroup;
+import it.castelli.nl.client.graphics.ChatGroupComponent;
 import it.castelli.nl.client.graphics.FXMLController;
 import it.castelli.nl.serialization.Serializer;
 
@@ -13,8 +13,8 @@ import java.util.HashMap;
  */
 public class ClientGroupManager
 {
-	private static HashMap<Byte, ChatGroup> allGroups;
 	public static final String GROUPS_FILE_PATH = "allGroups.bin";
+	private static HashMap<Byte, ChatGroup> allGroups;
 
 	static
 	{

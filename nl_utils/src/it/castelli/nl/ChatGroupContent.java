@@ -12,6 +12,7 @@ public class ChatGroupContent implements Serializable
 
 	/**
 	 * Getter for the list of messages of the group
+	 *
 	 * @return The list of messages of the group
 	 */
 	public ArrayList<ChatGroupMessage> getUserMessages()

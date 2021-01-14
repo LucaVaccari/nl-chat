@@ -1,55 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-
-<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.castelli.nl.client.graphics.FXMLController">
-   <MenuBar prefHeight="31.0" prefWidth="775.0">
-      <Menu mnemonicParsing="false" text="System">
-         <MenuItem fx:id="settingsMenuItem" mnemonicParsing="false" text="Settings" />
-         <MenuItem fx:id="closeMenuItem" mnemonicParsing="false" text="Close" />
-      </Menu>
-      <Menu mnemonicParsing="false" text="Chat">
-         <!--<MenuItem mnemonicParsing="false" text="View participants" />-->
-         <MenuItem fx:id="newGroupMenuItem" mnemonicParsing="false" text="Create new" />
-         <MenuItem fx:id="joinGroupMenuItem" mnemonicParsing="false" text="Join" />
-         <MenuItem fx:id="clearGroupContentMenuItem" mnemonicParsing="false" text="Clear content" />
-         <MenuItem fx:id="leaveGroupMenuItem" mnemonicParsing="false" text="Leave" />
-         <MenuItem fx:id="removeGroupMenuItem" mnemonicParsing="false" text="Remove completely" />
-      </Menu>
-      <Menu mnemonicParsing="false" text="Message">
-         <MenuItem fx:id="deleteMessageMenuItem" mnemonicParsing="false" text="Delete" />
-         <MenuItem fx:id="copyMessageMenuItem" mnemonicParsing="false" text="Copy" />
-      </Menu>
-      <Menu mnemonicParsing="false" text="Help">
-         <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" text="How can I..." />
-      </Menu>
-   </MenuBar>
-   <SplitPane dividerPositions="0.3">
-      <VBox prefHeight="462.0" prefWidth="212.0">
-         <ScrollPane hbarPolicy="NEVER" pannable="true" prefHeight="461.0" prefWidth="267.0">
-            <ListView fx:id="chatGroupListView" prefHeight="413.0" prefWidth="274.0" />
-         </ScrollPane>
-         <HBox>
-            <Button fx:id="createGroupButton" mnemonicParsing="false" prefHeight="89.0" prefWidth="126.0" text="Create" />
-            <Button fx:id="joinGroupButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="118.0" text="Join" />
-         </HBox>
-      </VBox>
-      <VBox>
-         <Pane fx:id="chatElementParent" prefHeight="418.0" prefWidth="558.0"/>
-         <HBox>
-            <TextField fx:id="messageInputField" prefHeight="42.0" prefWidth="499.0" promptText="Write a message..."/>
-            <Button fx:id="sendMessageButton" mnemonicParsing="false" prefHeight="43.0" prefWidth="85.0" text="Send"/>
-         </HBox>
-      </VBox>
-   </SplitPane>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1"
+      fx:controller="it.castelli.nl.client.graphics.FXMLController">
+    <MenuBar prefHeight="31.0" prefWidth="775.0">
+        <Menu mnemonicParsing="false" text="System">
+            <MenuItem fx:id="settingsMenuItem" mnemonicParsing="false" text="Settings"/>
+            <MenuItem fx:id="closeMenuItem" mnemonicParsing="false" text="Close"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Chat">
+            <!--<MenuItem mnemonicParsing="false" text="View participants" />-->
+            <MenuItem fx:id="newGroupMenuItem" mnemonicParsing="false" text="Create new"/>
+            <MenuItem fx:id="joinGroupMenuItem" mnemonicParsing="false" text="Join"/>
+            <MenuItem fx:id="clearGroupContentMenuItem" mnemonicParsing="false" text="Clear content"/>
+            <MenuItem fx:id="leaveGroupMenuItem" mnemonicParsing="false" text="Leave"/>
+            <MenuItem fx:id="removeGroupMenuItem" mnemonicParsing="false" text="Remove completely"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Message">
+            <MenuItem fx:id="deleteMessageMenuItem" mnemonicParsing="false" text="Delete"/>
+            <MenuItem fx:id="copyMessageMenuItem" mnemonicParsing="false" text="Copy"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" text="How can I..."/>
+        </Menu>
+    </MenuBar>
+    <SplitPane dividerPositions="0.3">
+        <VBox prefHeight="462.0" prefWidth="212.0">
+            <ScrollPane hbarPolicy="NEVER" pannable="true" prefHeight="461.0" prefWidth="267.0">
+                <ListView fx:id="chatGroupListView" prefHeight="413.0" prefWidth="274.0"/>
+            </ScrollPane>
+            <HBox>
+                <Button fx:id="createGroupButton" mnemonicParsing="false" prefHeight="89.0" prefWidth="126.0"
+                        text="Create"/>
+                <Button fx:id="joinGroupButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="118.0"
+                        text="Join"/>
+            </HBox>
+        </VBox>
+        <VBox>
+            <Pane fx:id="chatElementParent" prefHeight="418.0" prefWidth="558.0"/>
+            <HBox>
+                <TextField fx:id="messageInputField" prefHeight="42.0" prefWidth="499.0"
+                           promptText="Write a message..."/>
+                <Button fx:id="sendMessageButton" mnemonicParsing="false" prefHeight="43.0" prefWidth="85.0"
+                        text="Send"/>
+            </HBox>
+        </VBox>
+    </SplitPane>
 </VBox>

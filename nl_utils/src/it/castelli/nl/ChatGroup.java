@@ -12,8 +12,8 @@ public class ChatGroup implements Serializable
 	protected final HashSet<User> users;
 	protected final HashSet<User> superUsers;
 	private final byte code;
-	private String name;
 	private final ChatGroupContent chatGroupContent = new ChatGroupContent();
+	private String name;
 
 	/**
 	 * Constructor taking the name and the code of the group
@@ -25,8 +25,8 @@ public class ChatGroup implements Serializable
 	{
 		this.name = name;
 		this.code = code;
-		superUsers = new HashSet<User>();
-		users = new HashSet<User>();
+		superUsers = new HashSet<>();
+		users = new HashSet<>();
 	}
 
 	/**

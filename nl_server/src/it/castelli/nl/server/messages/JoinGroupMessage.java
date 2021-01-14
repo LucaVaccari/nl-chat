@@ -27,7 +27,7 @@ public class JoinGroupMessage extends Message
 			//the group doesn't exist -> error message
 			try
 			{
-				String groupCodeString = String.valueOf((int) groupCode);
+				String groupCodeString = String.valueOf(groupCode);
 				byte[] errorReply = MessageBuilder
 						.buildErrorMessage("The group with code: " + groupCodeString + " does not exist.");
 				Sender.sendToUser(errorReply, thisUser);

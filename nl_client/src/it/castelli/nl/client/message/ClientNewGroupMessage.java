@@ -1,9 +1,9 @@
 package it.castelli.nl.client.message;
 
-import it.castelli.nl.client.ClientData;
 import it.castelli.nl.ChatGroup;
-import it.castelli.nl.client.ClientGroupManager;
 import it.castelli.nl.User;
+import it.castelli.nl.client.ClientData;
+import it.castelli.nl.client.ClientGroupManager;
 import it.castelli.nl.client.graphics.ChatGroupComponent;
 import it.castelli.nl.client.graphics.FXMLController;
 import it.castelli.nl.serialization.Serializer;
@@ -35,6 +35,7 @@ public class ClientNewGroupMessage implements IMessage
 		Serializer.serialize(ClientData.getInstance(), ClientData.CLIENT_DATA_FILE_PATH);
 
 		// prevent the UI update to be executed on the secondary thread
-		Platform.runLater(() -> FXMLController.get().chatGroupListView.getItems().add(new ChatGroupComponent(newGroup)));
+		Platform.runLater(
+				() -> FXMLController.get().chatGroupListView.getItems().add(new ChatGroupComponent(newGroup)));
 	}
 }

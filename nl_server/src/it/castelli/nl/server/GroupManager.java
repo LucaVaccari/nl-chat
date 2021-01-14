@@ -11,8 +11,8 @@ import java.util.HashMap;
  */
 public class GroupManager
 {
-	private static HashMap<Byte, ChatGroup> allGroups;
 	public static final String GROUPS_FILE_PATH = "allGroups.bin";
+	private static HashMap<Byte, ChatGroup> allGroups;
 
 	static
 	{
@@ -28,6 +28,7 @@ public class GroupManager
 
 	/**
 	 * Getter for the HashMap containing all groups mapped to their codes
+	 *
 	 * @return The HashMap of the groups
 	 */
 	public static HashMap<Byte, ChatGroup> getAllGroups()
@@ -37,6 +38,7 @@ public class GroupManager
 
 	/**
 	 * Shortcut for getAllGroups().get(code)
+	 *
 	 * @param code The code of the group to be got
 	 * @return The ChatGroup corresponding to the code provided
 	 */

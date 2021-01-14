@@ -1,7 +1,7 @@
 package it.castelli.nl.client.graphics;
 
-import it.castelli.nl.client.NLClient;
 import it.castelli.nl.ChatGroup;
+import it.castelli.nl.client.NLClient;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;

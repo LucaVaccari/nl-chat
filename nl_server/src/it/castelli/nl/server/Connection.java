@@ -9,45 +9,49 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
-public class Connection implements Runnable {
+public class Connection implements Runnable
+{
 
-    public static final int RECEIVE_WINDOW = 2048;
-    private Socket connectionSocket;
-    private InetAddress IPAddress;
-    private User user;
+	public static final int RECEIVE_WINDOW = 2048;
+	private final Socket connectionSocket;
+	private final InetAddress IPAddress;
+	private User user;
 
 
-    public Connection(Socket socket)
-    {
-        this.connectionSocket = socket;
-        InetSocketAddress ClientAddress = (InetSocketAddress) connectionSocket.getRemoteSocketAddress();
-        IPAddress = ClientAddress.getAddress();
-    }
+	public Connection(Socket socket)
+	{
+		this.connectionSocket = socket;
+		InetSocketAddress ClientAddress = (InetSocketAddress) connectionSocket.getRemoteSocketAddress();
+		IPAddress = ClientAddress.getAddress();
+	}
 
-    @Override
-    public void run() {
+	@Override
+	public void run()
+	{
 
-        try(InputStream in = connectionSocket.getInputStream())
-        {
-            byte[] data = new byte[RECEIVE_WINDOW];
-            while(true)
-            {
-                in.read(data);
-                MessageManager.getMessageReceiver(data[0]).onReceive(data, this);
-            }
-        }
-        catch (IOException e)
-        {
-            System.out.println("The connection ended");
-            e.printStackTrace();
-        }
-    }
+		try (InputStream in = connectionSocket.getInputStream())
+		{
+			byte[] data = new byte[RECEIVE_WINDOW];
+			while (true)
+			{
+				in.read(data);
+				MessageManager.getMessageReceiver(data[0]).onReceive(data, this);
+			}
+		}
+		catch (IOException e)
+		{
+			System.out.println("The connection ended");
+			e.printStackTrace();
+		}
+	}
 
-    public User getUser() {
-        return user;
-    }
+	public User getUser()
+	{
+		return user;
+	}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public void setUser(User user)
+	{
+		this.user = user;
+	}
 }

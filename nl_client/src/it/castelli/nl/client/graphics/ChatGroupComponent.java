@@ -1,7 +1,7 @@
 package it.castelli.nl.client.graphics;
 
-import it.castelli.nl.client.NLClient;
 import it.castelli.nl.ChatGroup;
+import it.castelli.nl.client.NLClient;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -16,14 +16,11 @@ import java.io.IOException;
 public class ChatGroupComponent extends VBox
 {
 	private static final String FXML_FILE_PATH = "src/it/castelli/nl/client/graphics/chatGroup.fxml";
-
+	private final ChatGroup chatGroup;
+	private final ChatComponent chatComponent;
 	public Label groupNameLabel;
 	public Label groupCodeLabel;
 	public Label lastMessageLabel; // TODO
-
-	private final ChatGroup chatGroup;
-
-	private final ChatComponent chatComponent;
 
 	public ChatGroupComponent(ChatGroup chatGroup)
 	{
@@ -51,6 +48,7 @@ public class ChatGroupComponent extends VBox
 
 	/**
 	 * Getter for the chat group bound to this UI element
+	 *
 	 * @return The chat group bound to this UI element
 	 */
 	public ChatGroup getChatGroup()

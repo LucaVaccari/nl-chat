@@ -6,16 +6,16 @@ public class ChatGroupMessage
 	private ChatGroup chatGroup;
 	private String messageContent;
 
-	public User getUserSender()
-	{
-		return userSender;
-	}
-
 	public ChatGroupMessage(User userSender, ChatGroup chatGroup, String messageContent)
 	{
 		this.userSender = userSender;
 		this.chatGroup = chatGroup;
 		this.messageContent = messageContent;
+	}
+
+	public User getUserSender()
+	{
+		return userSender;
 	}
 
 	public void setUserSender(User userSender)

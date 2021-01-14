@@ -26,7 +26,7 @@ public class FXMLController
 	public static final String SETTINGS_MENU_FXML_PATH = "src/it/castelli/nl/client/graphics/settingsMenu.fxml";
 
 	private static FXMLController mainFXMLController;
-
+	private static ChatGroup selectedChatGroup;
 	public Button createGroupButton;
 	public Button joinGroupButton;
 	public MenuItem settingsMenuItem; //TODO
@@ -42,11 +42,18 @@ public class FXMLController
 	public ListView<ChatGroupComponent> chatGroupListView; //TODO
 	public TextField messageInputField;
 	public Button sendMessageButton;
-
 	public Pane chatElementParent;
-	private static ChatGroup selectedChatGroup;
-
 	public Stage settingsStage;
+
+	/**
+	 * Singleton getter
+	 *
+	 * @return The only existing instance of FXMLController
+	 */
+	public static FXMLController get()
+	{
+		return mainFXMLController;
+	}
 
 	@FXML
 	public void initialize()
@@ -224,15 +231,5 @@ public class FXMLController
 		}
 
 		messageInputField.setText("");
-	}
-
-	/**
-	 * Singleton getter
-	 *
-	 * @return The only existing instance of FXMLController
-	 */
-	public static FXMLController get()
-	{
-		return mainFXMLController;
 	}
 }

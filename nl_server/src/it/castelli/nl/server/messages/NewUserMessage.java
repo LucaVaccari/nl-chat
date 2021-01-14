@@ -2,11 +2,11 @@ package it.castelli.nl.server.messages;
 
 import it.castelli.nl.User;
 import it.castelli.nl.messages.MessageBuilder;
+import it.castelli.nl.serialization.Serializer;
 import it.castelli.nl.server.Connection;
 import it.castelli.nl.server.Sender;
 import it.castelli.nl.server.ServerData;
 import it.castelli.nl.server.UsersManager;
-import it.castelli.nl.serialization.Serializer;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

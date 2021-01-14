@@ -5,19 +5,19 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
-<fx:root prefHeight="418.0" prefWidth="558.0" type="VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <Label fx:id="chatGroupName" prefHeight="44.0" prefWidth="558.0" text="Group Name">
-      <font>
-         <Font name="System Bold" size="17.0" />
-      </font>
-   </Label>
-   <Label fx:id="chatGroupCode" prefHeight="22.0" prefWidth="564.0" text="Group code">
-      <font>
-         <Font name="System Italic" size="12.0" />
-      </font>
-   </Label>
-   <ScrollPane>
-      <ListView fx:id="messageListView" prefHeight="353.0" prefWidth="558.0" />
-   </ScrollPane>
+<fx:root xmlns:fx="http://javafx.com/fxml/1" prefHeight="418.0" prefWidth="558.0" type="VBox"
+         xmlns="http://javafx.com/javafx/11.0.1">
+    <Label fx:id="chatGroupName" prefHeight="44.0" prefWidth="558.0" text="Group Name">
+        <font>
+            <Font name="System Bold" size="17.0"/>
+        </font>
+    </Label>
+    <Label fx:id="chatGroupCode" prefHeight="22.0" prefWidth="564.0" text="Group code">
+        <font>
+            <Font name="System Italic" size="12.0"/>
+        </font>
+    </Label>
+    <ScrollPane>
+        <ListView fx:id="messageListView" prefHeight="353.0" prefWidth="558.0"/>
+    </ScrollPane>
 </fx:root>
