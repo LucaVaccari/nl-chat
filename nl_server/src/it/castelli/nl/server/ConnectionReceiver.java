@@ -22,10 +22,12 @@ public class ConnectionReceiver implements Runnable
 	{
 		try (ServerSocket welcomeSocket = new ServerSocket(GeneralData.SERVER_RECEIVE_PORT))
 		{
+			System.out.println("ConnectionReceiver is working on port: " + GeneralData.SERVER_RECEIVE_PORT);
 			while (isRunning)
 			{
 				try (Socket connectionSocket = welcomeSocket.accept())
 				{
+					System.out.println("New connection established with " + connectionSocket.getInetAddress().getHostAddress());
 					//generate thread for the receiver connection
 					Thread connectionThread = new Thread(new Connection(connectionSocket));
 					connectionThread.start();
@@ -43,11 +45,11 @@ public class ConnectionReceiver implements Runnable
 	}
 
 	/**
-	 * Called when the thread is interrupted (not sure)
+	 * Called to interrupt the thread
 	 */
 	public void interrupt()
 	{
-		System.out.println("ServerReceiver is not working anymore");
+		System.out.println("ConnectionReceiver not working anymore");
 		isRunning = false;
 	}
 }

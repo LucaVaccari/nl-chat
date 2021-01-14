@@ -11,13 +11,14 @@ public class NLServer
 	{
 		boolean running = true;
 
-		Thread serverThread = new Thread(new ConnectionReceiver(), "serverThread");
+		ConnectionReceiver connectionReceiver = new ConnectionReceiver();
+		Thread serverThread = new Thread(connectionReceiver, "serverThread");
 		serverThread.start();
 
 		try
 		{
 			byte[] packet = MessageBuilder.buildClientTestMessage("Test");
-			//GeneralData.sendToClient(packet, InetAddress.getLocalHost());
+			//Sender.send(packet, InetAddress.getLocalHost());
 		}
 		catch (IOException e)
 		{
@@ -35,7 +36,7 @@ public class NLServer
 		Serializer.serialize(ServerData.getInstance(), ServerData.SERVER_DATA_FILE_PATH);
 
 
-		serverThread.interrupt();
+		connectionReceiver.interrupt();
 		try
 		{
 			serverThread.join();

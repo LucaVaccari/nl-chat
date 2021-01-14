@@ -15,6 +15,12 @@ public class Sender
 	{
 		try
 		{
+			if (outStream == null)
+			{
+				System.out.println("OutputStream to the server is null");
+				return;
+			}
+
 			outStream.write(data);
 		}
 		catch (IOException e)

@@ -5,30 +5,33 @@ import it.castelli.nl.server.messages.MessageManager;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
+/**
+ * Represents a connection with a client. Constantly waits for messages from it.
+ */
 public class Connection implements Runnable
 {
-
 	public static final int RECEIVE_WINDOW = 2048;
 	private final Socket connectionSocket;
-	private final InetAddress IPAddress;
+	//	private final InetAddress ipAddress;
 	private User user;
 
-
+	/**
+	 * Constructor for the connection object
+	 * @param socket The socket on which the client is connected
+	 */
 	public Connection(Socket socket)
 	{
 		this.connectionSocket = socket;
 		InetSocketAddress ClientAddress = (InetSocketAddress) connectionSocket.getRemoteSocketAddress();
-		IPAddress = ClientAddress.getAddress();
+//		ipAddress = ClientAddress.getAddress();
 	}
 
 	@Override
 	public void run()
 	{
-
 		try (InputStream in = connectionSocket.getInputStream())
 		{
 			byte[] data = new byte[RECEIVE_WINDOW];
@@ -45,11 +48,19 @@ public class Connection implements Runnable
 		}
 	}
 
+	/**
+	 * Getter for the client's user
+	 * @return The client's user
+	 */
 	public User getUser()
 	{
 		return user;
 	}
 
+	/**
+	 * Setter for the client's user
+	 * @param user The client's user
+	 */
 	public void setUser(User user)
 	{
 		this.user = user;

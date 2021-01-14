@@ -15,12 +15,53 @@ import java.nio.file.Paths;
 
 public class NLClient extends Application
 {
+	public static final String INDEX_FXML_FILE_PATH = "src/it/castelli/nl/client/graphics/index.fxml";
 	private static Stage primaryStage;
 	private Thread clientThread;
 
 	public static void main(String[] args)
 	{
 		launch(args);
+	}
+
+	@Override
+	public void start(Stage primaryStage)
+	{
+		NLClient.primaryStage = primaryStage;
+		Parent root = loadFXML(INDEX_FXML_FILE_PATH);
+		assert root != null;
+		Scene mainScene = new Scene(root);
+		primaryStage.setScene(mainScene);
+		primaryStage.setResizable(false);
+		primaryStage.setTitle("nl-chat");
+		primaryStage.show();
+
+		ClientReceiver receiver = new ClientReceiver();
+		clientThread = new Thread(receiver, "ClientThread");
+		clientThread.start();
+
+		try
+		{
+			ClientGroupManager.init();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
+		primaryStage.setOnCloseRequest(event -> {
+			receiver.interrupt();
+			Serializer.serialize(ClientData.getInstance(), ClientData.CLIENT_DATA_FILE_PATH);
+			try
+			{
+				clientThread.join();
+			}
+			catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+			System.exit(0);
+		});
 	}
 
 	/**
@@ -59,9 +100,10 @@ public class NLClient extends Application
 		}
 		catch (IOException e)
 		{
+			System.out.println("Cannot find file: " + path);
 			e.printStackTrace();
+			return null;
 		}
-		return null;
 	}
 
 	/**
@@ -86,45 +128,5 @@ public class NLClient extends Application
 			e.printStackTrace();
 			return null;
 		}
-	}
-
-	@Override
-	public void start(Stage primaryStage)
-	{
-		NLClient.primaryStage = primaryStage;
-		Parent root = loadFXML("src/it/castelli/nl/client/graphics/index.fxml");
-		assert root != null;
-		Scene mainScene = new Scene(root);
-		primaryStage.setScene(mainScene);
-		primaryStage.setResizable(false);
-		primaryStage.setTitle("nl-chat");
-		primaryStage.show();
-
-		ClientReceiver receiver = new ClientReceiver();
-		clientThread = new Thread(receiver, "ClientThread");
-		clientThread.start();
-
-		try
-		{
-			ClientGroupManager.init();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-
-		primaryStage.setOnCloseRequest(event -> {
-			receiver.interrupt();
-			Serializer.serialize(ClientData.getInstance(), ClientData.CLIENT_DATA_FILE_PATH);
-			try
-			{
-				clientThread.join();
-			}
-			catch (InterruptedException e)
-			{
-				e.printStackTrace();
-			}
-			System.exit(0);
-		});
 	}
 }

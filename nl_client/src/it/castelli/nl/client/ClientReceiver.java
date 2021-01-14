@@ -3,6 +3,7 @@ package it.castelli.nl.client;
 import it.castelli.nl.GeneralData;
 import it.castelli.nl.client.graphics.AlertUtil;
 import it.castelli.nl.client.message.ClientMessageManager;
+import it.castelli.nl.client.message.IMessage;
 import javafx.application.Platform;
 
 import java.io.IOException;
@@ -29,15 +30,19 @@ public class ClientReceiver implements Runnable
 		     InputStream inStream = socket.getInputStream();
 		     OutputStream outStream = socket.getOutputStream())
 		{
+			System.out.println("Connection established with the server");
 			byte[] receiveBuffer = new byte[RECEIVE_WINDOW];
 			Sender.setOutStream(outStream);
 			while (isRunning)
 			{
-				System.out.println("ClientReceiver is working on port: " + GeneralData.SERVER_RECEIVE_PORT);
 				//noinspection ResultOfMethodCallIgnored
 				inStream.read(receiveBuffer);
 				System.out.println("A packet has been received from " + socket.getInetAddress().getHostAddress());
-				ClientMessageManager.getMessageReceiver(receiveBuffer[0]).OnReceive(receiveBuffer);
+				IMessage messageReceiver = ClientMessageManager.getMessageReceiver(receiveBuffer[0]);
+				if (messageReceiver == null)
+					System.out.println("Cannot find message receiver with id " + receiveBuffer[0]);
+				else
+					messageReceiver.OnReceive(receiveBuffer);
 			}
 		}
 		catch (ConnectException e)
