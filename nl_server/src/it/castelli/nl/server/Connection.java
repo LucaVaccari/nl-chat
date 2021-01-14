@@ -14,7 +14,7 @@ public class Connection implements Runnable
 {
 	public static final int RECEIVE_WINDOW = 2048;
 	private final Socket connectionSocket;
-	private User user;
+	private UsersManager.AdvancedUser user;
 
 	/**
 	 * Constructor for the connection object
@@ -48,7 +48,7 @@ public class Connection implements Runnable
 	 * Getter for the client's user
 	 * @return The client's user
 	 */
-	public User getUser()
+	public UsersManager.AdvancedUser getAdvancedUser()
 	{
 		return user;
 	}
@@ -59,7 +59,7 @@ public class Connection implements Runnable
 	 */
 	public void setUser(User user)
 	{
-		this.user = user;
+		this.user = new UsersManager.AdvancedUser(user);
 	}
 
 	public void interrupt()
@@ -72,5 +72,9 @@ public class Connection implements Runnable
 		{
 			e.printStackTrace();
 		}
+	}
+
+	public Socket getSocket() {
+		return connectionSocket;
 	}
 }

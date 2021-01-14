@@ -28,6 +28,7 @@ public class MessageBuilder
 	public static final byte CLIENT_USER_CHAT_MESSAGE_TYPE = 12;
 	public static final byte ERROR_MESSAGE_TYPE = 13;
 	public static final byte CLIENT_TEST_MESSAGE_TYPE = 14;
+	public static final byte USER_LEFT_MESSAGE_TYPE = 15;
 
 
 	//messages from client to server
@@ -321,6 +322,24 @@ public class MessageBuilder
 		outputStream.write((byte) 0); //group code which is not present
 		outputStream.write((byte) 0); // userId which is not present
 		outputStream.write(text.getBytes());
+
+		return outputStream.toByteArray();
+	}
+
+	/**
+	 *
+	 * @param userId Id of the user who left
+	 * @param groupCode Group the user left
+	 * @return	The array of bytes to be sent
+	 */
+	public static byte[] buildUserLeftMessage(byte userId, byte groupCode)
+	{
+		// syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
+
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		outputStream.write(USER_LEFT_MESSAGE_TYPE);
+		outputStream.write(groupCode); //group code which is not present
+		outputStream.write(userId); // userId which is not present
 
 		return outputStream.toByteArray();
 	}

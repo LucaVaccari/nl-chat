@@ -20,7 +20,7 @@ public class JoinGroupMessage extends Message
 		byte groupCode = data[1];
 		byte userId = data[2];
 		ChatGroup groupToJoin = GroupManager.getGroupFromCode(groupCode);
-		User thisUser = connection.getUser();
+		User thisUser = connection.getAdvancedUser().getUser();
 
 		if (groupToJoin == null)
 		{

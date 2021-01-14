@@ -29,7 +29,7 @@ public class UserChatMessage extends Message
 		byte[] contentOfMessage = Arrays.copyOfRange(data, 3, data.length);
 		String textMessage = new String(contentOfMessage);
 		ChatGroup thisGroup = GroupManager.getGroupFromCode(groupCode);
-		User thisUser = connection.getUser();
+		User thisUser = connection.getAdvancedUser().getUser();
 
 		System.out.println("a user message has arrived from user: " + userId + " in the group with code: " + groupCode);
 

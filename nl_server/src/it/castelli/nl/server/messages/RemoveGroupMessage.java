@@ -19,7 +19,7 @@ public class RemoveGroupMessage extends Message
 		byte groupCode = data[1];
 		byte userId = data[2];
 		ChatGroup groupToRemove = GroupManager.getGroupFromCode(groupCode);
-		User thisUser = connection.getUser();
+		User thisUser = connection.getAdvancedUser().getUser();
 		if (groupToRemove.getSuperUsers().contains(thisUser))
 		{
 			byte[] reply = MessageBuilder.buildRemovedGroupMessage(groupCode);

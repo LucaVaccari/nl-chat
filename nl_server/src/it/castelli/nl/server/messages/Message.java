@@ -18,7 +18,7 @@ public abstract class Message
 	{
 		byte userId = data[2];
 		User thisUser = UsersManager.getUserFromId(userId);
-		if (connection.getUser() == null)
+		if (connection.getAdvancedUser() == null)
 			connection.setUser(thisUser);
 	}
 }

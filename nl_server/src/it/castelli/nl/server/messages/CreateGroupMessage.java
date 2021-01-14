@@ -31,7 +31,7 @@ public class CreateGroupMessage extends Message
 
 		byte newGroupCode = ServerData.getInstance().getLastGroupCode();
 		ChatGroup newGroup = new ChatGroup(newGroupName, newGroupCode);
-		User thisUser = connection.getUser();
+		User thisUser = connection.getAdvancedUser().getUser();
 
 
 //		if (thisUser == null)
