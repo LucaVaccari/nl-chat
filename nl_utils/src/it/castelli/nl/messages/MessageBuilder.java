@@ -13,21 +13,21 @@ public class MessageBuilder
 {
 	//message types constants
 
-	public static final byte CREATE_GROUP_MESSAGE_TYPE = 0;
-	public static final byte JOIN_GROUP_MESSAGE_TYPE = 1;
-	public static final byte LEAVE_GROUP_MESSAGE_TYPE = 2;
-	public static final byte REMOVE_GROUP_MESSAGE_TYPE = 3;
-	public static final byte SERVER_USER_CHAT_MESSAGE_TYPE = 4;
-	public static final byte SERVER_NEW_USER_MESSAGE_TYPE = 5;
-	public static final byte SERVER_TEST_MESSAGE_TYPE = 6;
+	public static final byte CREATE_GROUP_MESSAGE_TYPE = 1;
+	public static final byte JOIN_GROUP_MESSAGE_TYPE = 2;
+	public static final byte LEAVE_GROUP_MESSAGE_TYPE = 3;
+	public static final byte REMOVE_GROUP_MESSAGE_TYPE = 4;
+	public static final byte SERVER_USER_CHAT_MESSAGE_TYPE = 5;
+	public static final byte SERVER_NEW_USER_MESSAGE_TYPE = 6;
+	public static final byte SERVER_TEST_MESSAGE_TYPE = 7;
 
-	public static final byte CLIENT_NEW_GROUP_MESSAGE_TYPE = 7;
-	public static final byte CLIENT_NEW_USER_MESSAGE_TYPE = 8;
-	public static final byte GROUP_REMOVED_MESSAGE_TYPE = 9;
-	public static final byte USER_ID_MESSAGE_TYPE = 10;
-	public static final byte CLIENT_USER_CHAT_MESSAGE_TYPE = 11;
-	public static final byte ERROR_MESSAGE_TYPE = 12;
-	public static final byte CLIENT_TEST_MESSAGE_TYPE = 13;
+	public static final byte CLIENT_NEW_GROUP_MESSAGE_TYPE = 8;
+	public static final byte CLIENT_NEW_USER_MESSAGE_TYPE = 9;
+	public static final byte GROUP_REMOVED_MESSAGE_TYPE = 10;
+	public static final byte USER_ID_MESSAGE_TYPE = 11;
+	public static final byte CLIENT_USER_CHAT_MESSAGE_TYPE = 12;
+	public static final byte ERROR_MESSAGE_TYPE = 13;
+	public static final byte CLIENT_TEST_MESSAGE_TYPE = 14;
 
 
 	//messages from client to server
