@@ -5,7 +5,6 @@ import it.castelli.nl.server.messages.MessageManager;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.InetSocketAddress;
 import java.net.Socket;
 
 /**
@@ -15,7 +14,6 @@ public class Connection implements Runnable
 {
 	public static final int RECEIVE_WINDOW = 2048;
 	private final Socket connectionSocket;
-	//	private final InetAddress ipAddress;
 	private User user;
 
 	/**
@@ -25,8 +23,6 @@ public class Connection implements Runnable
 	public Connection(Socket socket)
 	{
 		this.connectionSocket = socket;
-		InetSocketAddress ClientAddress = (InetSocketAddress) connectionSocket.getRemoteSocketAddress();
-//		ipAddress = ClientAddress.getAddress();
 	}
 
 	@Override
@@ -64,5 +60,17 @@ public class Connection implements Runnable
 	public void setUser(User user)
 	{
 		this.user = user;
+	}
+
+	public void interrupt()
+	{
+		try
+		{
+			connectionSocket.close();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

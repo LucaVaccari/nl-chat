@@ -11,7 +11,6 @@ import java.net.Socket;
  */
 public class ConnectionReceiver implements Runnable
 {
-	public static final int RECEIVE_WINDOW = 2048;
 	private boolean isRunning = true;
 
 	/**
@@ -25,12 +24,15 @@ public class ConnectionReceiver implements Runnable
 			System.out.println("ConnectionReceiver is working on port: " + GeneralData.SERVER_RECEIVE_PORT);
 			while (isRunning)
 			{
-				try (Socket connectionSocket = welcomeSocket.accept())
+				try
 				{
+					Socket connectionSocket = welcomeSocket.accept();
 					System.out.println("New connection established with " + connectionSocket.getInetAddress().getHostAddress());
 					//generate thread for the receiver connection
 					Thread connectionThread = new Thread(new Connection(connectionSocket));
 					connectionThread.start();
+
+					// TODO add connection to connection manager (then close them)
 				}
 				catch (IOException e)
 				{

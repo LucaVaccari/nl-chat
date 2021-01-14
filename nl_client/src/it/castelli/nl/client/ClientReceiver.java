@@ -35,14 +35,15 @@ public class ClientReceiver implements Runnable
 			Sender.setOutStream(outStream);
 			while (isRunning)
 			{
-				//noinspection ResultOfMethodCallIgnored
-				inStream.read(receiveBuffer);
-				System.out.println("A packet has been received from " + socket.getInetAddress().getHostAddress());
-				IMessage messageReceiver = ClientMessageManager.getMessageReceiver(receiveBuffer[0]);
-				if (messageReceiver == null)
-					System.out.println("Cannot find message receiver with id " + receiveBuffer[0]);
-				else
-					messageReceiver.OnReceive(receiveBuffer);
+				if (inStream.read(receiveBuffer) > 0)
+				{
+					System.out.println("A packet has been received from " + socket.getInetAddress().getHostAddress());
+					IMessage messageReceiver = ClientMessageManager.getMessageReceiver(receiveBuffer[0]);
+					if (messageReceiver == null)
+						System.out.println("Cannot find message receiver with id " + receiveBuffer[0]);
+					else
+						messageReceiver.OnReceive(receiveBuffer);
+				}
 			}
 		}
 		catch (ConnectException e)
