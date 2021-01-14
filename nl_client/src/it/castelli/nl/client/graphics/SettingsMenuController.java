@@ -1,6 +1,6 @@
-package it.castelli.nl.graphics;
+package it.castelli.nl.client.graphics;
 
-import it.castelli.nl.ClientData;
+import it.castelli.nl.client.ClientData;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 

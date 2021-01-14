@@ -1,7 +1,7 @@
-package it.castelli.nl.message;
+package it.castelli.nl.client.message;
 
-import it.castelli.nl.ClientData;
-import it.castelli.nl.ClientGroupManager;
+import it.castelli.nl.client.ClientData;
+import it.castelli.nl.client.ClientGroupManager;
 import it.castelli.nl.ChatGroup;
 import it.castelli.nl.User;
 import it.castelli.nl.serialization.Serializer;

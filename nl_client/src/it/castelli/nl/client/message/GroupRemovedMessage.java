@@ -1,6 +1,6 @@
-package it.castelli.nl.message;
+package it.castelli.nl.client.message;
 
-import it.castelli.nl.ClientGroupManager;
+import it.castelli.nl.client.ClientGroupManager;
 
 /**
  * A group has been removed.

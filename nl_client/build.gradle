@@ -4,7 +4,7 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.9'
 }
 
-mainClassName = "it.castelli.nl.NLClient"
+mainClassName = "it.castelli.nl.client.NLClient"
 
 repositories {
     mavenCentral()
@@ -25,12 +25,12 @@ sourceSets {
     }
 }
 application {
-    mainClass = 'it.castelli.nl.NLClient'
+    mainClass = 'it.castelli.nl.client.NLClient'
 }
 jar {
     manifest {
         attributes(
-            'Main-Class': 'it.castelli.nl.NLClient'
+            'Main-Class': 'it.castelli.nl.client.NLClient'
         )
     }
 

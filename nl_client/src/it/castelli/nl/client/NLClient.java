@@ -1,4 +1,4 @@
-package it.castelli.nl;
+package it.castelli.nl.client;
 
 import it.castelli.nl.serialization.Serializer;
 import javafx.application.Application;
@@ -28,7 +28,7 @@ public class NLClient extends Application
 	public void start(Stage primaryStage)
 	{
 		NLClient.primaryStage = primaryStage;
-		Parent root = loadFXML("src/it/castelli/nl/graphics/index.fxml");
+		Parent root = loadFXML("src/it/castelli/nl/client/graphics/index.fxml");
 		assert root != null;
 		Scene mainScene = new Scene(root);
 		primaryStage.setScene(mainScene);
@@ -36,7 +36,8 @@ public class NLClient extends Application
 		primaryStage.setTitle("nl-chat");
 		primaryStage.show();
 
-		clientThread = new Thread(new ClientReceiver(), "ClientThread");
+		ClientReceiver receiver = new ClientReceiver();
+		clientThread = new Thread(receiver, "ClientThread");
 		clientThread.start();
 
 		try
@@ -49,16 +50,16 @@ public class NLClient extends Application
 		}
 
 		primaryStage.setOnCloseRequest(event -> {
-			clientThread.interrupt();
+			receiver.interrupt();
 			Serializer.serialize(ClientData.getInstance(), ClientData.CLIENT_DATA_FILE_PATH);
-//			try
-//			{
-//				clientThread.join();
-//			}
-//			catch (InterruptedException e)
-//			{
-//				e.printStackTrace();
-//			}
+			try
+			{
+				clientThread.join();
+			}
+			catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
 			System.exit(0);
 		});
 	}

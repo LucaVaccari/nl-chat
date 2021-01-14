@@ -1,7 +1,7 @@
-package it.castelli.nl.message;
+package it.castelli.nl.client.message;
 
 import it.castelli.nl.ChatGroupMessage;
-import it.castelli.nl.ClientGroupManager;
+import it.castelli.nl.client.ClientGroupManager;
 import it.castelli.nl.ChatGroup;
 
 import it.castelli.nl.User;

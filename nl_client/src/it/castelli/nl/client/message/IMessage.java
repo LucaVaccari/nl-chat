@@ -1,4 +1,4 @@
-package it.castelli.nl.message;
+package it.castelli.nl.client.message;
 
 /**
  * Interface for every class that will process an incoming message

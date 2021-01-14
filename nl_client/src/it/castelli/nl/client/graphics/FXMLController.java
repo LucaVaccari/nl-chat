@@ -1,5 +1,7 @@
-package it.castelli.nl.graphics;
+package it.castelli.nl.client.graphics;
 
+import it.castelli.nl.client.ClientData;
+import it.castelli.nl.client.NLClient;
 import it.castelli.nl.*;
 import it.castelli.nl.messages.MessageBuilder;
 import javafx.event.ActionEvent;
@@ -18,7 +20,7 @@ import java.util.Optional;
 
 public class FXMLController
 {
-	public static final String SETTINGS_MENU_FXML_PATH = "src/it/castelli/nl/graphics/settingsMenu.fxml";
+	public static final String SETTINGS_MENU_FXML_PATH = "src/it/castelli/nl/client/graphics/settingsMenu.fxml";
 
 	private static FXMLController mainFXMLController;
 
@@ -65,9 +67,9 @@ public class FXMLController
 
 			try
 			{
-				ClientData.getInstance().setThisUser(new User(userName, InetAddress.getLocalHost(), (byte) 0));
+				ClientData.getInstance().setThisUser(new User(userName, (byte) 0));
 				byte[] data = MessageBuilder.buildServerNewUserMessage(userName, InetAddress.getLocalHost());
-				Sender.sendToServer(data, ClientData.getInstance().getThisUser().getIpAddress());
+				Sender.sendToServer(data, ClientData.getInstance().getServerAddress());
 			}
 			catch (IOException e)
 			{

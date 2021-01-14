@@ -1,7 +1,7 @@
-package it.castelli.nl.graphics;
+package it.castelli.nl.client.graphics;
 
 import it.castelli.nl.ChatGroupMessage;
-import it.castelli.nl.NLClient;
+import it.castelli.nl.client.NLClient;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
 
@@ -15,7 +15,7 @@ public class ChatMessageElement extends VBox
 
 	public ChatMessageElement(ChatGroupMessage message)
 	{
-		FXMLLoader loader = NLClient.getFXMLLoader("src/it/castelli/nl/graphics/chatMessage.fxml");
+		FXMLLoader loader = NLClient.getFXMLLoader("src/it/castelli/nl/client/graphics/chatMessage.fxml");
 		assert loader != null;
 		loader.setController(this);
 		loader.setRoot(this);

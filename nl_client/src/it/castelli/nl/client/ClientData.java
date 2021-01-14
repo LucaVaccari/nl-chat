@@ -1,5 +1,6 @@
-package it.castelli.nl;
+package it.castelli.nl.client;
 
+import it.castelli.nl.User;
 import it.castelli.nl.serialization.Serializer;
 
 import java.io.IOException;

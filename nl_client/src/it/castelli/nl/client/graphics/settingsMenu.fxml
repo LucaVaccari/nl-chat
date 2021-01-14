@@ -9,7 +9,7 @@
 
 <TitledPane animated="false" prefHeight="84.0" prefWidth="200.0" text="Settings" textAlignment="CENTER"
             xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="it.castelli.nl.graphics.SettingsMenuController">
+            fx:controller="it.castelli.nl.client.graphics.SettingsMenuController">
     <VBox>
         <HBox prefHeight="46.0" prefWidth="200.0">
             <Label prefHeight="16.0" prefWidth="94.0" text="Server IP"/>

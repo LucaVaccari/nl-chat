@@ -1,4 +1,4 @@
-package it.castelli.nl.graphics;
+package it.castelli.nl.client.graphics;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;

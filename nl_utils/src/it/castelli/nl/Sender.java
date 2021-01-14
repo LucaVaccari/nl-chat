@@ -47,21 +47,21 @@ public class Sender
 	 */
 	private static void send(byte[] data, User senderUser, ChatGroup group, int destinationPort)
 	{
-		group.getUsers().forEach((user -> {
-			if (user.getIpAddress() != senderUser.getIpAddress())
-			{
-				try (DatagramSocket socket = new DatagramSocket())
-				{
-					DatagramPacket packet = new DatagramPacket(data, data.length, user.getIpAddress(),
-					                                           destinationPort);
-					socket.send(packet);
-				}
-				catch (IOException e)
-				{
-					e.printStackTrace();
-				}
-			}
-		}));
+//		group.getUsers().forEach((user -> {
+//			if (user.getIpAddress() != senderUser.getIpAddress())
+//			{
+//				try (DatagramSocket socket = new DatagramSocket())
+//				{
+//					DatagramPacket packet = new DatagramPacket(data, data.length, user.getIpAddress(),
+//					                                           destinationPort);
+//					socket.send(packet);
+//				}
+//				catch (IOException e)
+//				{
+//					e.printStackTrace();
+//				}
+//			}
+//		}));
 	}
 
 	/**

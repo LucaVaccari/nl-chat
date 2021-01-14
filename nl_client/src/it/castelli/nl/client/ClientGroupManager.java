@@ -1,7 +1,8 @@
-package it.castelli.nl;
+package it.castelli.nl.client;
 
-import it.castelli.nl.graphics.ChatGroupComponent;
-import it.castelli.nl.graphics.FXMLController;
+import it.castelli.nl.client.graphics.ChatGroupComponent;
+import it.castelli.nl.ChatGroup;
+import it.castelli.nl.client.graphics.FXMLController;
 import it.castelli.nl.serialization.Serializer;
 
 import java.io.IOException;
