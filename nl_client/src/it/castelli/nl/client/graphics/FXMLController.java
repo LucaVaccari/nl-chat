@@ -52,6 +52,7 @@ public class FXMLController
 	 */
 	public static FXMLController get()
 	{
+		System.out.println("FXMLController.get has been invoked");
 		return mainFXMLController;
 	}
 
@@ -59,6 +60,8 @@ public class FXMLController
 	public void initialize()
 	{
 		mainFXMLController = this;
+		System.out.println("the mainFXMLController has been initialized");
+
 
 		// register screen
 		if (ClientData.getInstance().getThisUser() == null)
