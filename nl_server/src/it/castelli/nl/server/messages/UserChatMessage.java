@@ -8,7 +8,6 @@ import it.castelli.nl.messages.MessageBuilder;
 import it.castelli.nl.server.Connection;
 import it.castelli.nl.server.GroupManager;
 import it.castelli.nl.server.Sender;
-import it.castelli.nl.server.UsersManager;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -17,10 +16,12 @@ import java.util.Arrays;
  * Class which handles receiving user chat messages on the server.
  * It forwards the message to all of the users of a group
  */
-public class UserChatMessage implements IMessage {
+public class UserChatMessage extends Message
+{
 	@Override
-	public void OnReceive(byte[] data, Connection connection)
+	public void onReceive(byte[] data, Connection connection)
 	{
+		super.onReceive(data, connection);
 		// syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
 		byte groupCode = data[1];
@@ -28,8 +29,7 @@ public class UserChatMessage implements IMessage {
 		byte[] contentOfMessage = Arrays.copyOfRange(data, 3, data.length);
 		String textMessage = new String(contentOfMessage);
 		ChatGroup thisGroup = GroupManager.getGroupFromCode(groupCode);
-		User thisUser = UsersManager.getUserFromId(userId);
-		connection.setUser(thisUser);
+		User thisUser = connection.getUser();
 
 		System.out.println("a user message has arrived from user: " + userId + " in the group with code: " + groupCode);
 
@@ -38,7 +38,8 @@ public class UserChatMessage implements IMessage {
 			//send ClientUserChatMessage
 			try
 			{
-				byte[] reply = MessageBuilder.buildClientUserChatMessage(new ChatGroupMessage(thisUser, thisGroup, textMessage));
+				byte[] reply = MessageBuilder
+						.buildClientUserChatMessage(new ChatGroupMessage(thisUser, thisGroup, textMessage));
 				Sender.sendToOthersInGroup(reply, thisUser, thisGroup);
 			}
 			catch (IOException e)
@@ -50,6 +51,5 @@ public class UserChatMessage implements IMessage {
 		{
 			System.out.println(thisUser.getName() + " is not part of " + thisGroup.getName());
 		}
-
 	}
 }

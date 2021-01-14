@@ -13,20 +13,23 @@ import java.util.Arrays;
 /**
  * Request sent by the client to create a new group
  */
-public class CreateGroupMessage implements IMessage{
+public class CreateGroupMessage extends Message
+{
 	@Override
-	public void OnReceive(byte[] data, Connection connection)
+	public void onReceive(byte[] data, Connection connection)
 	{
+		super.onReceive(data, connection);
+
 		// syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
+
 		byte userId = data[2];
 		byte[] contentOfMessage = Arrays.copyOfRange(data, 3, data.length);
 		String newGroupName = new String(contentOfMessage);
 
 		byte newGroupCode = ServerData.getInstance().getLastGroupCode();
 		ChatGroup newGroup = new ChatGroup(newGroupName, newGroupCode);
+		User thisUser = connection.getUser();
 
-		User thisUser = UsersManager.getUserFromId(userId);
-		connection.setUser(thisUser);
 
 //		if (thisUser == null)
 //		{

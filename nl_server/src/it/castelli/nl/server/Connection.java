@@ -33,7 +33,7 @@ public class Connection implements Runnable {
             while(true)
             {
                 in.read(data);
-                MessageManager.getMessageReceiver(data[0]).OnReceive(data, this);
+                MessageManager.getMessageReceiver(data[0]).onReceive(data, this);
             }
         }
         catch (IOException e)

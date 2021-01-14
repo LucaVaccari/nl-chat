@@ -11,7 +11,7 @@ import java.util.HashMap;
  */
 public class MessageManager
 {
-	private static final HashMap<Byte, IMessage> messageReceivers = new HashMap<>();
+	private static final HashMap<Byte, Message> messageReceivers = new HashMap<>();
 
 	static
 	{
@@ -30,7 +30,7 @@ public class MessageManager
 	 * @param messageType The code of the corresponding message receiver
 	 * @return The message receiver corresponding to the code
 	 */
-	public static IMessage getMessageReceiver(byte messageType)
+	public static Message getMessageReceiver(byte messageType)
 	{
 		return messageReceivers.get(messageType);
 	}

@@ -15,10 +15,12 @@ import java.util.Arrays;
 /**
  * Received when a new user request to register
  */
-public class NewUserMessage implements IMessage {
+public class NewUserMessage extends Message
+{
 	@Override
-	public void OnReceive(byte[] data, Connection connection)
+	public void onReceive(byte[] data, Connection connection)
 	{
+		super.onReceive(data, connection);
 		// syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id,  20 bytes for the name,
 		// others for the ip
 
@@ -34,7 +36,6 @@ public class NewUserMessage implements IMessage {
 
 			User newUser = new User(name, newId);
 			UsersManager.getAllUsers().put(newId, new UsersManager.AdvancedUser(newUser));
-			connection.setUser(newUser);
 
 			Serializer.serialize(UsersManager.getAllUsers(), UsersManager.USERS_FILE_PATH);
 			Serializer.serialize(ServerData.getInstance(), ServerData.SERVER_DATA_FILE_PATH);
