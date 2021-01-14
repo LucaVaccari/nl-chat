@@ -31,10 +31,12 @@ public class ConnectionManager implements Runnable
                         UsersManager.AdvancedUser advancedUser = connection.getAdvancedUser();
                         if (advancedUser != null)
                         {
-                            System.out.println("the connection has an existing user " + advancedUser.getUser().getId() + " who has a queue of size " +
-                                    advancedUser.getIncomingMessages().size());
-                            out.write(Objects.requireNonNull(advancedUser.getIncomingMessages().poll()));
-                            //todo rewrite the line above
+                            //System.out.println("the connection has an existing user " + advancedUser.getUser().getId() + " who has a queue of size " + advancedUser.getIncomingMessages().size());
+                            byte[] message = advancedUser.getIncomingMessages().poll();
+                            if (message != null)
+                                out.write(message);
+                            System.out.println("Reply sent to user with code: " + advancedUser.getUser().getId());
+
                         }
                     }
                     catch (IOException e)
