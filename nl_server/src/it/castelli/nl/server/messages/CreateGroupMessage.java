@@ -12,6 +12,7 @@ import it.castelli.nl.server.ServerData;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  * Request sent by the client to create a new group
@@ -37,9 +38,6 @@ public class CreateGroupMessage extends Message
 		newGroup.getSuperUsers().add(thisUser);
 		GroupManager.getAllGroups().put(newGroupCode, newGroup);
 		ServerData.getInstance().incrementLastGroupCode();
-
-		Serializer.serialize(GroupManager.getAllGroups(), GroupManager.GROUPS_FILE_PATH);
-		Serializer.serialize(ServerData.getInstance(), ServerData.SERVER_DATA_FILE_PATH);
 
 		System.out.println("The group " + newGroupName + " has been created with the groupCode of: " + newGroupCode +
 		                   " and it contains the user: " + userId);

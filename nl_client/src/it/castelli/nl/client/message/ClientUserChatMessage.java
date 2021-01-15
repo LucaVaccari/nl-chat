@@ -49,8 +49,8 @@ public class ClientUserChatMessage implements IMessage
 			ListView<ChatGroupComponent> chatGroupListView = FXMLController.get().chatGroupListView;
 			ChatComponent chatComponent = chatGroupListView.getSelectionModel().getSelectedItem().getChatComponent();
 			ObservableList<ChatMessageComponent> chatComponentItems = chatComponent.getMessageListView().getItems();
-			chatComponentItems
-					.add(new ChatMessageComponent(new ChatGroupMessage(finalThisUser, thisGroup, textMessage)));
+			//chatComponentItems
+			//		.add(new ChatMessageComponent(new ChatGroupMessage(finalThisUser, thisGroup, textMessage)));
 
 			// set last message on the ChatGroupComponent UI element
 			Label lastMessageLabel = chatGroupListView.getSelectionModel().getSelectedItem().getLastMessageLabel();

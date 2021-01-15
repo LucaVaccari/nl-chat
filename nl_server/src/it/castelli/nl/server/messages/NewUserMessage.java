@@ -3,11 +3,9 @@ package it.castelli.nl.server.messages;
 import it.castelli.nl.User;
 import it.castelli.nl.messages.MessageBuilder;
 import it.castelli.nl.serialization.Serializer;
-import it.castelli.nl.server.Connection;
-import it.castelli.nl.server.Sender;
-import it.castelli.nl.server.ServerData;
-import it.castelli.nl.server.UserManager;
+import it.castelli.nl.server.*;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 /**
@@ -31,9 +29,6 @@ public class NewUserMessage extends Message
 
 		UserManager.AdvancedUser newAdvancedUser = new UserManager.AdvancedUser(newUser);
 		UserManager.getAllUsers().put(newId, newAdvancedUser);
-
-		Serializer.serialize(UserManager.getAllUsers(), UserManager.USERS_FILE_PATH);
-		Serializer.serialize(ServerData.getInstance(), ServerData.SERVER_DATA_FILE_PATH);
 
 		System.out.println("new User created with name: " + name + " and userId: " + newId);
 

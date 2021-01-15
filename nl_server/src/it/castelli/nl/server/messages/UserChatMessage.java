@@ -30,8 +30,6 @@ public class UserChatMessage extends Message
 		byte[] contentOfMessage = Arrays.copyOfRange(data, 3, data.length);
 		String textMessage = new String(contentOfMessage);
 		ChatGroup thisGroup = GroupManager.getGroupFromCode(groupCode);
-		//User thisUser = connection.getAdvancedUser().getUser();
-		//User thisUser = UserManager.getUserFromId(userId);
 		User thisUser = UserManager.getUserFromId(userId);
 
 		System.out.println("a user message has arrived from user: " + thisUser.getName() + " and id: " + userId + " in the group with code: " + groupCode);

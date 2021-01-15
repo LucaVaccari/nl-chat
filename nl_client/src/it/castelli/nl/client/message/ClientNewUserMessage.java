@@ -26,9 +26,6 @@ public class ClientNewUserMessage implements IMessage
 		ChatGroup thisGroup = ClientGroupManager.getGroupFromCode(groupCode);
 		User newUser = new User(userName, userId);
 
-		Serializer.serialize(ClientGroupManager.getAllGroups(), ClientGroupManager.GROUPS_FILE_PATH);
-		Serializer.serialize(ClientData.getInstance(), ClientData.CLIENT_DATA_FILE_PATH);
-
 		System.out.println(userName + " entered " + thisGroup.getName());
 
 		thisGroup.getUsers().add(newUser);
