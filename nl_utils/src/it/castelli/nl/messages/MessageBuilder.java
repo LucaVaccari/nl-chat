@@ -20,15 +20,16 @@ public class MessageBuilder
 	public static final byte SERVER_USER_CHAT_MESSAGE_TYPE = 5;
 	public static final byte SERVER_NEW_USER_MESSAGE_TYPE = 6;
 	public static final byte SERVER_TEST_MESSAGE_TYPE = 7;
+	public static final byte SERVER_END_CONNECTION_MESSAGE_TYPE = 8;
 
-	public static final byte CLIENT_NEW_GROUP_MESSAGE_TYPE = 8;
-	public static final byte CLIENT_NEW_USER_MESSAGE_TYPE = 9;
-	public static final byte GROUP_REMOVED_MESSAGE_TYPE = 10;
-	public static final byte USER_ID_MESSAGE_TYPE = 11;
-	public static final byte CLIENT_USER_CHAT_MESSAGE_TYPE = 12;
-	public static final byte ERROR_MESSAGE_TYPE = 13;
-	public static final byte CLIENT_TEST_MESSAGE_TYPE = 14;
-	public static final byte USER_LEFT_MESSAGE_TYPE = 15;
+	public static final byte CLIENT_NEW_GROUP_MESSAGE_TYPE = 9;
+	public static final byte CLIENT_NEW_USER_MESSAGE_TYPE = 10;
+	public static final byte GROUP_REMOVED_MESSAGE_TYPE = 11;
+	public static final byte USER_ID_MESSAGE_TYPE = 12;
+	public static final byte CLIENT_USER_CHAT_MESSAGE_TYPE = 13;
+	public static final byte ERROR_MESSAGE_TYPE = 14;
+	public static final byte CLIENT_TEST_MESSAGE_TYPE = 15;
+	public static final byte USER_LEFT_MESSAGE_TYPE = 16;
 
 
 	//messages from client to server
@@ -50,6 +51,8 @@ public class MessageBuilder
 		outputStream.write((byte) 0); //groupCode which is not present
 		outputStream.write(userId);
 		outputStream.write(name.getBytes());
+
+		System.out.println("Created CreateGroupMessage with group name: " + name);
 
 		return outputStream.toByteArray();
 	}
@@ -151,12 +154,7 @@ public class MessageBuilder
 		outputStream.write((byte) 0);
 		outputStream.write(userName.getBytes());
 
-		while (outputStream.size() != 23)
-		{
-			outputStream.write((byte) 0);
-		}
-
-		outputStream.write(ipAddress.getAddress());
+		System.out.println("Created NewUserMessage with user name: " + userName);
 
 		return outputStream.toByteArray();
 	}
@@ -181,6 +179,18 @@ public class MessageBuilder
 		return outputStream.toByteArray();
 	}
 
+	public static byte[] buildServerEndConnectionMessage(byte userId) throws IOException
+	{
+		// syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
+
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		outputStream.write(SERVER_END_CONNECTION_MESSAGE_TYPE);
+		outputStream.write((byte) 0); //groupCode which is not present
+		outputStream.write(userId);
+
+		return outputStream.toByteArray();
+	}
+
 	//message from the server to the client
 
 	/**
@@ -200,8 +210,6 @@ public class MessageBuilder
 		outputStream.write(groupCode);
 		outputStream.write((byte) 0); //userId which is not present
 		outputStream.write(groupName.getBytes());
-
-		System.out.println("Sending ClintNewGroupMessage packet");
 
 		return outputStream.toByteArray();
 	}

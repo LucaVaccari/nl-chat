@@ -23,7 +23,7 @@ public class ConnectionManager implements Runnable
         {
             for (Connection connection : allConnections)
             {
-                if (connection.getSocket().isConnected())
+                if (connection.getSocket().isConnected() && !connection.getSocket().isClosed())
                 {
                     try
                     {
@@ -43,12 +43,14 @@ public class ConnectionManager implements Runnable
                     }
                     catch (IOException e)
                     {
+                        System.out.println("Connection has ended");
                         connection.interrupt();
                         allConnections.remove(connection);
                     }
                 }
                 else
                 {
+                    System.out.println("Connection has ended");
                     connection.interrupt();
                     allConnections.remove(connection);
                 }
@@ -64,5 +66,6 @@ public class ConnectionManager implements Runnable
 			connection.interrupt();
 		}
 	}
+
 
 }

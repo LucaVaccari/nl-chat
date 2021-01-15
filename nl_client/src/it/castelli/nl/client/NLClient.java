@@ -100,7 +100,6 @@ public class NLClient extends Application
 		primaryStage.setScene(mainScene);
 		primaryStage.setResizable(false);
 		primaryStage.setTitle("nl-chat");
-		primaryStage.show();
 
 		ClientReceiver receiver = new ClientReceiver();
 		clientThread = new Thread(receiver, "ClientThread");
@@ -115,7 +114,8 @@ public class NLClient extends Application
 			e.printStackTrace();
 		}
 
-		Sender.send();
+
+		primaryStage.show();
 
 		primaryStage.setOnCloseRequest(event -> {
 			receiver.interrupt();

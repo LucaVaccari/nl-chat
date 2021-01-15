@@ -36,7 +36,10 @@ public class Connection implements Runnable
 			while (true)
 			{
 				if(in.read(data) > 0)
+				{
 					MessageManager.getMessageReceiver(data[0]).onReceive(data, this);
+					data = new byte[RECEIVE_WINDOW];
+				}
 			}
 		}
 		catch (IOException e)

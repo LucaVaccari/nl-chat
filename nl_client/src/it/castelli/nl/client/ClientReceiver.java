@@ -33,6 +33,7 @@ public class ClientReceiver implements Runnable
 			System.out.println("Connection established with the server");
 			byte[] receiveBuffer = new byte[RECEIVE_WINDOW];
 			Sender.setOutStream(outStream);
+			Sender.send();
 			while (isRunning)
 			{
 				if (inStream.available() > 0)
@@ -56,6 +57,7 @@ public class ClientReceiver implements Runnable
 		{
 			e.printStackTrace();
 		}
+		System.out.println("connection has ended");
 	}
 
 	/**
@@ -63,6 +65,7 @@ public class ClientReceiver implements Runnable
 	 */
 	public void interrupt()
 	{
+
 		isRunning = false;
 		System.out.println("Should be stopping");
 	}

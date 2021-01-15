@@ -28,7 +28,10 @@ public class Sender
 
 			byte[] messageToSend;
 			while ((messageToSend = messageQueue.poll()) != null)
+			{
 				outStream.write(messageToSend);
+				System.out.println("Send a message to the server");
+			}
 
 		}
 		catch (IOException e)

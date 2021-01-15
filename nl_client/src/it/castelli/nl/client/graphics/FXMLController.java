@@ -148,6 +148,8 @@ public class FXMLController
 		try
 		{
 			User thisUser = ClientData.getInstance().getThisUser();
+			//waits until the user has a valid userId
+			//while(thisUser.getId() == 0);
 			System.out.println("User with id " + thisUser.getId() + " is trying to create the group " + result.get());
 			byte[] packet = MessageBuilder
 					.buildCreateGroupMessage(thisUser.getId(), result.get());
@@ -169,8 +171,11 @@ public class FXMLController
 		{
 			try
 			{
+				//waits until the user has a valid userId
+				byte userId = ClientData.getInstance().getThisUser().getId();
+				//while((userId = ClientData.getInstance().getThisUser().getId()) == 0);
 				byte[] packet = MessageBuilder.buildJoinGroupMessage(Byte.parseByte(result.get(), 10),
-				                                                     ClientData.getInstance().getThisUser().getId());
+						userId);
 				Sender.addMessageToQueue(packet);
 				Sender.send();
 			}

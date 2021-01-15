@@ -33,13 +33,6 @@ public class CreateGroupMessage extends Message
 		ChatGroup newGroup = new ChatGroup(newGroupName, newGroupCode);
 		User thisUser = connection.getAdvancedUser().getUser();
 
-
-//		if (thisUser == null)
-//		{
-//			System.out.println("Cannot find user with id " + userId + ". Group " + newGroupName + " not created.");
-//			return;
-//		}
-
 		newGroup.getUsers().add(thisUser);
 		newGroup.getSuperUsers().add(thisUser);
 		GroupManager.getAllGroups().put(newGroupCode, newGroup);
