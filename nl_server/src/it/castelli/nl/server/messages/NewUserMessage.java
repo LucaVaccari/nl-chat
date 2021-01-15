@@ -20,36 +20,30 @@ public class NewUserMessage extends Message
 	@Override
 	public void onReceive(byte[] data, Connection connection)
 	{
-		super.onReceive(data, connection);
 		// syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id,  20 bytes for the name,
 		// others for the ip
 
 		byte[] temp = Arrays.copyOfRange(data, 3, 23 - 1);
 		String name = new String(temp); //reads the new User name
-		byte[] byteUserIP = Arrays.copyOfRange(data, 23, 23 + 4); //reads the ip address
 
-		try
-		{
-			InetAddress userIP = InetAddress.getByAddress(byteUserIP);
-			byte newId = ServerData.getInstance().getLastUserId();
-			ServerData.getInstance().incrementLastUserId();
+		byte newId = ServerData.getInstance().getLastUserId();
+		ServerData.getInstance().incrementLastUserId();
 
-			User newUser = new User(name, newId);
-			UsersManager.getAllUsers().put(newId, new UsersManager.AdvancedUser(newUser));
+		User newUser = new User(name, newId);
 
-			Serializer.serialize(UsersManager.getAllUsers(), UsersManager.USERS_FILE_PATH);
-			Serializer.serialize(ServerData.getInstance(), ServerData.SERVER_DATA_FILE_PATH);
+		UsersManager.AdvancedUser newAdvancedUser = new UsersManager.AdvancedUser(newUser);
+		UsersManager.getAllUsers().put(newId, newAdvancedUser);
 
-			System.out.println("new User created with name: " + name + ", IP address: " + userIP.getHostAddress() +
-			                   " and userId: " + newId);
+		Serializer.serialize(UsersManager.getAllUsers(), UsersManager.USERS_FILE_PATH);
+		Serializer.serialize(ServerData.getInstance(), ServerData.SERVER_DATA_FILE_PATH);
 
-			byte[] reply = MessageBuilder.buildUserIdMessage(newId);
-			System.out.println("Created UserIdMessage fromNewUserMessage in the onReceive method");
-			Sender.sendToUser(reply, newUser);
-		}
-		catch (UnknownHostException e)
-		{
-			e.printStackTrace();
-		}
+		System.out.println("new User created with name: " + name + " and userId: " + newId);
+
+		if (connection.getAdvancedUser() == null)
+			connection.setUser(newAdvancedUser);
+
+		byte[] reply = MessageBuilder.buildUserIdMessage(newId);
+		System.out.println("Created UserIdMessage fromNewUserMessage in the onReceive method");
+		Sender.sendToUser(reply, newUser);
 	}
 }

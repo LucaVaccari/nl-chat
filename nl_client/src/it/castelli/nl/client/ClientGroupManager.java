@@ -30,7 +30,10 @@ public class ClientGroupManager
 		assert allGroups != null;
 		for (ChatGroup group : allGroups.values())
 		{
-			FXMLController.get().chatGroupListView.getItems().add(new ChatGroupComponent(group));
+			if (FXMLController.get() != null)
+				FXMLController.get().chatGroupListView.getItems().add(new ChatGroupComponent(group));
+			else
+				System.out.println("FXMLController.get() is null");
 		}
 	}
 

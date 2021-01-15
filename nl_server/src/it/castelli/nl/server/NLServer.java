@@ -7,11 +7,16 @@ import java.io.IOException;
 
 public class NLServer
 {
+	private static ConnectionManager connectionManager = new ConnectionManager();
+	private static ConnectionReceiver connectionReceiver = new ConnectionReceiver();
+
 	public static void main(String[] args) throws InterruptedException, IOException
 	{
 		boolean running = true;
 
-		ConnectionReceiver connectionReceiver = new ConnectionReceiver();
+		Thread connectionManagerThread = new Thread(connectionManager, "connectionManager");
+		connectionManagerThread.start();
+
 		Thread serverThread = new Thread(connectionReceiver, "serverThread");
 		serverThread.start();
 
@@ -27,22 +32,27 @@ public class NLServer
 
 		while (running)
 		{
-			//send all the messages in the users queues
+
 		}
 
 		Serializer.serialize(GroupManager.getAllGroups(), GroupManager.GROUPS_FILE_PATH);
 		Serializer.serialize(UsersManager.getAllUsers(), UsersManager.USERS_FILE_PATH);
 		Serializer.serialize(ServerData.getInstance(), ServerData.SERVER_DATA_FILE_PATH);
 
-
 		connectionReceiver.interrupt();
+		connectionManager.interrupt();
 		try
 		{
+			connectionManagerThread.join();
 			serverThread.join();
 		}
 		catch (InterruptedException e)
 		{
 			e.printStackTrace();
 		}
+	}
+
+	public static ConnectionManager getConnectionManager() {
+		return connectionManager;
 	}
 }

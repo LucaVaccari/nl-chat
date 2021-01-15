@@ -18,33 +18,43 @@ public class ConnectionManager implements Runnable
 	public void run()
 	{
 
-		while (isRunning)
-		{
-			for (Connection connection : allConnections)
-			{
-				if (connection.getSocket().isConnected())
-				{
-					try
-					{
-						OutputStream out = connection.getSocket().getOutputStream();
-						for (byte[] message : connection.getAdvancedUser().getIncomingMessages())
-						{
-							out.write(message);
-						}
-					}
-					catch (IOException e)
-					{
-						e.printStackTrace();
-					}
-				}
-				else
-				{
-					connection.interrupt();
-					allConnections.remove(connection);
-				}
-			}
-		}
-	}
+        System.out.println("ConnectionManager is working correctly");
+        while (isRunning)
+        {
+            for (Connection connection : allConnections)
+            {
+                if (connection.getSocket().isConnected())
+                {
+                    try
+                    {
+                        OutputStream out = connection.getSocket().getOutputStream();
+
+                        UsersManager.AdvancedUser advancedUser = connection.getAdvancedUser();
+                        if (advancedUser != null)
+                        {
+                            //System.out.println("the connection has an existing user " + advancedUser.getUser().getId() + " who has a queue of size " + advancedUser.getIncomingMessages().size());
+                            byte[] message = advancedUser.getIncomingMessages().poll();
+                            if (message != null)
+                            {
+                                out.write(message);
+                                System.out.println("Reply sent to user with code: " + advancedUser.getUser().getId());
+                            }
+                        }
+                    }
+                    catch (IOException e)
+                    {
+                        connection.interrupt();
+                        allConnections.remove(connection);
+                    }
+                }
+                else
+                {
+                    connection.interrupt();
+                    allConnections.remove(connection);
+                }
+            }
+        }
+    }
 
 	public void interrupt()
 	{

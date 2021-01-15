@@ -6,6 +6,7 @@ import it.castelli.nl.server.messages.MessageManager;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
+import java.net.SocketException;
 
 /**
  * Represents a connection with a client. Constantly waits for messages from it.
@@ -34,14 +35,13 @@ public class Connection implements Runnable
 			byte[] data = new byte[RECEIVE_WINDOW];
 			while (true)
 			{
-				if (in.read(data) > 0)
+				if(in.read(data) > 0)
 					MessageManager.getMessageReceiver(data[0]).onReceive(data, this);
 			}
 		}
 		catch (IOException e)
 		{
-			System.out.println("The connection ended");
-			e.printStackTrace();
+			System.out.println("The connection has been interrupted");
 		}
 	}
 
@@ -60,9 +60,9 @@ public class Connection implements Runnable
 	 *
 	 * @param user The client's user
 	 */
-	public void setUser(User user)
+	public void setUser(UsersManager.AdvancedUser user)
 	{
-		this.user = new UsersManager.AdvancedUser(user);
+		this.user = user;
 	}
 
 	public void interrupt()
