@@ -31,6 +31,7 @@ public class Sender
 			if (user != senderUser)
 			{
 				UsersManager.getQueueFromUser(user).add(data);
+				System.out.println("data added to the queue of the user: " + user.getId());
 			}
 		}
 	}

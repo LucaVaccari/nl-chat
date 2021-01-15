@@ -1,6 +1,7 @@
 package it.castelli.nl.server;
 
 import it.castelli.nl.ChatGroup;
+import it.castelli.nl.User;
 import it.castelli.nl.serialization.Serializer;
 
 import java.io.IOException;
@@ -19,10 +20,18 @@ public class GroupManager
 		try
 		{
 			allGroups = (HashMap<Byte, ChatGroup>) Serializer.deserialize(GROUPS_FILE_PATH);
+			for (ChatGroup group : allGroups.values())
+			{
+				for (User user : group.getUsers())
+				{
+					System.out.println("the group "+ group.getCode() + " contains user " + user.getId());
+				}
+			}
 		}
 		catch (IOException | ClassNotFoundException e)
 		{
 			allGroups = new HashMap<>();
+			System.out.println("allGroup not found, creating new allGroups");
 		}
 	}
 

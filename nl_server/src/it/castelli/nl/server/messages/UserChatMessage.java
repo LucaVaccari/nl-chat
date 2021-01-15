@@ -41,7 +41,7 @@ public class UserChatMessage extends Message
 				byte[] reply = MessageBuilder
 						.buildClientUserChatMessage(new ChatGroupMessage(thisUser, thisGroup, textMessage));
 				System.out.println("Created ClientUserChatMessage from UserChatMessage in the onReceive method");
-				Sender.sendToOthersInGroup(reply, thisUser, thisGroup);
+				Sender.sendToGroup(reply, thisGroup);
 			}
 			catch (IOException e)
 			{
