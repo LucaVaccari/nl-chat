@@ -13,7 +13,8 @@ public class ErrorMessage implements IMessage
 	@Override
 	public void OnReceive(byte[] data)
 	{
-		byte[] contentOfMessage = Arrays.copyOfRange(data, 3, data.length);
+		byte[] contentOfMessage;
+		contentOfMessage = Arrays.copyOfRange(data, 3, data.length);
 		String errorMessage = new String(contentOfMessage);
 		Platform.runLater(() -> AlertUtil.showErrorAlert("Error", "An error has occurred on the server",
 		                                                 errorMessage));
