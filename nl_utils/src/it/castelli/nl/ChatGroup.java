@@ -88,4 +88,14 @@ public class ChatGroup implements Serializable
 	{
 		return superUsers;
 	}
+
+
+	public User getUserById(byte userId)
+	{
+		for (User user : users) {
+			if (user.getId() == userId)
+				return  user;
+		}
+		return null;
+	}
 }
