@@ -11,7 +11,6 @@ import javafx.application.Platform;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.ConnectException;
 import java.net.Socket;
 
 /**
@@ -38,6 +37,15 @@ public class ClientReceiver implements Runnable
 			Sender.send();
 			while (isRunning)
 			{
+				if (!socket.isConnected() || socket.isClosed())
+				{
+					Platform.runLater(() -> AlertUtil.showErrorAlert("Connection error", "Connection interrupted by " +
+					                                                                     "the remote host",
+					                                                 "The server is offline. Try again later."));
+					interrupt();
+					break;
+				}
+
 				if (inStream.available() > 0)
 				{
 					inStream.read(receiveBuffer);
@@ -54,13 +62,11 @@ public class ClientReceiver implements Runnable
 				}
 			}
 		}
-		catch (ConnectException e)
-		{
-			Platform.runLater(() -> AlertUtil.showErrorAlert("Connection error", "Cannot connect to the server",
-			                                                 "The server is offline or unreachable"));
-		}
 		catch (IOException e)
 		{
+			Platform.runLater(() -> AlertUtil.showErrorAlert("Connection error", "Cannot connect to the server",
+			                                                 "The server is offline or unreachable. Try setting your " +
+			                                                 "server address in the settings menu."));
 			e.printStackTrace();
 		}
 		System.out.println("connection has ended");

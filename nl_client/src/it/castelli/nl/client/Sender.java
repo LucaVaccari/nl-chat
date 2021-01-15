@@ -29,14 +29,16 @@ public class Sender
 			byte[] messageToSend;
 			while ((messageToSend = messageQueue.poll()) != null)
 			{
-				outStream.write(messageToSend);
-				System.out.println("Send a message to the server");
+				if (outStream != null)
+					outStream.write(messageToSend);
+				else
+					System.out.println("out stream is null");
 			}
 
 		}
 		catch (IOException e)
 		{
-			e.printStackTrace();
+//			e.printStackTrace();
 			AlertUtil.showErrorAlert("Sending error", "Cannot talk to the server", "The server cannot be reached");
 		}
 	}
