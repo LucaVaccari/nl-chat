@@ -3,9 +3,9 @@ package it.castelli.nl.client.graphics;
 import it.castelli.nl.ChatGroupMessage;
 import it.castelli.nl.client.NLClient;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-import java.awt.*;
 import java.io.IOException;
 
 /**

@@ -14,6 +14,5 @@ public class GroupRemovedMessage implements IMessage
 
 		Byte groupCode = data[1];
 		ClientGroupManager.getAllGroups().remove(groupCode);
-
 	}
 }
