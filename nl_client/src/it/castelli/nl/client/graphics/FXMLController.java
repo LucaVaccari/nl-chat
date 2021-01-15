@@ -38,7 +38,7 @@ public class FXMLController
 	public MenuItem deleteMessageMenuItem; //TODO
 	public MenuItem copyMessageMenuItem; //TODO
 	public MenuItem helpMenuItem;
-	public ListView<ChatGroupComponent> chatGroupListView; //TODO
+	public ListView<ChatGroupComponent> chatGroupListView;
 	public Pane chatElementParent;
 	public Stage settingsStage;
 

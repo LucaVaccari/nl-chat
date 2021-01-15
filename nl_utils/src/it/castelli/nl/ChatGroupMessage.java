@@ -1,9 +1,11 @@
 package it.castelli.nl;
 
-public class ChatGroupMessage
+import java.io.Serializable;
+
+public class ChatGroupMessage implements Serializable
 {
 	private User userSender;
-	private ChatGroup chatGroup;
+	private transient ChatGroup chatGroup;
 	private String messageContent;
 
 	public ChatGroupMessage(User userSender, ChatGroup chatGroup, String messageContent)

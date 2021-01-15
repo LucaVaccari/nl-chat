@@ -10,7 +10,7 @@ public class EndConnectionMessage extends Message
 	@Override
 	public synchronized void onReceive(byte[] data, Connection connection)
 	{
-		System.out.println("Connection with " + connection.getAdvancedUser().getUser().getName() + " ended");
+//		System.out.println("Connection with " + connection.getAdvancedUser().getUser().getName() + " ended");
 		connection.interrupt();
 	}
 }

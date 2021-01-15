@@ -41,6 +41,10 @@ public class ClientUserChatMessage implements IMessage
 
 		if (thisUser == null) thisUser = new User("Stranger", (byte) 0);
 
+
+		ChatGroupMessage message = new ChatGroupMessage(thisUser, thisGroup, textMessage);
+		thisGroup.getChatGroupContent().getUserMessages().add(message);
+
 		System.out.println(thisUser.getName() + ": " + textMessage);
 
 		User finalThisUser = thisUser;
@@ -50,7 +54,7 @@ public class ClientUserChatMessage implements IMessage
 			ChatComponent chatComponent = chatGroupListView.getSelectionModel().getSelectedItem().getChatComponent();
 			ObservableList<ChatMessageComponent> chatComponentItems = chatComponent.getMessageListView().getItems();
 			chatComponentItems
-					.add(new ChatMessageComponent(new ChatGroupMessage(finalThisUser, thisGroup, textMessage)));
+					.add(new ChatMessageComponent(message));
 
 			// set last message on the ChatGroupComponent UI element
 			Label lastMessageLabel = chatGroupListView.getSelectionModel().getSelectedItem().getLastMessageLabel();
