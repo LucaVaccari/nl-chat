@@ -20,15 +20,6 @@ public class NLServer
 		Thread serverThread = new Thread(connectionReceiver, "serverThread");
 		serverThread.start();
 
-		try
-		{
-			byte[] packet = MessageBuilder.buildClientTestMessage("Test");
-			//Sender.send(packet, InetAddress.getLocalHost());
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
 
 		while (running)
 		{
