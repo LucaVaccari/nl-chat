@@ -74,4 +74,9 @@ public class ChatGroupComponent extends VBox
 	{
 		return chatComponent;
 	}
+
+	public Label getLastMessageLabel()
+	{
+		return lastMessageLabel;
+	}
 }

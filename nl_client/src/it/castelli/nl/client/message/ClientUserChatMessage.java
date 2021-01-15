@@ -10,6 +10,7 @@ import it.castelli.nl.client.graphics.ChatMessageComponent;
 import it.castelli.nl.client.graphics.FXMLController;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
 import java.util.Arrays;
@@ -44,11 +45,16 @@ public class ClientUserChatMessage implements IMessage
 
 		User finalThisUser = thisUser;
 		Platform.runLater(() -> {
+			// add a message UI component on the chat element
 			ListView<ChatGroupComponent> chatGroupListView = FXMLController.get().chatGroupListView;
 			ChatComponent chatComponent = chatGroupListView.getSelectionModel().getSelectedItem().getChatComponent();
 			ObservableList<ChatMessageComponent> chatComponentItems = chatComponent.getMessageListView().getItems();
 			chatComponentItems
 					.add(new ChatMessageComponent(new ChatGroupMessage(finalThisUser, thisGroup, textMessage)));
+
+			// set last message on the ChatGroupComponent UI element
+			Label lastMessageLabel = chatGroupListView.getSelectionModel().getSelectedItem().getLastMessageLabel();
+			lastMessageLabel.setText(finalThisUser.getName() + ": " + textMessage);
 		});
 	}
 }

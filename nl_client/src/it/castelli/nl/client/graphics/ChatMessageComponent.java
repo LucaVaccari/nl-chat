@@ -13,8 +13,8 @@ import java.io.IOException;
  */
 public class ChatMessageComponent extends VBox
 {
-	public Label userName;
-	public Label message;
+	public Label userNameLabel;
+	public Label messageLabel;
 
 	public ChatMessageComponent(ChatGroupMessage message)
 	{
@@ -32,7 +32,17 @@ public class ChatMessageComponent extends VBox
 			e.printStackTrace();
 		}
 
-		userName.setText(message.getUserSender().getName());
-		this.message.setText(message.getMessageContent());
+		userNameLabel.setText(message.getUserSender().getName());
+		this.messageLabel.setText(message.getMessageContent());
+	}
+
+	public Label getUserNameLabel()
+	{
+		return userNameLabel;
+	}
+
+	public Label getMessageLabel()
+	{
+		return messageLabel;
 	}
 }
