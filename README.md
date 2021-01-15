@@ -6,6 +6,7 @@ A TCP application to chat with other people over the network. Developed by Luca 
  - If the server cannot be reached, ask for another server address
  - View messages on the client
  - Try to implement a command interface on the server
+ - Add tooltips to buttons
  - (User colors)
  - (Allow changing username)
 

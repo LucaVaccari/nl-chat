@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <fx:root xmlns:fx="http://javafx.com/fxml/1" prefHeight="418.0" prefWidth="558.0" type="VBox"
@@ -20,4 +19,10 @@
     <ScrollPane>
         <ListView fx:id="messageListView" prefHeight="353.0" prefWidth="558.0"/>
     </ScrollPane>
+    <HBox>
+        <TextField fx:id="messageInputField" prefHeight="42.0" prefWidth="499.0"
+                   promptText="Write a message..."/>
+        <Button fx:id="sendMessageButton" mnemonicParsing="false" prefHeight="43.0" prefWidth="85.0"
+                text="Send"/>
+    </HBox>
 </fx:root>

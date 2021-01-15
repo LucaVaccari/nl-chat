@@ -4,6 +4,7 @@ import it.castelli.nl.ChatGroup;
 import it.castelli.nl.ChatGroupMessage;
 import it.castelli.nl.User;
 import it.castelli.nl.client.ClientGroupManager;
+import it.castelli.nl.client.graphics.FXMLController;
 import javafx.application.Platform;
 
 import java.util.Arrays;
@@ -38,7 +39,7 @@ public class ClientUserChatMessage implements IMessage
 		System.out.println(thisUser.getName() + ": " + textMessage);
 
 		User finalThisUser = thisUser;
-		Platform.runLater(() -> thisGroup.getChatGroupContent().getUserMessages()
+		Platform.runLater(() -> FXMLController.get().chatGroupListView.getSelectionModel().getSelectedItem()
 				.add(new ChatGroupMessage(finalThisUser, thisGroup, textMessage)));
 	}
 }
