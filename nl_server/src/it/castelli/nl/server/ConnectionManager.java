@@ -17,7 +17,6 @@ public class ConnectionManager implements Runnable
 	@Override
 	public void run()
 	{
-
         System.out.println("ConnectionManager is working correctly");
         while (isRunning)
         {

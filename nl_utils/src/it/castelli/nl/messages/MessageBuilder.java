@@ -179,14 +179,13 @@ public class MessageBuilder
 		return outputStream.toByteArray();
 	}
 
-	public static byte[] buildServerEndConnectionMessage(byte userId) throws IOException
+	public static byte[] buildServerEndConnectionMessage()
 	{
 		// syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		outputStream.write(SERVER_END_CONNECTION_MESSAGE_TYPE);
 		outputStream.write((byte) 0); //groupCode which is not present
-		outputStream.write(userId);
 
 		return outputStream.toByteArray();
 	}

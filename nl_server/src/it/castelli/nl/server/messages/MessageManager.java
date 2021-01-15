@@ -22,6 +22,7 @@ public class MessageManager
 		messageReceivers.put(MessageBuilder.SERVER_NEW_USER_MESSAGE_TYPE, new NewUserMessage());
 		messageReceivers.put(MessageBuilder.SERVER_TEST_MESSAGE_TYPE, new TestMessage());
 		messageReceivers.put(MessageBuilder.SERVER_USER_CHAT_MESSAGE_TYPE, new UserChatMessage());
+		messageReceivers.put(MessageBuilder.SERVER_END_CONNECTION_MESSAGE_TYPE, new EndConnectionMessage());
 	}
 
 	/**

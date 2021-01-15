@@ -1,12 +1,10 @@
 package it.castelli.nl.server;
 
-import it.castelli.nl.User;
 import it.castelli.nl.server.messages.MessageManager;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
-import java.net.SocketException;
 
 /**
  * Represents a connection with a client. Constantly waits for messages from it.
@@ -16,6 +14,7 @@ public class Connection implements Runnable
 	public static final int RECEIVE_WINDOW = 2048;
 	private final Socket connectionSocket;
 	private UsersManager.AdvancedUser user;
+	private boolean isRunning = true;
 
 	/**
 	 * Constructor for the connection object
@@ -33,7 +32,7 @@ public class Connection implements Runnable
 		try (InputStream in = connectionSocket.getInputStream())
 		{
 			byte[] data = new byte[RECEIVE_WINDOW];
-			while (true)
+			while (isRunning)
 			{
 				if(in.read(data) > 0)
 				{
@@ -70,6 +69,7 @@ public class Connection implements Runnable
 
 	public void interrupt()
 	{
+		isRunning = false;
 		try
 		{
 			connectionSocket.close();

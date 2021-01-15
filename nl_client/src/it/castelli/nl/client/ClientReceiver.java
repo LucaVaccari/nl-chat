@@ -4,6 +4,7 @@ import it.castelli.nl.GeneralData;
 import it.castelli.nl.client.graphics.AlertUtil;
 import it.castelli.nl.client.message.ClientMessageManager;
 import it.castelli.nl.client.message.IMessage;
+import it.castelli.nl.messages.MessageBuilder;
 import javafx.application.Platform;
 
 import java.io.IOException;
@@ -61,11 +62,13 @@ public class ClientReceiver implements Runnable
 	}
 
 	/**
-	 * Called when the thread is interrupted (not sure)
+	 * Called when the thread is interrupted
 	 */
 	public void interrupt()
 	{
-
+		byte[] packet = MessageBuilder.buildServerEndConnectionMessage();
+		Sender.addMessageToQueue(packet);
+		Sender.send();
 		isRunning = false;
 		System.out.println("Should be stopping");
 	}
