@@ -117,8 +117,15 @@ public class FXMLController
 
 		chatGroupListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 		chatGroupListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-			selectedChatGroup = newValue.getChatGroup();
-			newValue.showChat();
+			if (newValue != null)
+			{
+				selectedChatGroup = newValue.getChatGroup();
+				newValue.showChat();
+			}
+			else
+			{
+				oldValue.hideChat();
+			}
 		});
 
 		// set tooltips (text that appears when holding the cursor on a button)
@@ -129,7 +136,7 @@ public class FXMLController
 
 	/**
 	 * Callback of a Create New Group button click
- 	 */
+	 */
 	private void OnCreateNewGroupButtonClick(ActionEvent actionEvent)
 	{
 		// ask for the name of the group
@@ -181,7 +188,7 @@ public class FXMLController
 				byte userId = ClientData.getInstance().getThisUser().getId();
 				//while((userId = ClientData.getInstance().getThisUser().getId()) == 0);
 				byte[] packet = MessageBuilder.buildJoinGroupMessage(Byte.parseByte(result.get(), 10),
-						userId);
+				                                                     userId);
 				Sender.addMessageToQueue(packet);
 				Sender.send();
 			}

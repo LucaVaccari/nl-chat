@@ -11,7 +11,7 @@ repositories {
 }
 javafx {
     version '15.0.1'
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
+    modules = ['javafx.controls', 'javafx.fxml']
 }
 dependencies {
     compile project(':nl_utils')
@@ -30,10 +30,10 @@ application {
 jar {
     manifest {
         attributes(
-            'Main-Class': 'it.castelli.nl.client.NLClient'
+                'Main-Class': 'it.castelli.nl.client.NLClient'
         )
     }
 
     // https://stackoverflow.com/questions/28421409/gradle-command-from-configurations-compile-collect
-    from(configurations.compile.collect { it.isDirectory() ? it : zipTree(it)}) {}
+    from(configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }) {}
 }

@@ -3,6 +3,7 @@ package it.castelli.nl.client.message;
 import it.castelli.nl.client.ClientGroupManager;
 import it.castelli.nl.client.graphics.ChatGroupComponent;
 import it.castelli.nl.client.graphics.FXMLController;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 
 /**
@@ -19,14 +20,16 @@ public class GroupRemovedMessage implements IMessage
 		ClientGroupManager.getAllGroups().remove(groupCode);
 
 		// remove from ui
-		ObservableList<ChatGroupComponent> chatGroups = FXMLController.get().chatGroupListView.getItems();
-		for (ChatGroupComponent chatGroupUi : chatGroups)
-		{
-			if (chatGroupUi.getChatGroup().getCode() == groupCode)
+		Platform.runLater(() -> {
+			ObservableList<ChatGroupComponent> chatGroups = FXMLController.get().chatGroupListView.getItems();
+			for (ChatGroupComponent chatGroupUi : chatGroups)
 			{
-				chatGroups.remove(chatGroupUi);
-				return;
+				if (chatGroupUi.getChatGroup().getCode() == groupCode)
+				{
+					chatGroups.remove(chatGroupUi);
+					return;
+				}
 			}
-		}
+		});
 	}
 }

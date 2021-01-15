@@ -67,6 +67,15 @@ public class ChatGroupComponent extends VBox
 	}
 
 	/**
+	 * Hides the messages and some information of the ChatGroup in the UI
+	 */
+	public void hideChat()
+	{
+		ObservableList<Node> chatGroupElementChildren = FXMLController.get().chatElementParent.getChildren();
+		chatGroupElementChildren.clear();
+	}
+
+	/**
 	 * Getter for chat UI component
 	 * @return the ChatComponent bound with this Chat Group
 	 */

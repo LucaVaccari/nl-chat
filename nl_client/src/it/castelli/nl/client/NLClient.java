@@ -102,7 +102,7 @@ public class NLClient extends Application
 		primaryStage.setTitle("nl-chat");
 
 		ClientReceiver receiver = new ClientReceiver();
-		clientThread = new Thread(receiver, "ClientThread");
+		clientThread = new Thread(receiver, "ClientReceiver");
 		clientThread.start();
 
 		try
