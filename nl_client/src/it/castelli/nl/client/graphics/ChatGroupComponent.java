@@ -65,4 +65,13 @@ public class ChatGroupComponent extends VBox
 		chatGroupElementChildren.clear();
 		chatGroupElementChildren.add(chatComponent);
 	}
+
+	/**
+	 * Getter for chat UI component
+	 * @return the ChatComponent bound with this Chat Group
+	 */
+	public ChatComponent getChatComponent()
+	{
+		return chatComponent;
+	}
 }

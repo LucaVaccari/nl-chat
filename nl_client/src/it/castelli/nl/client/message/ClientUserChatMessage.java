@@ -4,8 +4,13 @@ import it.castelli.nl.ChatGroup;
 import it.castelli.nl.ChatGroupMessage;
 import it.castelli.nl.User;
 import it.castelli.nl.client.ClientGroupManager;
+import it.castelli.nl.client.graphics.ChatComponent;
+import it.castelli.nl.client.graphics.ChatGroupComponent;
+import it.castelli.nl.client.graphics.ChatMessageComponent;
 import it.castelli.nl.client.graphics.FXMLController;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ListView;
 
 import java.util.Arrays;
 
@@ -33,13 +38,17 @@ public class ClientUserChatMessage implements IMessage
 			}
 		}
 
-		if (thisUser == null)
-			thisUser = new User("Stranger", (byte) 0);
+		if (thisUser == null) thisUser = new User("Stranger", (byte) 0);
 
 		System.out.println(thisUser.getName() + ": " + textMessage);
 
 		User finalThisUser = thisUser;
-		Platform.runLater(() -> FXMLController.get().chatGroupListView.getSelectionModel().getSelectedItem()
-				.add(new ChatGroupMessage(finalThisUser, thisGroup, textMessage)));
+		Platform.runLater(() -> {
+			ListView<ChatGroupComponent> chatGroupListView = FXMLController.get().chatGroupListView;
+			ChatComponent chatComponent = chatGroupListView.getSelectionModel().getSelectedItem().getChatComponent();
+			ObservableList<ChatMessageComponent> chatComponentItems = chatComponent.getMessageListView().getItems();
+			chatComponentItems
+					.add(new ChatMessageComponent(new ChatGroupMessage(finalThisUser, thisGroup, textMessage)));
+		});
 	}
 }

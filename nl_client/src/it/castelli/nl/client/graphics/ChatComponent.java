@@ -26,7 +26,7 @@ public class ChatComponent extends VBox
 
 	public Label chatGroupName;
 	public Label chatGroupCode;
-	public ListView<String> messageListView;
+	public ListView<ChatMessageComponent> messageListView;
 	public TextField messageInputField;
 	public Button sendMessageButton;
 
@@ -54,7 +54,7 @@ public class ChatComponent extends VBox
 		chatGroupCode.setText(String.valueOf(chatGroup.getCode()));
 	}
 
-	public ListView<String> getMessageListView()
+	public ListView<ChatMessageComponent> getMessageListView()
 	{
 		return messageListView;
 	}

@@ -11,12 +11,12 @@ import java.io.IOException;
 /**
  * UIComponent containing a message present in the list of messages of a ChatComponent
  */
-public class ChatMessageElement extends VBox
+public class ChatMessageComponent extends VBox
 {
 	public Label userName;
 	public Label message;
 
-	public ChatMessageElement(ChatGroupMessage message)
+	public ChatMessageComponent(ChatGroupMessage message)
 	{
 		FXMLLoader loader = NLClient.getFXMLLoader("src/it/castelli/nl/client/graphics/chatMessage.fxml");
 		assert loader != null;
