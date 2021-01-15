@@ -2,14 +2,14 @@ package it.castelli.nl.server;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.HashSet;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 public class ConnectionManager implements Runnable
 {
-	private final HashSet<Connection> allConnections = new HashSet<>();
+	private final CopyOnWriteArraySet<Connection> allConnections = new CopyOnWriteArraySet<>();
 	private boolean isRunning = true;
 
-	public HashSet<Connection> getAllConnections()
+	public CopyOnWriteArraySet<Connection> getAllConnections()
 	{
 		return allConnections;
 	}
@@ -28,7 +28,7 @@ public class ConnectionManager implements Runnable
                     {
                         OutputStream out = connection.getSocket().getOutputStream();
 
-                        UsersManager.AdvancedUser advancedUser = connection.getAdvancedUser();
+                        UserManager.AdvancedUser advancedUser = connection.getAdvancedUser();
                         if (advancedUser != null)
                         {
                             //System.out.println("the connection has an existing user " + advancedUser.getUser().getId() + " who has a queue of size " + advancedUser.getIncomingMessages().size());

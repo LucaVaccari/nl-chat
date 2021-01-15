@@ -15,26 +15,6 @@ public class GroupManager
 	public static final String GROUPS_FILE_PATH = "allGroups.bin";
 	private static HashMap<Byte, ChatGroup> allGroups;
 
-	static
-	{
-		try
-		{
-			allGroups = (HashMap<Byte, ChatGroup>) Serializer.deserialize(GROUPS_FILE_PATH);
-			for (ChatGroup group : allGroups.values())
-			{
-				for (User user : group.getUsers())
-				{
-					System.out.println("the group "+ group.getCode() + " contains user " + user.getId());
-				}
-			}
-		}
-		catch (IOException | ClassNotFoundException e)
-		{
-			allGroups = new HashMap<>();
-			System.out.println("allGroup not found, creating new allGroups");
-		}
-	}
-
 	/**
 	 * Getter for the HashMap containing all groups mapped to their codes
 	 *
@@ -54,5 +34,23 @@ public class GroupManager
 	public static ChatGroup getGroupFromCode(byte code)
 	{
 		return allGroups.get(code);
+	}
+	public static void init() {
+		try
+		{
+			allGroups = (HashMap<Byte, ChatGroup>) Serializer.deserialize(GROUPS_FILE_PATH);
+			for (ChatGroup group : allGroups.values())
+			{
+				for (User user : group.getUsers())
+				{
+					System.out.println("the group "+ group.getCode() + " contains user " + user.getId());
+				}
+			}
+		}
+		catch (IOException | ClassNotFoundException e)
+		{
+			allGroups = new HashMap<>();
+			System.out.println("allGroup not found, creating new allGroups");
+		}
 	}
 }

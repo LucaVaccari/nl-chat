@@ -13,7 +13,7 @@ public class Sender
 	 */
 	public static void sendToUser(byte[] data, User user)
 	{
-		UsersManager.getQueueFromUser(user).add(data);
+		UserManager.getQueueFromUser(user).add(data);
 		System.out.println("data added to the queue of the user: " + user.getId());
 	}
 
@@ -30,7 +30,7 @@ public class Sender
 		{
 			if (user != senderUser)
 			{
-				UsersManager.getQueueFromUser(user).add(data);
+				UserManager.getQueueFromUser(user).add(data);
 				System.out.println("data added to the queue of the user: " + user.getId());
 			}
 		}
@@ -46,7 +46,7 @@ public class Sender
 	{
 		for (User user : group.getUsers())
 		{
-			UsersManager.getQueueFromUser(user).add(data);
+			UserManager.getQueueFromUser(user).add(data);
 		}
 	}
 

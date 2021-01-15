@@ -35,6 +35,7 @@ public class ConnectionReceiver implements Runnable
 					connectionThread.start();
 
 					NLServer.getConnectionManager().getAllConnections().add(newConnection);
+					System.out.println("new connection added to connectionManager");
 
 				}
 				catch (IOException e)

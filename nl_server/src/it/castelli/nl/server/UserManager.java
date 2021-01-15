@@ -11,24 +11,10 @@ import java.util.LinkedList;
 /**
  * Handles all the users of the application
  */
-public class UsersManager
+public class UserManager
 {
 	public static final String USERS_FILE_PATH = "allUser.bin";
 	private static HashMap<Byte, AdvancedUser> allUsers;
-
-	static
-	{
-		try
-		{
-			allUsers = (HashMap<Byte, AdvancedUser>) Serializer.deserialize(USERS_FILE_PATH);
-		}
-		catch (IOException | ClassNotFoundException e)
-		{
-			allUsers = new HashMap<>();
-		}
-		if (allUsers == null)
-			allUsers = new HashMap<>();
-	}
 
 	/**
 	 * Getter for the HashMap containing all the users bound to their id code
@@ -87,5 +73,19 @@ public class UsersManager
 			return incomingMessages;
 		}
 	}
+	public static void init()
+	{
+		try
+		{
+			allUsers = (HashMap<Byte, AdvancedUser>) Serializer.deserialize(USERS_FILE_PATH);
+		}
+		catch (IOException | ClassNotFoundException e)
+		{
+			allUsers = new HashMap<>();
+		}
+		if (allUsers == null)
+			allUsers = new HashMap<>();
+	}
+
 
 }

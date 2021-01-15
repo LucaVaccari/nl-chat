@@ -8,6 +8,7 @@ import it.castelli.nl.messages.MessageBuilder;
 import it.castelli.nl.server.Connection;
 import it.castelli.nl.server.GroupManager;
 import it.castelli.nl.server.Sender;
+import it.castelli.nl.server.UserManager;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -19,7 +20,7 @@ import java.util.Arrays;
 public class UserChatMessage extends Message
 {
 	@Override
-	public void onReceive(byte[] data, Connection connection)
+	public synchronized void onReceive(byte[] data, Connection connection)
 	{
 		super.onReceive(data, connection);
 		// syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
@@ -29,9 +30,11 @@ public class UserChatMessage extends Message
 		byte[] contentOfMessage = Arrays.copyOfRange(data, 3, data.length);
 		String textMessage = new String(contentOfMessage);
 		ChatGroup thisGroup = GroupManager.getGroupFromCode(groupCode);
-		User thisUser = connection.getAdvancedUser().getUser();
+		//User thisUser = connection.getAdvancedUser().getUser();
+		//User thisUser = UserManager.getUserFromId(userId);
+		User thisUser = UserManager.getUserFromId(userId);
 
-		System.out.println("a user message has arrived from user: " + userId + " in the group with code: " + groupCode);
+		System.out.println("a user message has arrived from user: " + thisUser.getName() + " and id: " + userId + " in the group with code: " + groupCode);
 
 		if (thisGroup.getUsers().contains(thisUser))
 		{
@@ -50,7 +53,12 @@ public class UserChatMessage extends Message
 		}
 		else
 		{
-			System.out.println(thisUser.getName() + " is not part of " + thisGroup.getName());
+			System.out.println("The user with id: " + thisUser.getId() + " and name: " + thisUser.getName() + " is not part of group " + thisGroup.getCode());
+			System.out.println("The participants are: ");
+			for (User user : thisGroup.getUsers())
+			{
+				System.out.println("user with id: " + user.getId() + " and name: " + user.getName());
+			}
 		}
 	}
 }

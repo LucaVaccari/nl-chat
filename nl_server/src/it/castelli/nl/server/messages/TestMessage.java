@@ -9,7 +9,7 @@ public class TestMessage extends Message
 {
 
 	@Override
-	public void onReceive(byte[] data, Connection connection)
+	public synchronized void onReceive(byte[] data, Connection connection)
 	{
 		super.onReceive(data, connection);
 		byte[] contentOfMessage = Arrays.copyOfRange(data, 3, data.length - 1);

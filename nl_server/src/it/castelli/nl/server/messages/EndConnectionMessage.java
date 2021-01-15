@@ -8,7 +8,7 @@ import it.castelli.nl.server.Connection;
 public class EndConnectionMessage extends Message
 {
 	@Override
-	public void onReceive(byte[] data, Connection connection)
+	public synchronized void onReceive(byte[] data, Connection connection)
 	{
 		connection.interrupt();
 		System.out.println("Connection with " + connection.getAdvancedUser().getUser().getName() + " ended");

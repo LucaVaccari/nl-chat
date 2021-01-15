@@ -16,26 +16,6 @@ public class ClientGroupManager
 	public static final String GROUPS_FILE_PATH = "allGroups.bin";
 	private static HashMap<Byte, ChatGroup> allGroups;
 
-	static
-	{
-		try
-		{
-			allGroups = (HashMap<Byte, ChatGroup>) Serializer.deserialize(GROUPS_FILE_PATH);
-		}
-		catch (IOException | ClassNotFoundException e)
-		{
-			allGroups = new HashMap<>();
-		}
-
-		assert allGroups != null;
-		for (ChatGroup group : allGroups.values())
-		{
-			if (FXMLController.get() != null)
-				FXMLController.get().chatGroupListView.getItems().add(new ChatGroupComponent(group));
-			else
-				System.out.println("FXMLController.get() is null");
-		}
-	}
 
 	/**
 	 * Getter for the HashMap containing all groups mapped to their codes
@@ -58,5 +38,23 @@ public class ClientGroupManager
 		return allGroups.get(code);
 	}
 
-	public static void init() {}
+	public static void init() {
+		try
+		{
+			allGroups = (HashMap<Byte, ChatGroup>) Serializer.deserialize(GROUPS_FILE_PATH);
+		}
+		catch (IOException | ClassNotFoundException e)
+		{
+			allGroups = new HashMap<>();
+		}
+
+		assert allGroups != null;
+		for (ChatGroup group : allGroups.values())
+		{
+			if (FXMLController.get() != null)
+				FXMLController.get().chatGroupListView.getItems().add(new ChatGroupComponent(group));
+			else
+				System.out.println("FXMLController.get() is null");
+		}
+	}
 }

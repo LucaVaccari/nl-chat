@@ -19,7 +19,7 @@ import java.util.Arrays;
 public class CreateGroupMessage extends Message
 {
 	@Override
-	public void onReceive(byte[] data, Connection connection)
+	public synchronized void onReceive(byte[] data, Connection connection)
 	{
 		super.onReceive(data, connection);
 

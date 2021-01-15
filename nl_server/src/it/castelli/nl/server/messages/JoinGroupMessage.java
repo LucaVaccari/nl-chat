@@ -12,7 +12,7 @@ import java.io.IOException;
 public class JoinGroupMessage extends Message
 {
 	@Override
-	public void onReceive(byte[] data, Connection connection)
+	public synchronized void onReceive(byte[] data, Connection connection)
 	{
 		super.onReceive(data, connection);
 		// syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others

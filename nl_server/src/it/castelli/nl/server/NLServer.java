@@ -1,6 +1,5 @@
 package it.castelli.nl.server;
 
-import it.castelli.nl.messages.MessageBuilder;
 import it.castelli.nl.serialization.Serializer;
 
 import java.io.IOException;
@@ -14,12 +13,14 @@ public class NLServer
 	{
 		boolean running = true;
 
+		GroupManager.init();
+		UserManager.init();
+
 		Thread connectionManagerThread = new Thread(connectionManager, "connectionManager");
 		connectionManagerThread.start();
 
 		Thread serverThread = new Thread(connectionReceiver, "serverThread");
 		serverThread.start();
-
 
 		while (running)
 		{
@@ -27,7 +28,7 @@ public class NLServer
 		}
 
 		Serializer.serialize(GroupManager.getAllGroups(), GroupManager.GROUPS_FILE_PATH);
-		Serializer.serialize(UsersManager.getAllUsers(), UsersManager.USERS_FILE_PATH);
+		Serializer.serialize(UserManager.getAllUsers(), UserManager.USERS_FILE_PATH);
 		Serializer.serialize(ServerData.getInstance(), ServerData.SERVER_DATA_FILE_PATH);
 
 		connectionReceiver.interrupt();

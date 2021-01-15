@@ -53,6 +53,20 @@ public class User implements Serializable
 		this.name = name;
 	}
 
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof User)
+		{
+			System.out.println("checking Ids");
+			return ((User) obj).getId() == this.getId();
+		}
+		else
+		{
+			System.out.println("the object is not a user");
+			return false;
+		}
+	}
 }
 
 

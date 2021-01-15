@@ -13,7 +13,7 @@ public class Connection implements Runnable
 {
 	public static final int RECEIVE_WINDOW = 2048;
 	private final Socket connectionSocket;
-	private UsersManager.AdvancedUser user;
+	private UserManager.AdvancedUser user;
 	private boolean isRunning = true;
 
 	/**
@@ -52,7 +52,7 @@ public class Connection implements Runnable
 	 *
 	 * @return The client's user
 	 */
-	public UsersManager.AdvancedUser getAdvancedUser()
+	public UserManager.AdvancedUser getAdvancedUser()
 	{
 		return user;
 	}
@@ -62,7 +62,7 @@ public class Connection implements Runnable
 	 *
 	 * @param user The client's user
 	 */
-	public void setUser(UsersManager.AdvancedUser user)
+	public void setUser(UserManager.AdvancedUser user)
 	{
 		this.user = user;
 	}
