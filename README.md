@@ -2,6 +2,7 @@
 A TCP application to chat with other people over the network. Developed by Luca Vaccari and Nicola Vivante.
 
 #### Todo
+ - fix the override of the error messages string
  - Try to implement a command interface on the server
  - Add tooltips to buttons
  - (User colors)

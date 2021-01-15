@@ -80,7 +80,7 @@ public class JoinGroupMessage extends Message
 				{
 					String groupCodeString = String.valueOf(groupCode);
 					byte[] errorReply = MessageBuilder
-							.buildErrorMessage("You are already in the group" + groupCode);
+							.buildErrorMessage("You are already in the group " + groupCode);
 					Sender.sendToUser(errorReply, thisUser);
 				}
 				catch (IOException e)
