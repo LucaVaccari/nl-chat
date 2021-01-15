@@ -44,32 +44,51 @@ public class JoinGroupMessage extends Message
 		{
 			//the group exists
 
-			//the user is added to the group
-			groupToJoin.getUsers().add(thisUser);
+			//the user is added to the group if he's not a participant yet
 
-			//communication to inform others that a new User joined the group and transmission of the group to the user
-			try
+			if(groupToJoin.getUsers().contains(thisUser))
 			{
-				//send group
-				byte[] reply = MessageBuilder.buildClientNewGroupMessage(groupCode, groupToJoin.getName());
-				System.out.println("Created ClientNewGroupMessage from JoinGroupMessage in the onReceive method");
-				Sender.sendToUser(reply, thisUser);
+				groupToJoin.getUsers().add(thisUser);
 
-				//sends Users who are in the group to the new one and sends the new one to others
-				for (User user : groupToJoin.getUsers())
+				//communication to inform others that a new User joined the group and transmission of the group to the user
+				try
 				{
-					reply = MessageBuilder.buildClientNewUserMessage(groupCode, user.getId(), user.getName());
-					System.out.println("Created ClientNewUserMessage from JoinGroupMessage in the onReceive method");
-					if (user == thisUser)
-						Sender.sendToOthersInGroup(reply, thisUser, groupToJoin);
-					else
-						Sender.sendToUser(reply, thisUser);
+					//send group
+					byte[] reply = MessageBuilder.buildClientNewGroupMessage(groupCode, groupToJoin.getName());
+					System.out.println("Created ClientNewGroupMessage from JoinGroupMessage in the onReceive method");
+					Sender.sendToUser(reply, thisUser);
+
+					//sends Users who are in the group to the new one and sends the new one to others
+					for (User user : groupToJoin.getUsers())
+					{
+						reply = MessageBuilder.buildClientNewUserMessage(groupCode, user.getId(), user.getName());
+						System.out.println("Created ClientNewUserMessage from JoinGroupMessage in the onReceive method");
+						if (user == thisUser)
+							Sender.sendToOthersInGroup(reply, thisUser, groupToJoin);
+						else
+							Sender.sendToUser(reply, thisUser);
+					}
+				}
+				catch (IOException e)
+				{
+					System.out.println("IOException in " + this.toString() + " during reply creation in JoinGroupMessage");
+					e.printStackTrace();
 				}
 			}
-			catch (IOException e)
+			else
 			{
-				System.out.println("IOException in " + this.toString() + " during reply creation in JoinGroupMessage");
-				e.printStackTrace();
+				try
+				{
+					String groupCodeString = String.valueOf(groupCode);
+					byte[] errorReply = MessageBuilder
+							.buildErrorMessage("You are already in the group" + groupCode);
+					Sender.sendToUser(errorReply, thisUser);
+				}
+				catch (IOException e)
+				{
+					System.out.println("IOException in " + this.toString() + " during the error reply creation");
+					e.printStackTrace();
+				}
 			}
 		}
 	}
