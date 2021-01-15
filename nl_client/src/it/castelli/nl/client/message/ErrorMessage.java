@@ -1,6 +1,7 @@
 package it.castelli.nl.client.message;
 
 import it.castelli.nl.client.graphics.AlertUtil;
+import javafx.application.Platform;
 
 import java.util.Arrays;
 
@@ -14,6 +15,7 @@ public class ErrorMessage implements IMessage
 	{
 		byte[] contentOfMessage = Arrays.copyOfRange(data, 3, data.length);
 		String errorMessage = new String(contentOfMessage);
-		AlertUtil.showErrorAlert("Error", "An error has occurred on the server", errorMessage);
+		Platform.runLater(() -> AlertUtil.showErrorAlert("Error", "An error has occurred on the server",
+		                                                 errorMessage));
 	}
 }

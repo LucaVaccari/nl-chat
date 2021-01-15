@@ -175,27 +175,43 @@ public class FXMLController
 	 */
 	private void OnJoinGroupButtonCLick(ActionEvent actionEvent)
 	{
-		// ask for the code of the group
-		Optional<String> result = AlertUtil
-				.showTextInputDialogue("0", "Join group", "Insert the code of the group you want to join", "Code: ");
+		Optional<String> result;
+		int resultNumber = 0;
+		boolean askAgain = false;
 
-		// if the user pressed the "ok" button and not the "cancel"
-		if (result.isPresent())
+		// ask for the code of the group
+		do
 		{
-			try
+			result = AlertUtil
+					.showTextInputDialogue("0", "Join group", "Insert the code of the group you want to join",
+					                       "Code: ");
+
+			// if the users pressed the "cancel" button, return
+			if (result.isEmpty())
+				return;
+
+			askAgain = false;
+			if (result.get().matches("\\d{1,3}"))
 			{
-				//waits until the user has a valid userId
-				byte userId = ClientData.getInstance().getThisUser().getId();
-				//while((userId = ClientData.getInstance().getThisUser().getId()) == 0);
-				byte[] packet = MessageBuilder.buildJoinGroupMessage(Byte.parseByte(result.get(), 10),
-				                                                     userId);
-				Sender.addMessageToQueue(packet);
-				Sender.send();
+				if ((resultNumber = Integer.parseInt(result.get(), 10)) > 255)
+					askAgain = true;
 			}
-			catch (NullPointerException e)
-			{
-				e.printStackTrace();
-			}
+			else
+				askAgain = true;
+		} while(askAgain);
+
+		try
+		{
+			//waits until the user has a valid userId
+			byte userId = ClientData.getInstance().getThisUser().getId();
+			//while((userId = ClientData.getInstance().getThisUser().getId()) == 0);
+			byte[] packet = MessageBuilder.buildJoinGroupMessage((byte) resultNumber, userId);
+			Sender.addMessageToQueue(packet);
+			Sender.send();
+		}
+		catch (NullPointerException e)
+		{
+			e.printStackTrace();
 		}
 	}
 

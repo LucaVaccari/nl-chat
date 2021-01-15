@@ -3,11 +3,9 @@ package it.castelli.nl.server.messages;
 import it.castelli.nl.ChatGroup;
 import it.castelli.nl.User;
 import it.castelli.nl.messages.MessageBuilder;
-import it.castelli.nl.serialization.Serializer;
 import it.castelli.nl.server.Connection;
 import it.castelli.nl.server.GroupManager;
 import it.castelli.nl.server.Sender;
-import it.castelli.nl.server.ServerData;
 
 import java.io.IOException;
 
@@ -33,6 +31,7 @@ public class JoinGroupMessage extends Message
 				byte[] errorReply = MessageBuilder
 						.buildErrorMessage("The group with code: " + groupCodeString + " does not exist.");
 				Sender.sendToUser(errorReply, thisUser);
+				System.out.println("Sent an error message");
 			}
 			catch (IOException e)
 			{
