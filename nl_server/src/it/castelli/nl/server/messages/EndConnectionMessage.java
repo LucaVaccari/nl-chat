@@ -11,5 +11,6 @@ public class EndConnectionMessage extends Message
 	public void onReceive(byte[] data, Connection connection)
 	{
 		connection.interrupt();
+		System.out.println("Connection with " + connection.getAdvancedUser().getUser().getName() + " ended");
 	}
 }
