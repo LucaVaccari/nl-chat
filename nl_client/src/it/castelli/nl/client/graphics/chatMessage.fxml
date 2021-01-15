@@ -6,10 +6,10 @@
 <?import javafx.scene.text.Font?>
 <fx:root xmlns:fx="http://javafx.com/fxml/1" prefHeight="58.0" prefWidth="600.0" type="VBox"
          xmlns="http://javafx.com/javafx/11.0.1">
-    <Label fx:id="userName" prefHeight="34.0" prefWidth="288.0" text="User name">
+    <Label fx:id="userNameLabel" prefHeight="34.0" prefWidth="288.0" text="User name">
         <font>
             <Font name="System Bold" size="15.0"/>
         </font>
     </Label>
-    <Label fx:id="message" prefHeight="110.0" prefWidth="598.0" text="Message"/>
+    <Label fx:id="messageLabel" prefHeight="110.0" prefWidth="598.0" text="Message"/>
 </fx:root>

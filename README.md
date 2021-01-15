@@ -2,6 +2,7 @@
 A TCP application to chat with other people over the network. Developed by Luca Vaccari and Nicola Vivante.
 
 #### Todo
+-fix reception of errors messages from the server 
  - Test if messages are received correctly
  - If the server cannot be reached, ask for another server address
  - View messages on the client

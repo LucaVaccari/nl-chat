@@ -35,6 +35,7 @@ public class GroupManager
 	{
 		return allGroups.get(code);
 	}
+
 	public static void init() {
 		try
 		{

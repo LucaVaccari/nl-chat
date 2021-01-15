@@ -5,6 +5,7 @@ import it.castelli.nl.client.graphics.AlertUtil;
 import it.castelli.nl.client.message.ClientMessageManager;
 import it.castelli.nl.client.message.IMessage;
 import it.castelli.nl.messages.MessageBuilder;
+import it.castelli.nl.serialization.Serializer;
 import javafx.application.Platform;
 
 import java.io.IOException;
@@ -45,7 +46,11 @@ public class ClientReceiver implements Runnable
 					if (messageReceiver == null)
 						System.out.println("Cannot find message receiver with id " + receiveBuffer[0]);
 					else
+					{
 						messageReceiver.OnReceive(receiveBuffer);
+						Serializer.serialize(ClientGroupManager.getAllGroups(), ClientGroupManager.GROUPS_FILE_PATH);
+						Serializer.serialize(ClientData.getInstance(), ClientData.CLIENT_DATA_FILE_PATH);
+					}
 				}
 			}
 		}

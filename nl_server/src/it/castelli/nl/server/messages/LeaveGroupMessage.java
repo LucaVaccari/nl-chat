@@ -33,5 +33,13 @@ public class LeaveGroupMessage extends Message
 		reply = MessageBuilder.buildUserLeftMessage(thisUser.getId(), groupCode);
 		System.out.println("Created UserLeftMessage from LeaveGroupMessage in the onReceive method");
 		Sender.sendToOthersInGroup(reply, thisUser, groupToLeave);
+
+		if (groupToLeave.getUsers().isEmpty())
+		{
+			GroupManager.getAllGroups().remove(groupCode);
+			System.out.println("the Group has been removed because it was empty");
+		}
+
+
 	}
 }

@@ -31,9 +31,6 @@ public class ClientNewGroupMessage implements IMessage
 		User thisUser = ClientData.getInstance().getThisUser();
 		newGroup.getUsers().add(thisUser);
 
-		Serializer.serialize(ClientGroupManager.getAllGroups(), ClientGroupManager.GROUPS_FILE_PATH);
-		Serializer.serialize(ClientData.getInstance(), ClientData.CLIENT_DATA_FILE_PATH);
-
 		System.out.println("New group " + groupName + " has been created with id " + groupCode);
 
 		// prevent the UI update to be executed on the secondary thread
