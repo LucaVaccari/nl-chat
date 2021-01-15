@@ -67,6 +67,13 @@ public class User implements Serializable
 			return false;
 		}
 	}
+
+	@Override
+	public int hashCode() {
+		int result = 3;
+		result = 31 * result + id;
+		return result;
+	}
 }
 
 

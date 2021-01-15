@@ -27,8 +27,6 @@ public class LeaveGroupMessage extends Message
 		System.out.println("Created RemovedGroupMessage from LeaveGroupMessage in the onReceive method");
 		Sender.sendToUser(reply, thisUser);
 
-		//todo send UserLeftMessage to other clients
-
 		reply = MessageBuilder.buildUserLeftMessage(thisUser.getId(), groupCode);
 		System.out.println("Created UserLeftMessage from LeaveGroupMessage in the onReceive method");
 		Sender.sendToOthersInGroup(reply, thisUser, groupToLeave);
