@@ -86,11 +86,6 @@ public class UsersManager
 		{
 			return incomingMessages;
 		}
-
-		public void setIncomingMessages(LinkedList<byte[]> incomingMessages)
-		{
-			this.incomingMessages = incomingMessages;
-		}
 	}
 
 }
