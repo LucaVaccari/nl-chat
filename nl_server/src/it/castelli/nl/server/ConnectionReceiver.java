@@ -27,7 +27,8 @@ public class ConnectionReceiver implements Runnable
 				try
 				{
 					Socket connectionSocket = welcomeSocket.accept();
-					System.out.println("New connection established with " + connectionSocket.getInetAddress().getHostAddress());
+					System.out.println(
+							"New connection established with " + connectionSocket.getInetAddress().getHostAddress());
 					//generate thread for the receiver connection
 					Thread connectionThread = new Thread(new Connection(connectionSocket));
 					connectionThread.start();

@@ -79,7 +79,7 @@ public class FXMLController
 			{
 				ClientData.getInstance().setThisUser(new User(userName, (byte) 0));
 				byte[] data = MessageBuilder.buildServerNewUserMessage(userName, InetAddress.getLocalHost());
-				Sender.send(data);
+				Sender.addMessageToQueue(data);
 			}
 			catch (IOException e)
 			{
@@ -151,7 +151,8 @@ public class FXMLController
 			System.out.println("User with id " + thisUser.getId() + " is trying to create the group " + result.get());
 			byte[] packet = MessageBuilder
 					.buildCreateGroupMessage(thisUser.getId(), result.get());
-			Sender.send(packet);
+			Sender.addMessageToQueue(packet);
+			Sender.send();
 		}
 		catch (IOException | NullPointerException e)
 		{
@@ -170,7 +171,8 @@ public class FXMLController
 			{
 				byte[] packet = MessageBuilder.buildJoinGroupMessage(Byte.parseByte(result.get(), 10),
 				                                                     ClientData.getInstance().getThisUser().getId());
-				Sender.send(packet);
+				Sender.addMessageToQueue(packet);
+				Sender.send();
 			}
 			catch (NullPointerException e)
 			{
@@ -190,7 +192,8 @@ public class FXMLController
 			{
 				byte[] packet = MessageBuilder.buildLeaveGroupMessage(selectedChatGroup.getCode(),
 				                                                      ClientData.getInstance().getThisUser().getId());
-				Sender.send(packet);
+				Sender.addMessageToQueue(packet);
+				Sender.send();
 			}
 		}
 	}
@@ -207,7 +210,8 @@ public class FXMLController
 			{
 				byte[] packet = MessageBuilder.buildRemoveGroupMessage(selectedChatGroup.getCode(),
 				                                                       ClientData.getInstance().getThisUser().getId());
-				Sender.send(packet);
+				Sender.addMessageToQueue(packet);
+				Sender.send();
 			}
 		}
 	}
@@ -222,7 +226,8 @@ public class FXMLController
 			{
 				byte[] packet = MessageBuilder.buildServerUserChatMessage(
 						new ChatGroupMessage(ClientData.getInstance().getThisUser(), selectedChatGroup, text));
-				Sender.send(packet);
+				Sender.addMessageToQueue(packet);
+				Sender.send();
 			}
 			catch (IOException e)
 			{

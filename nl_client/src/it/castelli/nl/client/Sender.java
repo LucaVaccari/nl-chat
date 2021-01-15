@@ -4,14 +4,19 @@ import it.castelli.nl.client.graphics.AlertUtil;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.LinkedList;
 
 public class Sender
 {
 	private static OutputStream outStream;
+	private static final LinkedList<byte[]> messageQueue = new LinkedList<>();
 
 	private Sender() {}
 
-	public static void send(byte[] data)
+	/**
+	 * Empty the queue of messages, sending each of theme
+	 */
+	public static void send()
 	{
 		try
 		{
@@ -21,7 +26,10 @@ public class Sender
 				return;
 			}
 
-			outStream.write(data);
+			byte[] messageToSend;
+			while ((messageToSend = messageQueue.poll()) != null)
+				outStream.write(messageToSend);
+
 		}
 		catch (IOException e)
 		{
@@ -38,5 +46,14 @@ public class Sender
 	public static void setOutStream(OutputStream outStream)
 	{
 		Sender.outStream = outStream;
+	}
+
+	/**
+	 * Add a message to the queue of messages. The queued messages will be sent with send()
+	 * @param data The message to be sent
+	 */
+	public static void addMessageToQueue(byte[] data)
+	{
+		messageQueue.add(data);
 	}
 }

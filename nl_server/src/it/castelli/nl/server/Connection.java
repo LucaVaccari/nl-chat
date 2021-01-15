@@ -18,6 +18,7 @@ public class Connection implements Runnable
 
 	/**
 	 * Constructor for the connection object
+	 *
 	 * @param socket The socket on which the client is connected
 	 */
 	public Connection(Socket socket)
@@ -33,7 +34,7 @@ public class Connection implements Runnable
 			byte[] data = new byte[RECEIVE_WINDOW];
 			while (true)
 			{
-				if(in.read(data) > 0)
+				if (in.read(data) > 0)
 					MessageManager.getMessageReceiver(data[0]).onReceive(data, this);
 			}
 		}
@@ -46,6 +47,7 @@ public class Connection implements Runnable
 
 	/**
 	 * Getter for the client's user
+	 *
 	 * @return The client's user
 	 */
 	public UsersManager.AdvancedUser getAdvancedUser()
@@ -55,6 +57,7 @@ public class Connection implements Runnable
 
 	/**
 	 * Setter for the client's user
+	 *
 	 * @param user The client's user
 	 */
 	public void setUser(User user)
@@ -74,7 +77,8 @@ public class Connection implements Runnable
 		}
 	}
 
-	public Socket getSocket() {
+	public Socket getSocket()
+	{
 		return connectionSocket;
 	}
 }

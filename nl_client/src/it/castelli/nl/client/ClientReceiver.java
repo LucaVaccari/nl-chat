@@ -35,8 +35,9 @@ public class ClientReceiver implements Runnable
 			Sender.setOutStream(outStream);
 			while (isRunning)
 			{
-				if (inStream.read(receiveBuffer) > 0)
+				if (inStream.available() > 0)
 				{
+					inStream.read(receiveBuffer);
 					System.out.println("A packet has been received from " + socket.getInetAddress().getHostAddress());
 					IMessage messageReceiver = ClientMessageManager.getMessageReceiver(receiveBuffer[0]);
 					if (messageReceiver == null)
@@ -63,5 +64,6 @@ public class ClientReceiver implements Runnable
 	public void interrupt()
 	{
 		isRunning = false;
+		System.out.println("Should be stopping");
 	}
 }

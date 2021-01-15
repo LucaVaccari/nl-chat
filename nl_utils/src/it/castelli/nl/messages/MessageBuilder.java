@@ -327,10 +327,9 @@ public class MessageBuilder
 	}
 
 	/**
-	 *
-	 * @param userId Id of the user who left
+	 * @param userId    Id of the user who left
 	 * @param groupCode Group the user left
-	 * @return	The array of bytes to be sent
+	 * @return The array of bytes to be sent
 	 */
 	public static byte[] buildUserLeftMessage(byte userId, byte groupCode)
 	{

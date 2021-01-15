@@ -13,8 +13,8 @@ import java.util.LinkedList;
  */
 public class UsersManager
 {
-	private static HashMap<Byte, AdvancedUser> allUsers;
 	public static final String USERS_FILE_PATH = "allUser.bin";
+	private static HashMap<Byte, AdvancedUser> allUsers;
 
 	static
 	{
@@ -28,20 +28,22 @@ public class UsersManager
 		}
 	}
 
-    /**
-     * Getter for the HashMap containing all the users bound to their id code
-     * @return The HashMap of users
-     */
+	/**
+	 * Getter for the HashMap containing all the users bound to their id code
+	 *
+	 * @return The HashMap of users
+	 */
 	public static HashMap<Byte, AdvancedUser> getAllUsers()
 	{
 		return allUsers;
 	}
 
-    /**
-     * Shortcut for getAllUsers().get(id)
-     * @param id The id of the user to get
-     * @return The user with the corresponding id
-     */
+	/**
+	 * Shortcut for getAllUsers().get(id)
+	 *
+	 * @param id The id of the user to get
+	 * @return The user with the corresponding id
+	 */
 	public static User getUserFromId(byte id)
 	{
 		return allUsers.get(id).getUser();
@@ -61,26 +63,30 @@ public class UsersManager
 	public static class AdvancedUser implements Serializable
 	{
 		private User user;
-		private LinkedList<byte[]> incomingMessages	= new LinkedList<>();
+		private LinkedList<byte[]> incomingMessages = new LinkedList<>();
 
 		public AdvancedUser(User user)
 		{
 			this.user = user;
 		}
 
-		public User getUser() {
+		public User getUser()
+		{
 			return user;
 		}
 
-		public void setUser(User user) {
+		public void setUser(User user)
+		{
 			this.user = user;
 		}
 
-		public LinkedList<byte[]> getIncomingMessages() {
+		public LinkedList<byte[]> getIncomingMessages()
+		{
 			return incomingMessages;
 		}
 
-		public void setIncomingMessages(LinkedList<byte[]> incomingMessages) {
+		public void setIncomingMessages(LinkedList<byte[]> incomingMessages)
+		{
 			this.incomingMessages = incomingMessages;
 		}
 	}

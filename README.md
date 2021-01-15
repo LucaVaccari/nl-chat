@@ -1,4 +1,13 @@
 # nl-chat
+A TCP application to chat with other people over the network. Developed by Luca Vaccari and Nicola Vivante.
+
+#### Todo
+ - Test if messages are received correctly
+ - If the server cannot be reached, ask for another server address
+ - View messages on the client
+ - Try to implement a command interface on the server
+ - (User colors)
+ - (Allow changing username)
 
 ### Feature list
  - Aliases for user IPs stored in a file on the server (decided by users)
