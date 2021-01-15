@@ -45,7 +45,7 @@ public class JoinGroupMessage extends Message
 
 			//the user is added to the group if he's not a participant yet
 
-			if(groupToJoin.getUsers().contains(thisUser))
+			if(!groupToJoin.getUsers().contains(thisUser))
 			{
 				groupToJoin.getUsers().add(thisUser);
 
@@ -78,7 +78,6 @@ public class JoinGroupMessage extends Message
 			{
 				try
 				{
-					String groupCodeString = String.valueOf(groupCode);
 					byte[] errorReply = MessageBuilder
 							.buildErrorMessage("You are already in the group " + groupCode);
 					Sender.sendToUser(errorReply, thisUser);

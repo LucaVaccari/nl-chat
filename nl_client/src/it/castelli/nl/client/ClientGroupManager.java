@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -77,21 +78,21 @@ public class ClientGroupManager
 			if (chatGroupComponent == null)
 				continue;
 
-			for (int i = 0; i < group.getChatGroupContent().getUserMessages().size(); i++)
-			{
+			ArrayList<ChatGroupMessage> userMessages = group.getChatGroupContent().getUserMessages();
+			for (ChatGroupMessage userMessage : userMessages) {
 				ObservableList<ChatMessageComponent> messageListViewItems =
 						chatGroupComponent.getChatComponent().getMessageListView().getItems();
 				ChatMessageComponent chatMessageComponent =
-						new ChatMessageComponent(group.getChatGroupContent().getUserMessages().get(i));
+						new ChatMessageComponent(userMessage);
 				messageListViewItems.add(chatMessageComponent);
 			}
 
 			Label lastMessageLabel = chatGroupComponent.getLastMessageLabel();
-			ChatGroupMessage lastMessage = group.getChatGroupContent().getUserMessages()
-					.get(group.getChatGroupContent().getUserMessages().size() - 1);
+			ChatGroupMessage lastMessage = null;
 
-			if (lastMessageLabel != null)
+			if (lastMessageLabel != null && userMessages.size() > 0)
 			{
+				lastMessage = userMessages.get(userMessages.size() - 1);
 				lastMessageLabel.setText(lastMessage.getUserSender().getName() + ": " + lastMessage.getMessageContent());
 			}
 		}
