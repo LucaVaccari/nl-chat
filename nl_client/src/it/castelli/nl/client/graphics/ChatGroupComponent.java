@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 
 /**
- * Controller for any ChatGroup graphic object
+ * UIComponent (present in the left panel) holding information about a chat group. When clicked shows a ChatComponent
  */
 public class ChatGroupComponent extends VBox
 {

@@ -6,6 +6,9 @@ import javafx.scene.control.TextInputDialog;
 
 import java.util.Optional;
 
+/**
+ * Provides methods for showing different types of dialogs and alert windows
+ */
 public class AlertUtil
 {
 	private static void showGenericAlert(Alert.AlertType alertType, String title, String header, String content)

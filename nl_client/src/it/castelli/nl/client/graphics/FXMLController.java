@@ -72,6 +72,7 @@ public class FXMLController
 
 				userName = name.orElse("");
 
+				// if the user pressed the "cancel" button, exit the application
 				if (name.isEmpty()) System.exit(0);
 			} while (userName.length() <= 0 || userName.length() > 20);
 
@@ -87,6 +88,7 @@ public class FXMLController
 			}
 		}
 
+		// assign functions tu buttons of the interface
 		createGroupButton.setOnAction(this::OnCreateNewGroupButtonClick);
 		joinGroupButton.setOnAction(this::OnJoinGroupButtonCLick);
 
@@ -125,31 +127,36 @@ public class FXMLController
 			newValue.showChat();
 		});
 
+		// set tooltips (text that appears when holding the cursor on a button)
 		createGroupButton.setTooltip(new Tooltip(
 				"Create a new chat where you can write" + " messages to other people.\n" +
 				"You can invite the others by sharing the" + " group identification code."));
 	}
 
+	/**
+	 * Callback of a Create New Group button click
+ 	 */
 	private void OnCreateNewGroupButtonClick(ActionEvent actionEvent)
 	{
+		// ask for the name of the group
 		TextInputDialog dialog = new TextInputDialog("MyGroup");
 		dialog.setTitle("New group");
 		dialog.setHeaderText("Choose a name");
 		dialog.setContentText("Enter a name for the group\n (with less than 20 characters)");
 
+		// if the name is invalid, ask again
 		Optional<String> result;
 		do
 		{
 			result = dialog.showAndWait();
 
+			// if the user pressed the "cancel" button, exit this method
 			if (result.isEmpty()) return;
-		} while (result.get().length() > 20);
+		} while (result.get().length() > 20 || result.get().length() <= 0);
 
 		try
 		{
 			User thisUser = ClientData.getInstance().getThisUser();
-			//waits until the user has a valid userId
-			//while(thisUser.getId() == 0);
 			System.out.println("User with id " + thisUser.getId() + " is trying to create the group " + result.get());
 			byte[] packet = MessageBuilder
 					.buildCreateGroupMessage(thisUser.getId(), result.get());
@@ -162,11 +169,16 @@ public class FXMLController
 		}
 	}
 
+	/**
+	 * Callback of a Join Group button click
+	 */
 	private void OnJoinGroupButtonCLick(ActionEvent actionEvent)
 	{
+		// ask for the code of the group
 		Optional<String> result = AlertUtil
 				.showTextInputDialogue("0", "Join group", "Insert the code of the group you want to join", "Code: ");
 
+		// if the user pressed the "ok" button and not the "cancel"
 		if (result.isPresent())
 		{
 			try
@@ -186,13 +198,19 @@ public class FXMLController
 		}
 	}
 
+	/**
+	 * Callback of a Leave Group menu item click
+	 */
 	private void OnLeaveGroupButtonClick(ActionEvent actionEvent)
 	{
+		// ask for a confirmation
 		Optional<ButtonType> result = AlertUtil.showConfirmationAlert("Leave group", "Are you sure?",
 		                                                              "You will lose all the messages of this chat" +
 		                                                              ".\nDo you really want to leave?");
+		// if the window wasn't closed
 		if (result.isPresent())
 		{
+			// if the user pressed "ok" and not "cancel"
 			if (result.get() == ButtonType.OK)
 			{
 				byte[] packet = MessageBuilder.buildLeaveGroupMessage(selectedChatGroup.getCode(),
@@ -203,6 +221,9 @@ public class FXMLController
 		}
 	}
 
+	/**
+	 * Callback of a Remove Group menu item click
+	 */
 	private void OnRemoveGroupButtonClick(ActionEvent actionEvent)
 	{
 		Optional<ButtonType> result = AlertUtil.showConfirmationAlert("Remove group", "Are you sure?",
@@ -221,6 +242,9 @@ public class FXMLController
 		}
 	}
 
+	/**
+	 * Callback of a Send button click
+	 */
 	private void OnMessageSend(ActionEvent actionEvent)
 	{
 		String text = messageInputField.getText();

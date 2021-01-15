@@ -9,6 +9,9 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
+/**
+ * UIComponent for holding the chat, with all the messages
+ */
 public class ChatComponent extends VBox
 {
 	public static final String CHAT_FXML_PATH = "src/it/castelli/nl/client/graphics/chat.fxml";

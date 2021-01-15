@@ -8,6 +8,9 @@ import javafx.scene.layout.VBox;
 import java.awt.*;
 import java.io.IOException;
 
+/**
+ * UIComponent containing a message present in the list of messages of a ChatComponent
+ */
 public class ChatMessageElement extends VBox
 {
 	public Label userName;
