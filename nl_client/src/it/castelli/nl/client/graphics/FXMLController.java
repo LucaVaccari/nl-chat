@@ -1,7 +1,6 @@
 package it.castelli.nl.client.graphics;
 
 import it.castelli.nl.ChatGroup;
-import it.castelli.nl.ChatGroupMessage;
 import it.castelli.nl.User;
 import it.castelli.nl.client.ClientData;
 import it.castelli.nl.client.NLClient;
@@ -40,8 +39,6 @@ public class FXMLController
 	public MenuItem copyMessageMenuItem; //TODO
 	public MenuItem helpMenuItem;
 	public ListView<ChatGroupComponent> chatGroupListView; //TODO
-	public TextField messageInputField;
-	public Button sendMessageButton;
 	public Pane chatElementParent;
 	public Stage settingsStage;
 
@@ -91,9 +88,6 @@ public class FXMLController
 		// assign functions tu buttons of the interface
 		createGroupButton.setOnAction(this::OnCreateNewGroupButtonClick);
 		joinGroupButton.setOnAction(this::OnJoinGroupButtonCLick);
-
-		messageInputField.setOnAction(this::OnMessageSend);
-		sendMessageButton.setOnAction(this::OnMessageSend);
 
 		settingsMenuItem.setOnAction(event -> {
 			settingsStage = new Stage();
@@ -240,30 +234,5 @@ public class FXMLController
 				Sender.send();
 			}
 		}
-	}
-
-	/**
-	 * Callback of a Send button click
-	 */
-	private void OnMessageSend(ActionEvent actionEvent)
-	{
-		String text = messageInputField.getText();
-
-		if (!text.equals(""))
-		{
-			try
-			{
-				byte[] packet = MessageBuilder.buildServerUserChatMessage(
-						new ChatGroupMessage(ClientData.getInstance().getThisUser(), selectedChatGroup, text));
-				Sender.addMessageToQueue(packet);
-				Sender.send();
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-		}
-
-		messageInputField.setText("");
 	}
 }
