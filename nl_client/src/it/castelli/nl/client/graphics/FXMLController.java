@@ -58,11 +58,13 @@ public class FXMLController
 		mainFXMLController = this;
 
 		// register screen
+		boolean askAgain;
 		if (ClientData.getInstance().getThisUser() == null)
 		{
 			String userName;
 			do
 			{
+				askAgain = false;
 				Optional<String> name = AlertUtil
 						.showTextInputDialogue("Pinco Pallino", "Welcome", "Welcome to nl-chat! Choose a user name",
 						                       "Name:");
@@ -71,7 +73,22 @@ public class FXMLController
 
 				// if the user pressed the "cancel" button, exit the application
 				if (name.isEmpty()) System.exit(0);
-			} while (userName.length() <= 0 || userName.length() > 20);
+
+				userName = userName.strip();
+
+				if (userName.length() <= 0 || userName.length() > 20)
+				{
+					askAgain = true;
+					AlertUtil.showErrorAlert("Invalid name", "Check the size of your username",
+					                         "The size should be between 0 and 20");
+				}
+				if (!userName.matches("\\w+\\d*"))
+				{
+					askAgain = true;
+					AlertUtil.showErrorAlert("Invalid name", "The name uses an invalid format",
+					                         "The name must start with a letter and could be followed by digits");
+				}
+			} while (askAgain);
 
 			try
 			{
@@ -147,13 +164,19 @@ public class FXMLController
 
 		// if the name is invalid, ask again
 		Optional<String> result;
+		String groupName;
 		do
 		{
 			result = dialog.showAndWait();
 
+			groupName = result.orElse("");
+
 			// if the user pressed the "cancel" button, exit this method
 			if (result.isEmpty()) return;
-		} while (result.get().length() > 20 || result.get().length() <= 0);
+
+			groupName.strip();
+
+		} while (groupName.length() > 20 || groupName.length() <= 0);
 
 		try
 		{
@@ -177,7 +200,7 @@ public class FXMLController
 	{
 		Optional<String> result;
 		int resultNumber = 0;
-		boolean askAgain = false;
+		boolean askAgain;
 
 		// ask for the code of the group
 		do
@@ -198,7 +221,7 @@ public class FXMLController
 			}
 			else
 				askAgain = true;
-		} while(askAgain);
+		} while (askAgain);
 
 		try
 		{
@@ -247,14 +270,30 @@ public class FXMLController
 		                                                              "You will destroy this group. All the members " +
 		                                                              "will be ejected and all the messages lost.\n" +
 		                                                              "Are you REALLY sure?");
+
 		if (result.isPresent())
 		{
 			if (result.get() == ButtonType.OK)
 			{
-				byte[] packet = MessageBuilder.buildRemoveGroupMessage(selectedChatGroup.getCode(),
-				                                                       ClientData.getInstance().getThisUser().getId());
-				Sender.addMessageToQueue(packet);
-				Sender.send();
+				Optional<String> confirmation =
+						AlertUtil.showTextInputDialogue("", "Remove group", "Are you really sure?",
+						                                "Write 'delete' to delete your group");
+				if (confirmation.isEmpty())
+					return;
+
+				if (confirmation.get().equals("delete"))
+				{
+					byte[] packet = MessageBuilder.buildRemoveGroupMessage(selectedChatGroup.getCode(),
+					                                                       ClientData.getInstance().getThisUser()
+							                                                       .getId());
+					Sender.addMessageToQueue(packet);
+					Sender.send();
+				}
+				else
+				{
+					AlertUtil.showInformationAlert("Canceled", "The operation was canceled",
+					                               "You didn't write 'delete' correctly");
+				}
 			}
 		}
 	}

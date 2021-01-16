@@ -2,10 +2,6 @@
 A TCP application to chat with other people over the network. Developed by Luca Vaccari and Nicola Vivante.
 
 #### Todo
- - Deserialization group error
- - Check input text fields
- - Double ask for removing a group
- - Rename buttons (Create group, join group, remove group)
  - fix the override of the error messages string
  - Try to implement a command interface on the server
  - Add tooltips to buttons
@@ -15,7 +11,7 @@ A TCP application to chat with other people over the network. Developed by Luca 
 ### Feature list
  - Aliases for user IPs stored in a file on the server (decided by users)
  - Chat groups with IDs (visible to the user)
- - Server handles everything. Clients send request to the server.
+ - Server handles everything. Clients send requests to the server.
  - Both the server and the clients store files with data
  - Automatically removes a server when no one is in (notifying the last user)
  - Two threads: the main thread, and a thread that waits for messages

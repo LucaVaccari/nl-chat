@@ -65,6 +65,7 @@ public class ChatComponent extends VBox
 	private void OnMessageSend(ActionEvent actionEvent)
 	{
 		String text = messageInputField.getText();
+		text.strip();
 
 		if (!text.equals(""))
 		{

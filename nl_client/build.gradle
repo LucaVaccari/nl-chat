@@ -1,20 +1,28 @@
+buildscript {
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:6.1.0'
+    }
+}
 plugins {
     id 'java'
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.9'
 }
-
-mainClassName = "it.castelli.nl.client.NLClient"
-
 repositories {
     mavenCentral()
+    jcenter()
 }
+
+mainClassName = "it.castelli.nl.client.NLClient"
+apply plugin: "com.github.johnrengelman.shadow"
+
 javafx {
     version '15.0.1'
     modules = ['javafx.controls', 'javafx.fxml']
 }
 dependencies {
     compile project(':nl_utils')
+    shadow project(':nl_utils')
 }
 
 sourceSets {
@@ -24,9 +32,9 @@ sourceSets {
         }
     }
 }
-application {
-    mainClass = 'it.castelli.nl.client.NLClient'
-}
+//application {
+//    mainClass = 'it.castelli.nl.client.NLClient'
+//}
 jar {
     manifest {
         attributes(
@@ -36,4 +44,7 @@ jar {
 
     // https://stackoverflow.com/questions/28421409/gradle-command-from-configurations-compile-collect
     from(configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }) {}
+}
+shadowJar {
+    configurations = [project.configurations.compile, project.configurations.runtime]
 }
