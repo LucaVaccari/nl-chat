@@ -27,21 +27,21 @@ sourceSets {
         }
     }
 }
-//application {
-//    mainClass = 'it.castelli.nl.client.NLClient'
-//}
+application {
+    mainClass = 'it.castelli.nl.client.NLClient'
+}
 jar {
 // https://stackoverflow.com/questions/28421409/gradle-command-from-configurations-compile-collect
     from(configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }) {}
 }
 shadowJar {
+    mergeServiceFiles()
+    mergeGroovyExtensionModules()
     manifest {
         attributes(
                 'Main-Class': 'it.castelli.nl.client.NLClient'
         )
     }
-
-//    include('javafx-base-15.0.1.jar')
 
     configurations = [project.configurations.compile, project.configurations.runtime]
 }

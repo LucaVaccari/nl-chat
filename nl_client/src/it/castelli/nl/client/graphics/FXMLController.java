@@ -82,7 +82,7 @@ public class FXMLController
 					AlertUtil.showErrorAlert("Invalid name", "Check the size of your username",
 					                         "The size should be between 0 and 20");
 				}
-				if (!userName.matches("\\w+\\d*"))
+				if (!userName.matches("[\\w\\s]+[\\d\\s]*"))
 				{
 					askAgain = true;
 					AlertUtil.showErrorAlert("Invalid name", "The name uses an invalid format",
