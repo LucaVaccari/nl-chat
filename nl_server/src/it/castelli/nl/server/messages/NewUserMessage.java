@@ -2,10 +2,11 @@ package it.castelli.nl.server.messages;
 
 import it.castelli.nl.User;
 import it.castelli.nl.messages.MessageBuilder;
-import it.castelli.nl.serialization.Serializer;
-import it.castelli.nl.server.*;
+import it.castelli.nl.server.Connection;
+import it.castelli.nl.server.Sender;
+import it.castelli.nl.server.ServerData;
+import it.castelli.nl.server.UserManager;
 
-import java.io.IOException;
 import java.util.Arrays;
 
 /**
@@ -20,7 +21,7 @@ public class NewUserMessage extends Message
 		// others for the ip
 
 		byte[] temp = Arrays.copyOfRange(data, 3, 23 - 1);
-		String name = new String(temp); //reads the new User name
+		String name = new String(temp).strip(); //reads the new User name
 
 		byte newId = ServerData.getInstance().getLastUserId();
 		ServerData.getInstance().incrementLastUserId();

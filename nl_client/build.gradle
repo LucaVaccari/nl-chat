@@ -33,15 +33,17 @@ application {
 jar {
 // https://stackoverflow.com/questions/28421409/gradle-command-from-configurations-compile-collect
     from(configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }) {}
-}
-shadowJar {
-    mergeServiceFiles()
-    mergeGroovyExtensionModules()
     manifest {
         attributes(
                 'Main-Class': 'it.castelli.nl.client.NLClient'
         )
     }
+}
+shadowJar {
+    mergeServiceFiles()
+    mergeGroovyExtensionModules()
 
     configurations = [project.configurations.compile, project.configurations.runtime]
+
+    minimize()
 }

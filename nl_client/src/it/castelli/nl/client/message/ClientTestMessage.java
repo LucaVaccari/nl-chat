@@ -12,8 +12,7 @@ public class ClientTestMessage implements IMessage
 	public void OnReceive(byte[] data)
 	{
 		System.out.println("A message has been received from the server");
-		Platform.runLater(() -> AlertUtil.showInformationAlert("Server", "Test message from the server", "A message " +
-		                                                                                                 "has been " +
-		                                                                                                 "sent."));
+		Platform.runLater(() -> AlertUtil
+				.showInformationAlert("Server", "Test message from the server", "A message has been sent."));
 	}
 }

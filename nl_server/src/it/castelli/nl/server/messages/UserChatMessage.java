@@ -28,7 +28,7 @@ public class UserChatMessage extends Message
 		byte groupCode = data[1];
 		byte userId = data[2];
 		byte[] contentOfMessage = Arrays.copyOfRange(data, 3, data.length);
-		String textMessage = new String(contentOfMessage);
+		String textMessage = new String(contentOfMessage).strip();
 		ChatGroup thisGroup = GroupManager.getGroupFromCode(groupCode);
 		User thisUser = UserManager.getUserFromId(userId);
 

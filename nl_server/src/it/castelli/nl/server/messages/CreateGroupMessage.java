@@ -4,7 +4,6 @@ package it.castelli.nl.server.messages;
 import it.castelli.nl.ChatGroup;
 import it.castelli.nl.User;
 import it.castelli.nl.messages.MessageBuilder;
-import it.castelli.nl.serialization.Serializer;
 import it.castelli.nl.server.Connection;
 import it.castelli.nl.server.GroupManager;
 import it.castelli.nl.server.Sender;
@@ -12,7 +11,6 @@ import it.castelli.nl.server.ServerData;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.HashMap;
 
 /**
  * Request sent by the client to create a new group
@@ -28,7 +26,7 @@ public class CreateGroupMessage extends Message
 
 		byte userId = data[2];
 		byte[] contentOfMessage = Arrays.copyOfRange(data, 3, data.length);
-		String newGroupName = new String(contentOfMessage);
+		String newGroupName = new String(contentOfMessage).strip();
 
 		byte newGroupCode = ServerData.getInstance().getLastGroupCode();
 		ChatGroup newGroup = new ChatGroup(newGroupName, newGroupCode);

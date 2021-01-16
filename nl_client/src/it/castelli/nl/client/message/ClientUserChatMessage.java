@@ -28,7 +28,7 @@ public class ClientUserChatMessage implements IMessage
 		byte groupCode = data[1];
 		byte userId = data[2];
 		byte[] contentOfMessage = Arrays.copyOfRange(data, 3, data.length);
-		String textMessage = new String(contentOfMessage);
+		String textMessage = new String(contentOfMessage).strip();
 		ChatGroup thisGroup = ClientGroupManager.getGroupFromCode(groupCode);
 		User thisUser = null;
 		for (User user : thisGroup.getUsers())

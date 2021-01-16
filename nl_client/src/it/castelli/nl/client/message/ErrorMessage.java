@@ -15,7 +15,7 @@ public class ErrorMessage implements IMessage
 	{
 		byte[] contentOfMessage;
 		contentOfMessage = Arrays.copyOfRange(data, 3, data.length);
-		String errorMessage = new String(contentOfMessage);
+		String errorMessage = new String(contentOfMessage).strip();
 		Platform.runLater(() -> AlertUtil.showErrorAlert("Error", "An error has occurred on the server",
 		                                                 errorMessage));
 	}

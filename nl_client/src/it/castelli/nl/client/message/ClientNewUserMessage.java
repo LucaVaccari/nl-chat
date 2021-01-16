@@ -2,9 +2,7 @@ package it.castelli.nl.client.message;
 
 import it.castelli.nl.ChatGroup;
 import it.castelli.nl.User;
-import it.castelli.nl.client.ClientData;
 import it.castelli.nl.client.ClientGroupManager;
-import it.castelli.nl.serialization.Serializer;
 
 import java.util.Arrays;
 
@@ -22,7 +20,7 @@ public class ClientNewUserMessage implements IMessage
 		byte groupCode = data[1];
 		byte userId = data[2];
 		byte[] contentOfMessage = Arrays.copyOfRange(data, 3, data.length);
-		String userName = new String(contentOfMessage);
+		String userName = new String(contentOfMessage).strip();
 		ChatGroup thisGroup = ClientGroupManager.getGroupFromCode(groupCode);
 		User newUser = new User(userName, userId);
 

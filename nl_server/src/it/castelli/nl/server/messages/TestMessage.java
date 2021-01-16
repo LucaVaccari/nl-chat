@@ -13,7 +13,7 @@ public class TestMessage extends Message
 	{
 		super.onReceive(data, connection);
 		byte[] contentOfMessage = Arrays.copyOfRange(data, 3, data.length - 1);
-		String text = new String(contentOfMessage);
+		String text = new String(contentOfMessage).strip();
 		System.out.println(text);
 	}
 }
