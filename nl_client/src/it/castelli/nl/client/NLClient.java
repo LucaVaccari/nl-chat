@@ -36,9 +36,7 @@ public class NLClient extends Application
 		primaryStage.setResizable(false);
 		primaryStage.setTitle("nl-chat");
 
-		receiver = new ClientReceiver();
-		clientThread = new Thread(receiver, "ClientReceiver");
-		clientThread.start();
+		ConnectionHandler.startConnection();
 
 		try
 		{
@@ -48,7 +46,6 @@ public class NLClient extends Application
 		{
 			e.printStackTrace();
 		}
-
 
 		primaryStage.show();
 

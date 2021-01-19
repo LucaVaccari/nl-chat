@@ -35,12 +35,13 @@ public class ConnectionManager implements Runnable
                             byte[] message = advancedUser.getIncomingMessages().poll();
                             if (message != null)
                             {
-                                out.write(message);
+                                out.write(message, 0, MessageBuilder.PACKET_SIZE);
+                                Thread.sleep(50);
                                 System.out.println("Reply sent to user with code: " + advancedUser.getUser().getId());
                             }
                         }
                     }
-                    catch (IOException e)
+                    catch (IOException | InterruptedException e)
                     {
                         System.out.println("Connection has ended");
                         connection.interrupt();

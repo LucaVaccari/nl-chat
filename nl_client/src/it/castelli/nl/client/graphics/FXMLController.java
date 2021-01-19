@@ -232,7 +232,7 @@ public class FXMLController
 			Sender.addMessageToQueue(packet);
 			Sender.send();
 		}
-		catch (NullPointerException e)
+		catch (NullPointerException | IOException e)
 		{
 			e.printStackTrace();
 		}
@@ -253,8 +253,16 @@ public class FXMLController
 			// if the user pressed "ok" and not "cancel"
 			if (result.get() == ButtonType.OK)
 			{
-				byte[] packet = MessageBuilder.buildLeaveGroupMessage(selectedChatGroup.getCode(),
-				                                                      ClientData.getInstance().getThisUser().getId());
+				byte[] packet = new byte[0];
+				try
+				{
+					packet = MessageBuilder.buildLeaveGroupMessage(selectedChatGroup.getCode(),
+																		  ClientData.getInstance().getThisUser().getId());
+				}
+				catch (IOException e)
+				{
+					e.printStackTrace();
+				}
 				Sender.addMessageToQueue(packet);
 				Sender.send();
 			}
@@ -283,9 +291,16 @@ public class FXMLController
 
 				if (confirmation.get().equals("delete"))
 				{
-					byte[] packet = MessageBuilder.buildRemoveGroupMessage(selectedChatGroup.getCode(),
-					                                                       ClientData.getInstance().getThisUser()
-							                                                       .getId());
+					byte[] packet = new byte[0];
+					try {
+						packet = MessageBuilder.buildRemoveGroupMessage(selectedChatGroup.getCode(),
+																			   ClientData.getInstance().getThisUser()
+																					   .getId());
+					}
+					catch (IOException e)
+					{
+						e.printStackTrace();
+					}
 					Sender.addMessageToQueue(packet);
 					Sender.send();
 				}

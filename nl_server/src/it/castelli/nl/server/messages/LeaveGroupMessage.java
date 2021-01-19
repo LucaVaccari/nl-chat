@@ -26,13 +26,22 @@ public class LeaveGroupMessage extends Message
 		groupToLeave.getUsers().remove(thisUser);
 		groupToLeave.getSuperUsers().remove(thisUser);
 
-		byte[] reply = MessageBuilder.buildRemovedGroupMessage(groupCode);
-		System.out.println("Created RemovedGroupMessage from LeaveGroupMessage in the onReceive method");
-		Sender.sendToUser(reply, thisUser);
+		byte[] reply = new byte[0];
+		try
+		{
+			reply = MessageBuilder.buildRemovedGroupMessage(groupCode);
 
-		reply = MessageBuilder.buildUserLeftMessage(thisUser.getId(), groupCode);
-		System.out.println("Created UserLeftMessage from LeaveGroupMessage in the onReceive method");
-		Sender.sendToOthersInGroup(reply, thisUser, groupToLeave);
+			System.out.println("Created RemovedGroupMessage from LeaveGroupMessage in the onReceive method");
+			Sender.sendToUser(reply, thisUser);
+
+			reply = MessageBuilder.buildUserLeftMessage(thisUser.getId(), groupCode);
+			System.out.println("Created UserLeftMessage from LeaveGroupMessage in the onReceive method");
+			Sender.sendToOthersInGroup(reply, thisUser, groupToLeave);
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 
 		if (groupToLeave.getUsers().isEmpty())
 		{

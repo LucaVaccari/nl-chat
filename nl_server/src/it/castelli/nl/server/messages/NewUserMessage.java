@@ -7,6 +7,7 @@ import it.castelli.nl.server.Sender;
 import it.castelli.nl.server.ServerData;
 import it.castelli.nl.server.UserManager;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 /**
@@ -37,7 +38,15 @@ public class NewUserMessage extends Message
 			connection.setUser(newAdvancedUser);
 		System.out.println("User with id " + newAdvancedUser.getUser().getId() + " added to the connection");
 
-		byte[] reply = MessageBuilder.buildUserIdMessage(newId);
+		byte[] reply = new byte[0];
+		try
+		{
+			reply = MessageBuilder.buildUserIdMessage(newId);
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 		System.out.println("Created UserIdMessage fromNewUserMessage in the onReceive method");
 		Sender.sendToUser(reply, newUser);
 	}

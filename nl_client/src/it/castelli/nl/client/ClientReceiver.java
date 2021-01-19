@@ -18,7 +18,7 @@ import java.net.Socket;
  */
 public class ClientReceiver implements Runnable
 {
-	public static final int RECEIVE_WINDOW = 2048;
+	public static final int RECEIVE_WINDOW = 1024;
 	private boolean isRunning = true;
 
 	/**
@@ -64,12 +64,8 @@ public class ClientReceiver implements Runnable
 		}
 		catch (IOException e)
 		{
-			Platform.runLater(() -> AlertUtil.showErrorAlert("Connection error", "Cannot connect to the server",
-			                                                 "The server is offline or unreachable. Try setting your " +
-			                                                 "server address in the settings menu."));
 			e.printStackTrace();
 		}
-		System.out.println("connection has ended");
 	}
 
 	/**
@@ -77,7 +73,15 @@ public class ClientReceiver implements Runnable
 	 */
 	public void interrupt()
 	{
-		byte[] packet = MessageBuilder.buildServerEndConnectionMessage();
+		byte[] packet = new byte[0];
+		try
+		{
+			packet = MessageBuilder.buildServerEndConnectionMessage();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 		Sender.addMessageToQueue(packet);
 		Sender.send();
 		isRunning = false;

@@ -7,6 +7,8 @@ import it.castelli.nl.server.Connection;
 import it.castelli.nl.server.GroupManager;
 import it.castelli.nl.server.Sender;
 
+import java.io.IOException;
+
 
 public class RemoveGroupMessage extends Message
 {
@@ -21,7 +23,15 @@ public class RemoveGroupMessage extends Message
 		User thisUser = connection.getAdvancedUser().getUser();
 		if (groupToRemove.getSuperUsers().contains(thisUser))
 		{
-			byte[] reply = MessageBuilder.buildRemovedGroupMessage(groupCode);
+			byte[] reply = new byte[0];
+			try
+			{
+				reply = MessageBuilder.buildRemovedGroupMessage(groupCode);
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
 			System.out.println("Created RemovedGroupMessage from RemoveGroupMessage in the onReceive method");
 			Sender.sendToGroup(reply, groupToRemove);
 

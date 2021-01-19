@@ -23,7 +23,8 @@ public class Sender
 			if (outStream == null)
 			{
 				System.out.println("OutputStream to the server is null");
-				return;
+				ConnectionHandler.endConnection();
+				ConnectionHandler.startConnection();
 			}
 
 			byte[] messageToSend;
