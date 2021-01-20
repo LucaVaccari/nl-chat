@@ -5,6 +5,7 @@ import it.castelli.nl.ChatGroupMessage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -32,9 +33,7 @@ public class MessageBuilder
 	public static final byte CLIENT_TEST_MESSAGE_TYPE = 15;
 	public static final byte USER_LEFT_MESSAGE_TYPE = 16;
 
-	public static final int PACKET_SIZE = 1024;
-
-	//messages from client to server
+	public static final int HEADER_SIZE = 2; //number of bytes for the header
 
 	/**
 	 * Build a packet which contains a request to the server to create a new group
@@ -74,7 +73,6 @@ public class MessageBuilder
 		outputStream.write(JOIN_GROUP_MESSAGE_TYPE);
 		outputStream.write(groupToJoinCode);
 		outputStream.write(userId);
-		outputStream.write(new byte[PACKET_SIZE - outputStream.size()]);
 
 		return outputStream.toByteArray();
 	}
@@ -94,7 +92,6 @@ public class MessageBuilder
 		outputStream.write(LEAVE_GROUP_MESSAGE_TYPE);
 		outputStream.write(groupToLeaveCode);
 		outputStream.write(userId);
-		outputStream.write(new byte[PACKET_SIZE - outputStream.size()]);
 
 		return outputStream.toByteArray();
 	}
@@ -113,7 +110,6 @@ public class MessageBuilder
 		outputStream.write(REMOVE_GROUP_MESSAGE_TYPE);
 		outputStream.write(groupToRemoveCode);
 		outputStream.write(userId);
-		outputStream.write(new byte[PACKET_SIZE - outputStream.size()]);
 
 		return outputStream.toByteArray();
 	}
@@ -134,7 +130,6 @@ public class MessageBuilder
 		outputStream.write(message.getChatGroup().getCode());
 		outputStream.write(message.getUserSender().getId());
 		outputStream.write(message.getMessageContent().getBytes());
-		outputStream.write(new byte[PACKET_SIZE - outputStream.size()]);
 
 		return outputStream.toByteArray();
 	}
@@ -158,7 +153,6 @@ public class MessageBuilder
 		outputStream.write((byte) 0); //groupCode which is not present
 		outputStream.write((byte) 0);
 		outputStream.write(userName.getBytes());
-		outputStream.write(new byte[PACKET_SIZE - outputStream.size()]);
 
 		System.out.println("Created NewUserMessage with user name: " + userName);
 
@@ -181,7 +175,6 @@ public class MessageBuilder
 		outputStream.write((byte) 0); //groupCode which is not present
 		outputStream.write(userId);
 		outputStream.write(test.getBytes());
-		outputStream.write(new byte[PACKET_SIZE - outputStream.size()]);
 
 		return outputStream.toByteArray();
 	}
@@ -192,7 +185,6 @@ public class MessageBuilder
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream(0);
 		outputStream.write(SERVER_END_CONNECTION_MESSAGE_TYPE);
 		outputStream.write((byte) 0); //groupCode which is not present
-		outputStream.write(new byte[PACKET_SIZE - outputStream.size()]);
 
 		return outputStream.toByteArray();
 	}
@@ -217,7 +209,6 @@ public class MessageBuilder
 		outputStream.write((byte) 0); //userId which is not present
 		groupName = groupName.replaceAll("\0", "");
 		outputStream.write(groupName.strip().getBytes());
-		outputStream.write(new byte[PACKET_SIZE - groupName.length() - 3]);
 
 		return outputStream.toByteArray();
 	}
@@ -240,7 +231,6 @@ public class MessageBuilder
 		outputStream.write(groupCode);
 		outputStream.write(userId);
 		outputStream.write(userName.getBytes());
-		outputStream.write(new byte[PACKET_SIZE - outputStream.size()]);
 
 		return outputStream.toByteArray();
 	}
@@ -258,7 +248,6 @@ public class MessageBuilder
 		outputStream.write(GROUP_REMOVED_MESSAGE_TYPE);
 		outputStream.write(groupCode);
 		outputStream.write((byte) 0); //userId which is not present
-		outputStream.write(new byte[PACKET_SIZE - outputStream.size()]);
 
 		return outputStream.toByteArray();
 	}
@@ -276,7 +265,6 @@ public class MessageBuilder
 		outputStream.write(USER_ID_MESSAGE_TYPE);
 		outputStream.write((byte) 0); //group code which is not present
 		outputStream.write(userId);
-		outputStream.write(new byte[PACKET_SIZE - outputStream.size()]);
 
 		System.out.println("Creating a message of type: UserIdMessage with user id = " + userId);
 
@@ -299,7 +287,6 @@ public class MessageBuilder
 		outputStream.write(message.getChatGroup().getCode());
 		outputStream.write(message.getUserSender().getId());
 		outputStream.write(message.getMessageContent().getBytes());
-		outputStream.write(new byte[PACKET_SIZE - outputStream.size()]);
 
 		return outputStream.toByteArray();
 	}
@@ -320,7 +307,6 @@ public class MessageBuilder
 		outputStream.write((byte) 0); //group code which is not present
 		outputStream.write((byte) 0); // userId which is not present
 		outputStream.write(error.getBytes());
-		outputStream.write(new byte[PACKET_SIZE - outputStream.size()]);
 
 		return outputStream.toByteArray();
 	}
@@ -341,7 +327,6 @@ public class MessageBuilder
 		outputStream.write((byte) 0); //group code which is not present
 		outputStream.write((byte) 0); // userId which is not present
 		outputStream.write(text.getBytes());
-		outputStream.write(new byte[PACKET_SIZE - outputStream.size()]);
 
 		return outputStream.toByteArray();
 	}
@@ -358,9 +343,29 @@ public class MessageBuilder
 		outputStream.write(USER_LEFT_MESSAGE_TYPE);
 		outputStream.write(groupCode); //group code which is not present
 		outputStream.write(userId); // userId which is not present
-		outputStream.write(new byte[PACKET_SIZE - outputStream.size()]);
 
 		return outputStream.toByteArray();
+	}
+
+	public static byte[] addHeader(byte[] message)
+	{
+		int lengthOfMessage = message.length;
+		byte[] header = ByteBuffer.allocate(HEADER_SIZE).putShort((short)lengthOfMessage).array();
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		try
+		{
+			outputStream.write(header);
+			outputStream.write(message);
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		byte messageWithHeader[] = outputStream.toByteArray();
+		System.out.println("From a message with length: " + lengthOfMessage +
+				" a message with Header was created with length: " + messageWithHeader.length);
+
+		return messageWithHeader;
 	}
 
 }

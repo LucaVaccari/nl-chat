@@ -35,7 +35,7 @@ public class ConnectionManager implements Runnable
                             byte[] message = advancedUser.getIncomingMessages().poll();
                             if (message != null)
                             {
-                                out.write(message, 0, MessageBuilder.PACKET_SIZE);
+                                out.write(message);
                                 Thread.sleep(50);
                                 System.out.println("Reply sent to user with code: " + advancedUser.getUser().getId());
                             }

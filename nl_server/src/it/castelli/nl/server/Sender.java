@@ -2,6 +2,7 @@ package it.castelli.nl.server;
 
 import it.castelli.nl.ChatGroup;
 import it.castelli.nl.User;
+import it.castelli.nl.messages.MessageBuilder;
 
 public class Sender
 {
@@ -13,7 +14,8 @@ public class Sender
 	 */
 	public static void sendToUser(byte[] data, User user)
 	{
-		UserManager.getQueueFromUser(user).add(data);
+		byte[] dataWithHeader = MessageBuilder.addHeader(data);
+		UserManager.getQueueFromUser(user).add(dataWithHeader);
 		//System.out.println("data added to the queue of the user: " + user.getId());
 	}
 
@@ -30,7 +32,8 @@ public class Sender
 		{
 			if (!user.equals(senderUser))
 			{
-				UserManager.getQueueFromUser(user).add(data);
+				byte[] dataWithHeader = MessageBuilder.addHeader(data);
+				UserManager.getQueueFromUser(user).add(dataWithHeader);
 				//System.out.println("data added to the queue of the user: " + user.getId());
 			}
 		}
@@ -46,7 +49,8 @@ public class Sender
 	{
 		for (User user : group.getUsers())
 		{
-			UserManager.getQueueFromUser(user).add(data);
+			byte[] dataWithHeader = MessageBuilder.addHeader(data);
+			UserManager.getQueueFromUser(user).add(dataWithHeader);
 		}
 	}
 

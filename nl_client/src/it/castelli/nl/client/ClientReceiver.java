@@ -1,6 +1,5 @@
 package it.castelli.nl.client;
 
-import it.castelli.nl.GeneralData;
 import it.castelli.nl.client.graphics.AlertUtil;
 import it.castelli.nl.client.message.ClientMessageManager;
 import it.castelli.nl.client.message.IMessage;
@@ -10,15 +9,17 @@ import javafx.application.Platform;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.Socket;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.util.Arrays;
 
 /**
  * Thread for receiving messages from the server
  */
 public class ClientReceiver implements Runnable
 {
-	public static final int RECEIVE_WINDOW = 1024;
+	public static final int MAX_PACKET_LENGTH = 1024;
 	private boolean isRunning = true;
 
 	/**
@@ -48,16 +49,26 @@ public class ClientReceiver implements Runnable
 
 				if (inStream.available() > 0)
 				{
-					inStream.read(receiveBuffer);
-					System.out.println("A packet has been received from " + socket.getInetAddress().getHostAddress());
-					IMessage messageReceiver = ClientMessageManager.getMessageReceiver(receiveBuffer[0]);
-					if (messageReceiver == null)
-						System.out.println("Cannot find message receiver with id " + receiveBuffer[0]);
-					else
+					int messageSize = inStream.read(receiveBuffer);
+					int offset = 0;
+					while (offset < messageSize)
 					{
-						messageReceiver.OnReceive(receiveBuffer);
-						Serializer.serialize(ClientGroupManager.getAllGroups(), ClientGroupManager.GROUPS_FILE_PATH);
-						Serializer.serialize(ClientData.getInstance(), ClientData.CLIENT_DATA_FILE_PATH);
+						short temp = ByteBuffer.wrap(new byte[]{receiveBuffer[offset], receiveBuffer[offset + 1]}).getShort();
+						int messageLength = Short.valueOf(temp).intValue();
+						offset += MessageBuilder.HEADER_SIZE;
+						byte[] message = Arrays.copyOfRange(receiveBuffer, offset, offset + messageLength);
+						offset += messageLength;
+
+						System.out.println("A packet has been received from " + socket.getInetAddress().getHostAddress());
+						IMessage messageReceiver = ClientMessageManager.getMessageReceiver(message[0]);
+						if (messageReceiver == null)
+							System.out.println("Cannot find message receiver with id " + message[0]);
+						else
+						{
+							messageReceiver.OnReceive(message);
+							Serializer.serialize(ClientGroupManager.getAllGroups(), ClientGroupManager.GROUPS_FILE_PATH);
+							Serializer.serialize(ClientData.getInstance(), ClientData.CLIENT_DATA_FILE_PATH);
+						}
 					}
 				}
 			}
