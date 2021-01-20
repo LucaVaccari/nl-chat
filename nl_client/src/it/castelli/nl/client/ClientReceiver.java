@@ -28,13 +28,10 @@ public class ClientReceiver implements Runnable
 	 */
 	public void run()
 	{
-		try (Socket socket = new Socket(ClientData.getInstance().getServerAddress(), GeneralData.SERVER_RECEIVE_PORT);
-		     InputStream inStream = socket.getInputStream();
-		     OutputStream outStream = socket.getOutputStream())
+		try (Socket socket = ConnectionHandler.getSocket();
+		     InputStream inStream = socket.getInputStream();)
 		{
-			System.out.println("Connection established with the server");
-			byte[] receiveBuffer = new byte[RECEIVE_WINDOW];
-			Sender.setOutStream(outStream);
+			byte[] receiveBuffer = new byte[MAX_PACKET_LENGTH];
 			Sender.send();
 			while (isRunning)
 			{

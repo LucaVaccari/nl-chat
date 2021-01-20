@@ -1,6 +1,7 @@
 package it.castelli.nl.client;
 
 import it.castelli.nl.client.graphics.AlertUtil;
+import it.castelli.nl.messages.MessageBuilder;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -28,19 +29,26 @@ public class Sender
 			}
 
 			byte[] messageToSend;
-			while ((messageToSend = messageQueue.poll()) != null)
+			if (outStream != null)
 			{
-				if (outStream != null)
+				while ((messageToSend = messageQueue.poll()) != null)
+				{
 					outStream.write(messageToSend);
-				else
-					System.out.println("out stream is null");
-			}
+					try
+					{
+						Thread.sleep(50);
+					}
+					catch (InterruptedException e)
+					{
+						e.printStackTrace();
+					}
+				}
 
+			}
 		}
 		catch (IOException e)
 		{
-//			e.printStackTrace();
-			AlertUtil.showErrorAlert("Sending error", "Cannot talk to the server", "The server cannot be reached");
+			//AlertUtil.showErrorAlert("Sending error", "Cannot talk to the server", "The server cannot be reached");
 		}
 	}
 

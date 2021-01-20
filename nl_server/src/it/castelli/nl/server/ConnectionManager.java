@@ -1,5 +1,7 @@
 package it.castelli.nl.server;
 
+import it.castelli.nl.messages.MessageBuilder;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.concurrent.CopyOnWriteArraySet;

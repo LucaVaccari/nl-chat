@@ -17,8 +17,6 @@ public class NLClient extends Application
 {
 	public static final String INDEX_FXML_FILE_PATH = "src/it/castelli/nl/client/graphics/index.fxml";
 	private static Stage primaryStage;
-	private static Thread clientThread;
-	private static ClientReceiver receiver;
 
 	public static void main(String[] args)
 	{
@@ -50,16 +48,7 @@ public class NLClient extends Application
 		primaryStage.show();
 
 		primaryStage.setOnCloseRequest(event -> {
-			receiver.interrupt();
 			Serializer.serialize(ClientData.getInstance(), ClientData.CLIENT_DATA_FILE_PATH);
-			try
-			{
-				clientThread.join();
-			}
-			catch (InterruptedException e)
-			{
-				e.printStackTrace();
-			}
 			System.exit(0);
 		});
 	}
@@ -72,42 +61,6 @@ public class NLClient extends Application
 	public static Stage getPrimaryStage()
 	{
 		return primaryStage;
-	}
-
-	/**
-	 * Getter for the ClientReceiver
-	 * @return The client receiver
-	 */
-	public static ClientReceiver getReceiver()
-	{
-		return receiver;
-	}
-
-	/**
-	 * Setter for the client receiver (runnable)
-	 * @param receiver The new client receiver
-	 */
-	public static void setReceiver(ClientReceiver receiver)
-	{
-		NLClient.receiver = receiver;
-	}
-
-	/**
-	 * Getter for the client thread
-	 * @return The client thread
-	 */
-	public static Thread getClientThread()
-	{
-		return clientThread;
-	}
-
-	/**
-	 * Setter for the client thread
-	 * @param clientThread The new client thread
-	 */
-	public static void setClientThread(Thread clientThread)
-	{
-		NLClient.clientThread = clientThread;
 	}
 
 	/**

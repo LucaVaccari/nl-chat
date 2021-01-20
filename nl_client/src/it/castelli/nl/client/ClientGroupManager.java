@@ -48,13 +48,14 @@ public class ClientGroupManager
 		try
 		{
 			allGroups = (HashMap<Byte, ChatGroup>) Serializer.deserialize(GROUPS_FILE_PATH);
+			if (allGroups == null)
+				allGroups = new HashMap<>();
 		}
 		catch (IOException | ClassNotFoundException e)
 		{
 			allGroups = new HashMap<>();
 		}
 
-		assert allGroups != null;
 		for (ChatGroup group : allGroups.values())
 		{
 			ObservableList<ChatGroupComponent> chatGroupListViewItems =
