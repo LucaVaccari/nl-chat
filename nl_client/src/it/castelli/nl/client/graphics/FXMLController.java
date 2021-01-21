@@ -28,6 +28,9 @@ public class FXMLController
 
 	private static FXMLController mainFXMLController;
 	private static ChatGroup selectedChatGroup;
+	public Stage settingsStage;
+
+	// FXML elements
 	public Button createGroupButton;
 	public Button joinGroupButton;
 	public MenuItem settingsMenuItem;
@@ -37,12 +40,11 @@ public class FXMLController
 	public MenuItem leaveGroupMenuItem;
 	public MenuItem removeGroupMenuItem;
 	public MenuItem clearGroupContentMenuItem;
-	public MenuItem deleteMessageMenuItem; //TODO test
+	public MenuItem deleteMessageMenuItem;
 	public MenuItem copyMessageMenuItem;
 	public MenuItem helpMenuItem;
 	public ListView<ChatGroupComponent> chatGroupListView;
 	public Pane chatElementParent;
-	public Stage settingsStage;
 
 	/**
 	 * Singleton getter

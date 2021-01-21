@@ -32,18 +32,11 @@ public class NLClient extends Application
 		Scene mainScene = new Scene(root);
 		primaryStage.setScene(mainScene);
 		primaryStage.setResizable(false);
-		primaryStage.setTitle("nl-chat");
+		primaryStage.setTitle("nl-chat | server offline");
 
 		ConnectionHandler.startConnection();
 
-		try
-		{
-			ClientGroupManager.init();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+		ClientGroupManager.init();
 
 		primaryStage.show();
 
