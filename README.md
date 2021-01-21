@@ -2,8 +2,7 @@
 A TCP application to chat with other people over the network. Developed by Luca Vaccari and Nicola Vivante.
 
 #### Todo
- - Handle client user messages
- - Ask for the IP at the first start up of the program
+ - Ask for the IP at the start up of the program
  - Try to implement a command interface on the server
  - Add tooltips to buttons
  - (User colors)

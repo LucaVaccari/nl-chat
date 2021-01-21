@@ -36,9 +36,9 @@ public class FXMLController
 	public MenuItem joinGroupMenuItem;
 	public MenuItem leaveGroupMenuItem;
 	public MenuItem removeGroupMenuItem;
-	public MenuItem clearGroupContentMenuItem; //TODO test
+	public MenuItem clearGroupContentMenuItem;
 	public MenuItem deleteMessageMenuItem; //TODO test
-	public MenuItem copyMessageMenuItem; //TODO test
+	public MenuItem copyMessageMenuItem;
 	public MenuItem helpMenuItem;
 	public ListView<ChatGroupComponent> chatGroupListView;
 	public Pane chatElementParent;
@@ -352,7 +352,12 @@ public class FXMLController
 			return;
 
 		if (result.get().equals(ButtonType.OK))
-			chatGroupListView.getItems().remove(chatGroupListView.getSelectionModel().getSelectedItem());
+		{
+			ListView<ChatMessageComponent> messageListView =
+					chatGroupListView.getSelectionModel().getSelectedItem().getChatComponent().getMessageListView();
+			messageListView.getItems().remove(
+					messageListView.getSelectionModel().getSelectedItem());
+		}
 	}
 
 	/**
@@ -363,7 +368,8 @@ public class FXMLController
 		Clipboard clipboard = Clipboard.getSystemClipboard();
 		ClipboardContent content = new ClipboardContent();
 		ChatComponent chatComponent = chatGroupListView.getSelectionModel().getSelectedItem().getChatComponent();
-		ChatMessageComponent selectedMessage = chatComponent.getMessageListView().getSelectionModel().getSelectedItem();
+		ChatMessageComponent selectedMessage =
+				chatComponent.getMessageListView().getSelectionModel().getSelectedItem();
 		content.putString(selectedMessage.getMessageLabel().getText());
 		clipboard.setContent(content);
 	}
