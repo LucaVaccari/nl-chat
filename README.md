@@ -2,7 +2,7 @@
 A TCP application to chat with other people over the network. Developed by Luca Vaccari and Nicola Vivante.
 
 #### Todo
- - Ask for the IP at the start up of the program
+ - Settings menu
  - serialize User message queue 
  - messages sent before having an id (discover why it works now)
  - connection does not end and does not establish after an error
@@ -11,6 +11,7 @@ A TCP application to chat with other people over the network. Developed by Luca 
  - Add tooltips to buttons
  - (User colors)
  - (Allow changing username)
+ - (Send images)
 
 ### Feature list
  - Aliases for user IPs stored in a file on the server (decided by users)
