@@ -3,6 +3,7 @@ package it.castelli.nl.client.graphics;
 import it.castelli.nl.ChatGroup;
 import it.castelli.nl.User;
 import it.castelli.nl.client.ClientData;
+import it.castelli.nl.client.ConnectionHandler;
 import it.castelli.nl.client.NLClient;
 import it.castelli.nl.client.Sender;
 import it.castelli.nl.messages.MessageBuilder;
@@ -20,6 +21,7 @@ import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Optional;
 
 public class FXMLController
@@ -374,5 +376,49 @@ public class FXMLController
 				chatComponent.getMessageListView().getSelectionModel().getSelectedItem();
 		content.putString(selectedMessage.getMessageLabel().getText());
 		clipboard.setContent(content);
+	}
+
+	/**
+	 * Ask for the server IP and tries to connect
+	 */
+	public static void askServerIp()
+	{
+		String hostAddress = ClientData.getInstance().getServerAddress().getHostAddress();
+		if (hostAddress == null) hostAddress = "";
+
+		Optional<String> ipText;
+		boolean askAgain;
+		do
+		{
+			askAgain = false;
+			ipText = AlertUtil.showTextInputDialogue(hostAddress, "Server IP", "Insert the IP of the " +
+			                                                                   "server", "Server IP: ");
+			if (ipText.isEmpty())
+			{
+				AlertUtil.showInformationAlert("Insert address", "Address is mandatory", "Pleas insert an address");
+				askAgain = true;
+				continue;
+			}
+
+			if (!ipText.get().matches("((\\d{1,3}\\.){3}\\d{1,3})|localhost"))
+			{
+				AlertUtil.showInformationAlert("Invalid address", "Wrong syntax", "An address is identified by 4 " +
+				                                                                  "numbers under 255 separated by " +
+				                                                                  "dots (.).\nIf the server is on " +
+				                                                                  "your machine you can write " +
+				                                                                  "'localhost'");
+				askAgain = true;
+			}
+		} while (askAgain);
+
+		try
+		{
+			ClientData.getInstance().setServerAddress(InetAddress.getByName(ipText.get()));
+		}
+		catch (UnknownHostException e)
+		{
+			e.printStackTrace();
+		}
+		ConnectionHandler.startConnection();
 	}
 }
