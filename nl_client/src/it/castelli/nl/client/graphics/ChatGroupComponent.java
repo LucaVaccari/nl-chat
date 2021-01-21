@@ -20,7 +20,7 @@ public class ChatGroupComponent extends VBox
 	private final ChatComponent chatComponent;
 	public Label groupNameLabel;
 	public Label groupCodeLabel;
-	public Label lastMessageLabel; // TODO
+	public Label lastMessageLabel;
 
 	public ChatGroupComponent(ChatGroup chatGroup)
 	{

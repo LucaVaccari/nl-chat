@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -28,15 +30,15 @@ public class FXMLController
 	private static ChatGroup selectedChatGroup;
 	public Button createGroupButton;
 	public Button joinGroupButton;
-	public MenuItem settingsMenuItem; //TODO
+	public MenuItem settingsMenuItem;
 	public MenuItem closeMenuItem;
 	public MenuItem newGroupMenuItem;
 	public MenuItem joinGroupMenuItem;
-	public MenuItem clearGroupContentMenuItem; //TODO
 	public MenuItem leaveGroupMenuItem;
 	public MenuItem removeGroupMenuItem;
-	public MenuItem deleteMessageMenuItem; //TODO
-	public MenuItem copyMessageMenuItem; //TODO
+	public MenuItem clearGroupContentMenuItem; //TODO test
+	public MenuItem deleteMessageMenuItem; //TODO test
+	public MenuItem copyMessageMenuItem; //TODO test
 	public MenuItem helpMenuItem;
 	public ListView<ChatGroupComponent> chatGroupListView;
 	public Pane chatElementParent;
@@ -127,6 +129,10 @@ public class FXMLController
 		joinGroupMenuItem.setOnAction(this::OnJoinGroupButtonCLick);
 		leaveGroupMenuItem.setOnAction(this::OnLeaveGroupButtonClick);
 		removeGroupMenuItem.setOnAction(this::OnRemoveGroupButtonClick);
+
+		clearGroupContentMenuItem.setOnAction(this::OnClearGroupContentButtonClick);
+		deleteMessageMenuItem.setOnAction(this::OnDeleteMessageButtonClick);
+		copyMessageMenuItem.setOnAction(this::OnCopyMessageButtonClick);
 
 		helpMenuItem.setOnAction(event -> AlertUtil.showInformationAlert("Help", "If you want help...",
 		                                                                 "Contact the developers if you can't " +
@@ -257,7 +263,7 @@ public class FXMLController
 				try
 				{
 					packet = MessageBuilder.buildLeaveGroupMessage(selectedChatGroup.getCode(),
-																		  ClientData.getInstance().getThisUser().getId());
+					                                               ClientData.getInstance().getThisUser().getId());
 				}
 				catch (IOException e)
 				{
@@ -292,10 +298,11 @@ public class FXMLController
 				if (confirmation.get().equals("delete"))
 				{
 					byte[] packet = new byte[0];
-					try {
+					try
+					{
 						packet = MessageBuilder.buildRemoveGroupMessage(selectedChatGroup.getCode(),
-																			   ClientData.getInstance().getThisUser()
-																					   .getId());
+						                                                ClientData.getInstance().getThisUser()
+								                                                .getId());
 					}
 					catch (IOException e)
 					{
@@ -311,5 +318,53 @@ public class FXMLController
 				}
 			}
 		}
+	}
+
+	/**
+	 * Callback of a Clear Group Content menu item click
+	 */
+	private void OnClearGroupContentButtonClick(ActionEvent actionEvent)
+	{
+		Optional<ButtonType> result = AlertUtil.showConfirmationAlert("Clear content", "Remove all messages",
+		                                                              "Are you sure you want to delete all the " +
+		                                                              "messages of this group? You won't " +
+		                                                              "be able to see them again. The other members " +
+		                                                              "of the group will not be affected.");
+		if (result.isEmpty())
+			return;
+
+		if (result.get().equals(ButtonType.OK))
+			chatGroupListView.getSelectionModel().getSelectedItem().getChatComponent().getMessageListView().getItems()
+					.clear();
+	}
+
+	/**
+	 * Callback of a Delete Group Content menu item click
+	 */
+	private void OnDeleteMessageButtonClick(ActionEvent actionEvent)
+	{
+		Optional<ButtonType> result = AlertUtil.showConfirmationAlert("Delete message", "Remove a single message",
+		                                                              "This will remove the selected message only " +
+		                                                              "for you. You won't be able to see it again. " +
+		                                                              "The other members of the group will not be " +
+		                                                              "affected.");
+		if (result.isEmpty())
+			return;
+
+		if (result.get().equals(ButtonType.OK))
+			chatGroupListView.getItems().remove(chatGroupListView.getSelectionModel().getSelectedItem());
+	}
+
+	/**
+	 * Callback of a Copy Message menu item click
+	 */
+	private void OnCopyMessageButtonClick(ActionEvent actionEvent)
+	{
+		Clipboard clipboard = Clipboard.getSystemClipboard();
+		ClipboardContent content = new ClipboardContent();
+		ChatComponent chatComponent = chatGroupListView.getSelectionModel().getSelectedItem().getChatComponent();
+		ChatMessageComponent selectedMessage = chatComponent.getMessageListView().getSelectionModel().getSelectedItem();
+		content.putString(selectedMessage.getMessageLabel().getText());
+		clipboard.setContent(content);
 	}
 }
