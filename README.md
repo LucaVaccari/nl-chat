@@ -2,16 +2,15 @@
 A TCP application to chat with other people over the network. Developed by Luca Vaccari and Nicola Vivante.
 
 #### Todo
- - Settings menu
- - serialize User message queue 
- - messages sent before having an id (discover why it works now)
- - connection does not end and does not establish after an error
- - Ask for the IP at the first start up of the program
- - Try to implement a command interface on the server
- - Add tooltips to buttons
- - (User colors)
- - (Allow changing username)
- - (Send images)
+- messages sent before having an id (discover why it works now)
+- serialize User message queue 
+- connection does not end and does not establish after an error
+- Try to implement a command interface on the server
+- Settings menu
+- Add tooltips to buttons
+- (User colors)
+- (Allow changing username)
+- (Send images)
 
 ### Feature list
  - Aliases for user IPs stored in a file on the server (decided by users)

@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<TitledPane xmlns:fx="http://javafx.com/fxml/1" animated="false" prefHeight="84.0" prefWidth="200.0" text="Settings"
-            textAlignment="CENTER" xmlns="http://javafx.com/javafx/11.0.1"
-            fx:controller="it.castelli.nl.client.graphics.SettingsMenuController">
-    <VBox>
-        <HBox prefHeight="46.0" prefWidth="200.0">
-            <Label prefHeight="16.0" prefWidth="94.0" text="Server IP"/>
-            <TextField fx:id="serverIpTextField" prefHeight="16.0" prefWidth="132.0"/>
-        </HBox>
-    </VBox>
-</TitledPane>
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="145.0" prefWidth="215.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="it.castelli.nl.client.graphics.SettingsMenuController">
+    <Button fx:id="setIpButton" alignment="CENTER" mnemonicParsing="false" text="Set IP" textAlignment="CENTER"/>
+    <Button fx:id="changeUserNameButton" alignment="CENTER" mnemonicParsing="false" text="Change username"/>
+</VBox>

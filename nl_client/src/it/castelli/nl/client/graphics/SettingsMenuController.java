@@ -5,6 +5,7 @@ import it.castelli.nl.client.ClientReceiver;
 import it.castelli.nl.client.ConnectionHandler;
 import it.castelli.nl.client.NLClient;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import java.net.InetAddress;
@@ -13,33 +14,18 @@ import java.net.UnknownHostException;
 /**
  * FXML controller for the settings menu
  */
-public class SettingsMenuController
-{
-	public TextField serverIpTextField;
+public class SettingsMenuController {
+    public Button setIpButton;
+    public Button changeUserNameButton;
 
-	@FXML
-	public void initialize()
-	{
-		serverIpTextField.setText(ClientData.getInstance().getServerAddress().getHostAddress());
+    @FXML
+    public void initialize() {
+        setIpButton.setOnAction(event -> {
+            FXMLController.askServerIp();
+        });
 
-		serverIpTextField.setOnAction(event -> {
-			String ipTextFieldValue = serverIpTextField.getText();
-			if (ipTextFieldValue.matches("((\\d{1,3}\\.){3}\\d{1,3})|localhost"))
-			{
-				try
-				{
-					ClientData.getInstance().setServerAddress(InetAddress.getByName(ipTextFieldValue));
-					ConnectionHandler.startConnection();
-				}
-				catch (UnknownHostException e)
-				{
-					e.printStackTrace();
-				}
-			}
-			else
-			{
-				serverIpTextField.setText("");
-			}
-		});
-	}
+        changeUserNameButton.setOnAction(event -> {
+            AlertUtil.showInformationAlert("Not implemented", "Cannot change user name", "This function is not implemented yet.");
+        });
+    }
 }
