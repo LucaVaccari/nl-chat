@@ -1,5 +1,6 @@
 package it.castelli.nl.client;
 
+import it.castelli.nl.client.graphics.FXMLController;
 import it.castelli.nl.serialization.Serializer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -32,18 +33,13 @@ public class NLClient extends Application
 		Scene mainScene = new Scene(root);
 		primaryStage.setScene(mainScene);
 		primaryStage.setResizable(false);
-		primaryStage.setTitle("nl-chat");
+		primaryStage.setTitle("nl-chat | server offline");
 
 		ConnectionHandler.startConnection();
+		if (!ConnectionHandler.isConnected())
+			FXMLController.askServerIp();
 
-		try
-		{
-			ClientGroupManager.init();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+		ClientGroupManager.init();
 
 		primaryStage.show();
 
