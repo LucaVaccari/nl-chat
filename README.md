@@ -3,6 +3,9 @@ A TCP application to chat with other people over the network. Developed by Luca 
 
 #### Todo
  - Handle client user messages
+ - serialize User message queue 
+ - messages sent before having an id (discover why it works now)
+ - connection does not end and does not establish after an error
  - Ask for the IP at the first start up of the program
  - Try to implement a command interface on the server
  - Add tooltips to buttons
