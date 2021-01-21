@@ -10,6 +10,7 @@ public class User implements Serializable
 {
 	private final byte id;
 	private String name;
+	private String color;
 
 	/**
 	 * Constructor for the User class with the name and the id
@@ -55,7 +56,8 @@ public class User implements Serializable
 
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj)
+	{
 		if (obj instanceof User)
 			return ((User) obj).getId() == this.getId();
 		else
@@ -66,11 +68,32 @@ public class User implements Serializable
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		int result = 3;
 		result = 31 * result + id;
 		return result;
 	}
+
+	/**
+	 * Getter for the color (in Hexadecimal format)
+	 *
+	 * @return the String containing the color code
+	 */
+	public String getColor()
+	{
+		return color;
+	}
+
+	/**
+	 * Setter for the color (in Hexadecimal format)
+	 *
+	 * @param color The new color (if the format is incorrect it will be ignored)
+	 */
+	public void setColor(String color)
+	{
+		if (color.length() == 6 &&
+				color.matches("[\\da-f]{6}"))
+			this.color = color;
+	}
 }
-
-
