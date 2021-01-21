@@ -28,6 +28,7 @@ public class ClientReceiver implements Runnable
 	 */
 	public void run()
 	{
+		System.out.println("ClientReceiver is working");
 		try (Socket socket = ConnectionHandler.getSocket();
 		     InputStream inStream = socket.getInputStream();)
 		{
@@ -68,6 +69,7 @@ public class ClientReceiver implements Runnable
 						}
 					}
 				}
+				//error maybe
 			}
 		}
 		catch (IOException e)

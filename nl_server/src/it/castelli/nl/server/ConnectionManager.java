@@ -38,12 +38,11 @@ public class ConnectionManager implements Runnable
                             if (message != null)
                             {
                                 out.write(message);
-                                Thread.sleep(50);
                                 System.out.println("Reply sent to user with code: " + advancedUser.getUser().getId());
                             }
                         }
                     }
-                    catch (IOException | InterruptedException e)
+                    catch (IOException e)
                     {
                         System.out.println("Connection has ended");
                         connection.interrupt();

@@ -31,16 +31,17 @@ public class Sender
 			byte[] messageToSend;
 			if (outStream != null)
 			{
-				while ((messageToSend = messageQueue.poll()) != null)
+				while ((messageToSend = messageQueue.peek()) != null)
 				{
-					outStream.write(messageToSend);
-					try
+					/*messageToSend = messageQueue.poll();
+					outStream.write(messageToSend);*/
+					boolean userExists = ClientData.getInstance().getThisUser().getId() > 0;
+					boolean isNewUserMessage = messageToSend[MessageBuilder.HEADER_SIZE] == MessageBuilder.SERVER_NEW_USER_MESSAGE_TYPE;
+					if (userExists || isNewUserMessage)
 					{
-						Thread.sleep(50);
-					}
-					catch (InterruptedException e)
-					{
-						e.printStackTrace();
+						messageToSend = messageQueue.poll();
+						outStream.write(messageToSend);
+						System.out.println("A message was sent to the server");
 					}
 				}
 
