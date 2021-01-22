@@ -29,19 +29,25 @@ public class NLClient extends Application
 	{
 		NLClient.primaryStage = primaryStage;
 		Parent root = loadFXML(INDEX_FXML_FILE_PATH);
-		assert root != null;
-		Scene mainScene = new Scene(root);
-		primaryStage.setScene(mainScene);
-		primaryStage.setResizable(false);
-		primaryStage.setTitle("nl-chat | server offline");
+		if (root != null)
+		{
+			Scene mainScene = new Scene(root);
+			primaryStage.setScene(mainScene);
+			primaryStage.setResizable(false);
+			primaryStage.setTitle("nl-chat | server offline");
 
-		ConnectionHandler.startConnection();
-		if (!ConnectionHandler.isConnected())
-			SettingsMenuController.askServerIp();
+			ConnectionHandler.startConnection();
+			if (!ConnectionHandler.isConnected())
+			{
+				SettingsMenuController.askServerIp();
+			}
 
-		ClientGroupManager.init();
+			ClientGroupManager.init();
 
-		primaryStage.show();
+			primaryStage.show();
+		}
+		else
+			System.out.println("Root is null in Application.start()");
 
 		primaryStage.setOnCloseRequest(event -> {
 			Serializer.serialize(ClientData.getInstance(), ClientData.CLIENT_DATA_FILE_PATH);

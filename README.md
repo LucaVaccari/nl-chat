@@ -2,13 +2,14 @@
 A TCP application to chat with other people over the network. Developed by Luca Vaccari and Nicola Vivante.
 
 #### Todo
-- serialize User message queue
-- connection does not end and does not establish after an error
-- Command for sending test messages and handle things on the server
-- Clear/update last message when removing it TEST TEST TEST TEST
-- User colors TEST TEST TEST TEST TEST
+- Clear/update last message when removing it
+- Delete messages not serializing (.contains)
+- Put windows in front
+- Set color when writing a new message
 - Throw illegal argument exceptions in MessageBuilder methods
-- Use unused codes when groups are removed
+- Fix scroll bars
+- (Use unused codes when groups are removed)
+- (Command for sending test messages and handle things on the server)
 - (Send images)
 
 ### Feature list
