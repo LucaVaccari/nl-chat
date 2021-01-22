@@ -1,6 +1,5 @@
 package it.castelli.nl.server;
 
-import it.castelli.nl.ChatGroup;
 import it.castelli.nl.messages.MessageBuilder;
 import it.castelli.nl.serialization.Serializer;
 import it.castelli.nl.server.messages.Message;
@@ -11,7 +10,6 @@ import java.io.InputStream;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
-import java.util.HashMap;
 
 /**
  * Represents a connection with a client. Constantly waits for messages from it.
@@ -47,7 +45,8 @@ public class Connection implements Runnable
 					int offset = 0;
 					while (offset < messageSize)
 					{
-						short temp = ByteBuffer.wrap(new byte[]{receiveBuffer[offset], receiveBuffer[offset + 1]}).getShort();
+						short temp = ByteBuffer.wrap(new byte[]{receiveBuffer[offset], receiveBuffer[offset + 1]})
+								.getShort();
 						int messageLength = Short.valueOf(temp).intValue();
 						offset += MessageBuilder.HEADER_SIZE;
 						byte[] message = Arrays.copyOfRange(receiveBuffer, offset, offset + messageLength);
@@ -62,9 +61,12 @@ public class Connection implements Runnable
 							Serializer.serialize(GroupManager.getAllGroups(), GroupManager.GROUPS_FILE_PATH);
 							Serializer.serialize(UserManager.getAllUsers(), UserManager.USERS_FILE_PATH);
 							Serializer.serialize(ServerData.getInstance(), ServerData.SERVER_DATA_FILE_PATH);
-							/*GroupManager.getAllGroups() = (HashMap<Byte, ChatGroup>) Serializer.deserialize(GroupManager.GROUPS_FILE_PATH);
-							UserManager.getAllUsers() = (HashMap<Byte, UserManager.AdvancedUser>) Serializer.deserialize(UserManager.USERS_FILE_PATH);
-							ServerData.getInstance() = (ServerData) Serializer.deserialize(ServerData.SERVER_DATA_FILE_PATH);*/
+							/*GroupManager.getAllGroups() = (HashMap<Byte, ChatGroup>) Serializer.deserialize
+							(GroupManager.GROUPS_FILE_PATH);
+							UserManager.getAllUsers() = (HashMap<Byte, UserManager.AdvancedUser>) Serializer
+							.deserialize(UserManager.USERS_FILE_PATH);
+							ServerData.getInstance() = (ServerData) Serializer.deserialize(ServerData
+							.SERVER_DATA_FILE_PATH);*/
 						}
 					}
 				}

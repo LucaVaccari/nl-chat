@@ -36,7 +36,8 @@ public class GroupManager
 		return allGroups.get(code);
 	}
 
-	public static void init() {
+	public static void init()
+	{
 		try
 		{
 			allGroups = (HashMap<Byte, ChatGroup>) Serializer.deserialize(GROUPS_FILE_PATH);
@@ -44,7 +45,7 @@ public class GroupManager
 			{
 				for (User user : group.getUsers())
 				{
-					System.out.println("the group "+ group.getCode() + " contains user " + user.getId());
+					System.out.println("the group " + group.getCode() + " contains user " + user.getId());
 				}
 			}
 		}

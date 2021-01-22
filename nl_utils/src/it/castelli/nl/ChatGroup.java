@@ -92,9 +92,10 @@ public class ChatGroup implements Serializable
 
 	public User getUserById(byte userId)
 	{
-		for (User user : users) {
+		for (User user : users)
+		{
 			if (user.getId() == userId)
-				return  user;
+				return user;
 		}
 		return null;
 	}

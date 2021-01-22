@@ -48,10 +48,24 @@ public class UserManager
 		return allUsers.get(id).getIncomingMessages();
 	}
 
+	public static void init()
+	{
+		try
+		{
+			allUsers = (HashMap<Byte, AdvancedUser>) Serializer.deserialize(USERS_FILE_PATH);
+		}
+		catch (IOException | ClassNotFoundException e)
+		{
+			allUsers = new HashMap<>();
+		}
+		if (allUsers == null)
+			allUsers = new HashMap<>();
+	}
+
 	public static class AdvancedUser implements Serializable
 	{
 		private User user;
-		private LinkedList<byte[]> incomingMessages = new LinkedList<>();
+		private final LinkedList<byte[]> incomingMessages = new LinkedList<>();
 
 		public AdvancedUser(User user)
 		{
@@ -72,19 +86,6 @@ public class UserManager
 		{
 			return incomingMessages;
 		}
-	}
-	public static void init()
-	{
-		try
-		{
-			allUsers = (HashMap<Byte, AdvancedUser>) Serializer.deserialize(USERS_FILE_PATH);
-		}
-		catch (IOException | ClassNotFoundException e)
-		{
-			allUsers = new HashMap<>();
-		}
-		if (allUsers == null)
-			allUsers = new HashMap<>();
 	}
 
 

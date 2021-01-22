@@ -1,6 +1,5 @@
 package it.castelli.nl.client;
 
-import it.castelli.nl.client.graphics.AlertUtil;
 import it.castelli.nl.messages.MessageBuilder;
 
 import java.io.IOException;
@@ -9,8 +8,8 @@ import java.util.LinkedList;
 
 public class Sender
 {
-	private static OutputStream outStream;
 	private static final LinkedList<byte[]> messageQueue = new LinkedList<>();
+	private static OutputStream outStream;
 
 	private Sender() {}
 
@@ -36,7 +35,8 @@ public class Sender
 					/*messageToSend = messageQueue.poll();
 					outStream.write(messageToSend);*/
 					boolean userExists = ClientData.getInstance().getThisUser().getId() > 0;
-					boolean isNewUserMessage = messageToSend[MessageBuilder.HEADER_SIZE] == MessageBuilder.SERVER_NEW_USER_MESSAGE_TYPE;
+					boolean isNewUserMessage =
+							messageToSend[MessageBuilder.HEADER_SIZE] == MessageBuilder.SERVER_NEW_USER_MESSAGE_TYPE;
 					if (userExists || isNewUserMessage)
 					{
 						messageToSend = messageQueue.poll();
@@ -65,6 +65,7 @@ public class Sender
 
 	/**
 	 * Add a message to the queue of messages. The queued messages will be sent with send()
+	 *
 	 * @param message The message to be sent
 	 */
 	public static void addMessageToQueue(byte[] message)

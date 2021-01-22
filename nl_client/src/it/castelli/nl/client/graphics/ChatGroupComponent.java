@@ -77,6 +77,7 @@ public class ChatGroupComponent extends VBox
 
 	/**
 	 * Getter for chat UI component
+	 *
 	 * @return the ChatComponent bound with this Chat Group
 	 */
 	public ChatComponent getChatComponent()

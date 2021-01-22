@@ -44,11 +44,12 @@ public class JoinGroupMessage extends Message
 
 			//the user is added to the group if he's not a participant yet
 
-			if(!groupToJoin.getUsers().contains(thisUser))
+			if (!groupToJoin.getUsers().contains(thisUser))
 			{
 				groupToJoin.getUsers().add(thisUser);
 
-				//communication to inform others that a new User joined the group and transmission of the group to the user
+				//communication to inform others that a new User joined the group and transmission of the group to the
+				// user
 				try
 				{
 					//send group
@@ -60,7 +61,8 @@ public class JoinGroupMessage extends Message
 					for (User user : groupToJoin.getUsers())
 					{
 						reply = MessageBuilder.buildClientNewUserMessage(groupCode, user.getId(), user.getName());
-						System.out.println("Created ClientNewUserMessage from JoinGroupMessage in the onReceive method");
+						System.out
+								.println("Created ClientNewUserMessage from JoinGroupMessage in the onReceive method");
 						if (user == thisUser)
 							Sender.sendToOthersInGroup(reply, thisUser, groupToJoin);
 						else
@@ -69,7 +71,8 @@ public class JoinGroupMessage extends Message
 				}
 				catch (IOException e)
 				{
-					System.out.println("IOException in " + this.toString() + " during reply creation in JoinGroupMessage");
+					System.out.println(
+							"IOException in " + this.toString() + " during reply creation in JoinGroupMessage");
 					e.printStackTrace();
 				}
 			}

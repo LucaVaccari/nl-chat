@@ -6,8 +6,8 @@ import java.io.IOException;
 
 public class NLServer
 {
-	private static ConnectionManager connectionManager = new ConnectionManager();
-	private static ConnectionReceiver connectionReceiver = new ConnectionReceiver();
+	private static final ConnectionManager connectionManager = new ConnectionManager();
+	private static final ConnectionReceiver connectionReceiver = new ConnectionReceiver();
 
 	public static void main(String[] args) throws InterruptedException, IOException
 	{
@@ -44,7 +44,8 @@ public class NLServer
 		}
 	}
 
-	public static ConnectionManager getConnectionManager() {
+	public static ConnectionManager getConnectionManager()
+	{
 		return connectionManager;
 	}
 }

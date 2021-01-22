@@ -80,7 +80,8 @@ public class ClientGroupManager
 				continue;
 
 			ArrayList<ChatGroupMessage> userMessages = group.getChatGroupContent().getUserMessages();
-			for (ChatGroupMessage userMessage : userMessages) {
+			for (ChatGroupMessage userMessage : userMessages)
+			{
 				ObservableList<ChatMessageComponent> messageListViewItems =
 						chatGroupComponent.getChatComponent().getMessageListView().getItems();
 				ChatMessageComponent chatMessageComponent =
@@ -94,7 +95,8 @@ public class ClientGroupManager
 			if (lastMessageLabel != null && userMessages.size() > 0)
 			{
 				lastMessage = userMessages.get(userMessages.size() - 1);
-				lastMessageLabel.setText(lastMessage.getUserSender().getName() + ": " + lastMessage.getMessageContent());
+				lastMessageLabel
+						.setText(lastMessage.getUserSender().getName() + ": " + lastMessage.getMessageContent());
 			}
 		}
 	}

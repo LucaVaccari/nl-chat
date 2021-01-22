@@ -58,6 +58,50 @@ public class FXMLController
 		return mainFXMLController;
 	}
 
+	/**
+	 * Ask for the server IP and tries to connect
+	 */
+	public static void askServerIp()
+	{
+		String hostAddress = ClientData.getInstance().getServerAddress().getHostAddress();
+		if (hostAddress == null) hostAddress = "";
+
+		Optional<String> ipText;
+		boolean askAgain;
+		do
+		{
+			askAgain = false;
+			ipText = AlertUtil.showTextInputDialogue(hostAddress, "Server IP", "Insert the IP of the " +
+			                                                                   "server", "Server IP: ");
+			if (ipText.isEmpty())
+			{
+				AlertUtil.showInformationAlert("Insert address", "Address is mandatory", "Pleas insert an address");
+				askAgain = true;
+				continue;
+			}
+
+			if (!ipText.get().matches("((\\d{1,3}\\.){3}\\d{1,3})|localhost"))
+			{
+				AlertUtil.showInformationAlert("Invalid address", "Wrong syntax", "An address is identified by 4 " +
+				                                                                  "numbers under 255 separated by " +
+				                                                                  "dots (.).\nIf the server is on " +
+				                                                                  "your machine you can write " +
+				                                                                  "'localhost'");
+				askAgain = true;
+			}
+		} while (askAgain);
+
+		try
+		{
+			ClientData.getInstance().setServerAddress(InetAddress.getByName(ipText.get()));
+		}
+		catch (UnknownHostException e)
+		{
+			e.printStackTrace();
+		}
+		ConnectionHandler.startConnection();
+	}
+
 	@FXML
 	public void initialize()
 	{
@@ -73,7 +117,7 @@ public class FXMLController
 				askAgain = false;
 				Optional<String> name = AlertUtil
 						.showTextInputDialogue("Pinco Pallino", "Welcome", "Welcome to nl-chat! Choose a user name",
-								"Name:");
+						                       "Name:");
 
 				userName = name.orElse("");
 
@@ -86,20 +130,20 @@ public class FXMLController
 				{
 					askAgain = true;
 					AlertUtil.showErrorAlert("Invalid name", "Check the size of your username",
-							"The size should be between 0 and 20");
+					                         "The size should be between 0 and 20");
 				}
 				if (!userName.matches("[\\w\\s]+[\\d\\s]*"))
 				{
 					askAgain = true;
 					AlertUtil.showErrorAlert("Invalid name", "The name uses an invalid format",
-							"The name must start with a letter and could be followed by digits");
+					                         "The name must start with a letter and could be followed by digits");
 				}
 			} while (askAgain);
 
 			try
 			{
 				ClientData.getInstance().setThisUser(new User(userName, (byte) 0));
-				byte[] data = MessageBuilder.buildServerNewUserMessage(userName, InetAddress.getLocalHost());
+				byte[] data = MessageBuilder.buildServerNewUserMessage(userName);
 				Sender.addMessageToQueue(data);
 			}
 			catch (IOException e)
@@ -139,8 +183,8 @@ public class FXMLController
 		copyMessageMenuItem.setOnAction(this::OnCopyMessageButtonClick);
 
 		helpMenuItem.setOnAction(event -> AlertUtil.showInformationAlert("Help", "If you want help...",
-				"Contact the developers if you can't " +
-						"understand."));
+		                                                                 "Contact the developers if you can't " +
+		                                                                 "understand."));
 
 		chatGroupListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 		chatGroupListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -148,7 +192,8 @@ public class FXMLController
 			{
 				selectedChatGroup = newValue.getChatGroup();
 				newValue.showChat();
-			} else
+			}
+			else
 			{
 				oldValue.hideChat();
 			}
@@ -157,7 +202,7 @@ public class FXMLController
 		// set tooltips (text that appears when holding the cursor on a button)
 		createGroupButton.setTooltip(new Tooltip(
 				"Create a new chat where you can write messages to other people.\n" +
-						"You can invite the others by sharing the group identification code."));
+				"You can invite the others by sharing the group identification code."));
 
 		joinGroupButton.setTooltip(new Tooltip(
 				"Join an existing group by specifying its code. Only the messages sent after you join will be visible"
@@ -220,7 +265,7 @@ public class FXMLController
 		{
 			result = AlertUtil
 					.showTextInputDialogue("0", "Join group", "Insert the code of the group you want to join",
-							"Code: ");
+					                       "Code: ");
 
 			// if the users pressed the "cancel" button, return
 			if (result.isEmpty())
@@ -231,7 +276,8 @@ public class FXMLController
 			{
 				if ((resultNumber = Integer.parseInt(result.get(), 10)) > 255)
 					askAgain = true;
-			} else
+			}
+			else
 				askAgain = true;
 		} while (askAgain);
 
@@ -257,8 +303,8 @@ public class FXMLController
 	{
 		// ask for a confirmation
 		Optional<ButtonType> result = AlertUtil.showConfirmationAlert("Leave group", "Are you sure?",
-				"You will lose all the messages of this chat" +
-						".\nDo you really want to leave?");
+		                                                              "You will lose all the messages of this chat" +
+		                                                              ".\nDo you really want to leave?");
 		// if the window wasn't closed
 		if (result.isPresent())
 		{
@@ -269,7 +315,7 @@ public class FXMLController
 				try
 				{
 					packet = MessageBuilder.buildLeaveGroupMessage(selectedChatGroup.getCode(),
-							ClientData.getInstance().getThisUser().getId());
+					                                               ClientData.getInstance().getThisUser().getId());
 				}
 				catch (IOException e)
 				{
@@ -287,9 +333,9 @@ public class FXMLController
 	private void OnRemoveGroupButtonClick(ActionEvent actionEvent)
 	{
 		Optional<ButtonType> result = AlertUtil.showConfirmationAlert("Remove group", "Are you sure?",
-				"You will destroy this group. All the members " +
-						"will be ejected and all the messages lost.\n" +
-						"Are you REALLY sure?");
+		                                                              "You will destroy this group. All the members " +
+		                                                              "will be ejected and all the messages lost.\n" +
+		                                                              "Are you REALLY sure?");
 
 		if (result.isPresent())
 		{
@@ -297,7 +343,7 @@ public class FXMLController
 			{
 				Optional<String> confirmation =
 						AlertUtil.showTextInputDialogue("", "Remove group", "Are you really sure?",
-								"Write 'delete' to delete your group");
+						                                "Write 'delete' to delete your group");
 				if (confirmation.isEmpty())
 					return;
 
@@ -307,8 +353,8 @@ public class FXMLController
 					try
 					{
 						packet = MessageBuilder.buildRemoveGroupMessage(selectedChatGroup.getCode(),
-								ClientData.getInstance().getThisUser()
-										.getId());
+						                                                ClientData.getInstance().getThisUser()
+								                                                .getId());
 					}
 					catch (IOException e)
 					{
@@ -316,10 +362,11 @@ public class FXMLController
 					}
 					Sender.addMessageToQueue(packet);
 					Sender.send();
-				} else
+				}
+				else
 				{
 					AlertUtil.showInformationAlert("Canceled", "The operation was canceled",
-							"You didn't write 'delete' correctly");
+					                               "You didn't write 'delete' correctly");
 				}
 			}
 		}
@@ -331,10 +378,10 @@ public class FXMLController
 	private void OnClearGroupContentButtonClick(ActionEvent actionEvent)
 	{
 		Optional<ButtonType> result = AlertUtil.showConfirmationAlert("Clear content", "Remove all messages",
-				"Are you sure you want to delete all the " +
-						"messages of this group? You won't " +
-						"be able to see them again. The other members " +
-						"of the group will not be affected.");
+		                                                              "Are you sure you want to delete all the " +
+		                                                              "messages of this group? You won't " +
+		                                                              "be able to see them again. The other members " +
+		                                                              "of the group will not be affected.");
 		if (result.isEmpty())
 			return;
 
@@ -349,10 +396,10 @@ public class FXMLController
 	private void OnDeleteMessageButtonClick(ActionEvent actionEvent)
 	{
 		Optional<ButtonType> result = AlertUtil.showConfirmationAlert("Delete message", "Remove a single message",
-				"This will remove the selected message only " +
-						"for you. You won't be able to see it again. " +
-						"The other members of the group will not be " +
-						"affected.");
+		                                                              "This will remove the selected message only " +
+		                                                              "for you. You won't be able to see it again. " +
+		                                                              "The other members of the group will not be " +
+		                                                              "affected.");
 		if (result.isEmpty())
 			return;
 
@@ -377,49 +424,5 @@ public class FXMLController
 				chatComponent.getMessageListView().getSelectionModel().getSelectedItem();
 		content.putString(selectedMessage.getMessageLabel().getText());
 		clipboard.setContent(content);
-	}
-
-	/**
-	 * Ask for the server IP and tries to connect
-	 */
-	public static void askServerIp()
-	{
-		String hostAddress = ClientData.getInstance().getServerAddress().getHostAddress();
-		if (hostAddress == null) hostAddress = "";
-
-		Optional<String> ipText;
-		boolean askAgain;
-		do
-		{
-			askAgain = false;
-			ipText = AlertUtil.showTextInputDialogue(hostAddress, "Server IP", "Insert the IP of the " +
-					"server", "Server IP: ");
-			if (ipText.isEmpty())
-			{
-				AlertUtil.showInformationAlert("Insert address", "Address is mandatory", "Pleas insert an address");
-				askAgain = true;
-				continue;
-			}
-
-			if (!ipText.get().matches("((\\d{1,3}\\.){3}\\d{1,3})|localhost"))
-			{
-				AlertUtil.showInformationAlert("Invalid address", "Wrong syntax", "An address is identified by 4 " +
-						"numbers under 255 separated by " +
-						"dots (.).\nIf the server is on " +
-						"your machine you can write " +
-						"'localhost'");
-				askAgain = true;
-			}
-		} while (askAgain);
-
-		try
-		{
-			ClientData.getInstance().setServerAddress(InetAddress.getByName(ipText.get()));
-		}
-		catch (UnknownHostException e)
-		{
-			e.printStackTrace();
-		}
-		ConnectionHandler.startConnection();
 	}
 }

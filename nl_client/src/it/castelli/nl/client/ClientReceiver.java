@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
 import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.util.Arrays;
 
 /**
@@ -30,7 +29,7 @@ public class ClientReceiver implements Runnable
 	{
 		System.out.println("ClientReceiver is working");
 		try (Socket socket = ConnectionHandler.getSocket();
-		     InputStream inStream = socket.getInputStream();)
+		     InputStream inStream = socket.getInputStream())
 		{
 			byte[] receiveBuffer = new byte[MAX_PACKET_LENGTH];
 			Sender.send();
@@ -51,20 +50,23 @@ public class ClientReceiver implements Runnable
 					int offset = 0;
 					while (offset < messageSize)
 					{
-						short temp = ByteBuffer.wrap(new byte[]{receiveBuffer[offset], receiveBuffer[offset + 1]}).getShort();
+						short temp = ByteBuffer.wrap(new byte[]{receiveBuffer[offset], receiveBuffer[offset + 1]})
+								.getShort();
 						int messageLength = Short.valueOf(temp).intValue();
 						offset += MessageBuilder.HEADER_SIZE;
 						byte[] message = Arrays.copyOfRange(receiveBuffer, offset, offset + messageLength);
 						offset += messageLength;
 
-						System.out.println("A packet has been received from " + socket.getInetAddress().getHostAddress());
+						System.out
+								.println("A packet has been received from " + socket.getInetAddress().getHostAddress());
 						IMessage messageReceiver = ClientMessageManager.getMessageReceiver(message[0]);
 						if (messageReceiver == null)
 							System.out.println("Cannot find message receiver with id " + message[0]);
 						else
 						{
 							messageReceiver.OnReceive(message);
-							Serializer.serialize(ClientGroupManager.getAllGroups(), ClientGroupManager.GROUPS_FILE_PATH);
+							Serializer
+									.serialize(ClientGroupManager.getAllGroups(), ClientGroupManager.GROUPS_FILE_PATH);
 							Serializer.serialize(ClientData.getInstance(), ClientData.CLIENT_DATA_FILE_PATH);
 						}
 					}

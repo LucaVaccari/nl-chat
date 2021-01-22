@@ -22,6 +22,7 @@ public class User implements Serializable
 	{
 		this.name = name;
 		this.id = id;
+		color = "ffffff";
 	}
 
 	/**
@@ -93,7 +94,9 @@ public class User implements Serializable
 	public void setColor(String color)
 	{
 		if (color.length() == 6 &&
-				color.matches("[\\da-f]{6}"))
+		    color.matches("[\\da-f]{6}"))
 			this.color = color;
+		else
+			System.out.println("The color #" + color + " is not valid");
 	}
 }
