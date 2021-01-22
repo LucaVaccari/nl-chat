@@ -21,7 +21,7 @@ public class ConnectionHandler
 	{
 		try
 		{
-			NLClient.getPrimaryStage().setTitle("nl-chat | connecting");
+			NLClient.getPrimaryStage().setTitle("nl-chat | connecting...");
 			socket = new Socket(ClientData.getInstance().getServerAddress(), GeneralData.SERVER_RECEIVE_PORT);
 			receiver = new ClientReceiver();
 			new Thread(receiver).start();

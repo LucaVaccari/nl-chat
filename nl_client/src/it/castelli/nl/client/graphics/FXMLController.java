@@ -1,11 +1,9 @@
 package it.castelli.nl.client.graphics;
 
 import it.castelli.nl.ChatGroup;
+import it.castelli.nl.ChatGroupMessage;
 import it.castelli.nl.User;
-import it.castelli.nl.client.ClientData;
-import it.castelli.nl.client.ConnectionHandler;
-import it.castelli.nl.client.NLClient;
-import it.castelli.nl.client.Sender;
+import it.castelli.nl.client.*;
 import it.castelli.nl.messages.MessageBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,6 +20,7 @@ import javafx.stage.WindowEvent;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class FXMLController
@@ -386,8 +385,13 @@ public class FXMLController
 			return;
 
 		if (result.get().equals(ButtonType.OK))
-			chatGroupListView.getSelectionModel().getSelectedItem().getChatComponent().getMessageListView().getItems()
-					.clear();
+		{
+			ChatGroupComponent selectedChatGroupComponent = chatGroupListView.getSelectionModel().getSelectedItem();
+			selectedChatGroupComponent.getChatComponent().getMessageListView().getItems().clear();
+
+			// update last message label
+			selectedChatGroupComponent.getLastMessageLabel().setText("");
+		}
 	}
 
 	/**
@@ -405,10 +409,16 @@ public class FXMLController
 
 		if (result.get().equals(ButtonType.OK))
 		{
+			ChatGroupComponent selectedChatGroupComponent = chatGroupListView.getSelectionModel().getSelectedItem();
 			ListView<ChatMessageComponent> messageListView =
-					chatGroupListView.getSelectionModel().getSelectedItem().getChatComponent().getMessageListView();
+					selectedChatGroupComponent.getChatComponent().getMessageListView();
 			messageListView.getItems().remove(
 					messageListView.getSelectionModel().getSelectedItem());
+
+			// update last message label
+			ArrayList<ChatGroupMessage> userMessages =
+					selectedChatGroupComponent.getChatGroup().getChatGroupContent().getUserMessages();
+			ClientGroupManager.updateLastMessageLabel(selectedChatGroupComponent, userMessages);
 		}
 	}
 

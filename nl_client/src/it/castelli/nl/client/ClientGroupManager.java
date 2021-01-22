@@ -89,15 +89,21 @@ public class ClientGroupManager
 				messageListViewItems.add(chatMessageComponent);
 			}
 
-			Label lastMessageLabel = chatGroupComponent.getLastMessageLabel();
-			ChatGroupMessage lastMessage = null;
+			updateLastMessageLabel(chatGroupComponent, userMessages);
+		}
+	}
 
-			if (lastMessageLabel != null && userMessages.size() > 0)
-			{
-				lastMessage = userMessages.get(userMessages.size() - 1);
-				lastMessageLabel
-						.setText(lastMessage.getUserSender().getName() + ": " + lastMessage.getMessageContent());
-			}
+	public static void updateLastMessageLabel(ChatGroupComponent chatGroupComponent,
+	                                     ArrayList<ChatGroupMessage> userMessages)
+	{
+		Label lastMessageLabel = chatGroupComponent.getLastMessageLabel();
+		ChatGroupMessage lastMessage = null;
+
+		if (lastMessageLabel != null && userMessages.size() > 0)
+		{
+			lastMessage = userMessages.get(userMessages.size() - 1);
+			lastMessageLabel
+					.setText(lastMessage.getUserSender().getName() + ": " + lastMessage.getMessageContent());
 		}
 	}
 }
