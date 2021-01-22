@@ -2,7 +2,6 @@
 A TCP application to chat with other people over the network. Developed by Luca Vaccari and Nicola Vivante.
 
 #### Todo
-- messages sent before having an id (discover why it works now)
 - serialize User message queue
 - connection does not end and does not establish after an error
 - Command for sending test messages and handle things on the server
@@ -10,7 +9,6 @@ A TCP application to chat with other people over the network. Developed by Luca 
 - User colors TEST TEST TEST TEST TEST
 - Throw illegal argument exceptions in MessageBuilder methods
 - Use unused codes when groups are removed
-- Allow changing username
 - (Send images)
 
 ### Feature list

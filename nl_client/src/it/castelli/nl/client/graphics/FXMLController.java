@@ -142,7 +142,10 @@ public class FXMLController
 		User thisUser = ClientData.getInstance().getThisUser();
 
 		if (thisUser.getId() <= 0)
+		{
+			AlertUtil.showInformationAlert("Action not available offline", "You are offline so you can't perform this action now", "You can't create groups right now because you are offline. Try changing the IP address in the settings or try later.");
 			return;
+		}
 
 		// ask for the name of the group
 		TextInputDialog dialog = new TextInputDialog("MyGroup");
@@ -189,7 +192,10 @@ public class FXMLController
 		byte userId = ClientData.getInstance().getThisUser().getId();
 
 		if (userId <= 0)
+		{
+			AlertUtil.showInformationAlert("Action not available offline", "You are offline so you can't perform this action now", "You can't join groups right now because you are offline. Try changing the IP address in the settings or try later.");
 			return;
+		}
 
 		Optional<String> result;
 		int resultNumber = 0;

@@ -1,16 +1,13 @@
 package it.castelli.nl.client;
 
-import it.castelli.nl.client.graphics.AlertUtil;
 import it.castelli.nl.messages.MessageBuilder;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.LinkedList;
 
 public class Sender
 {
 	private static OutputStream outStream;
-	private static final LinkedList<byte[]> messageQueue = new LinkedList<>();
 
 	private Sender() {}
 
@@ -30,9 +27,9 @@ public class Sender
 			byte[] messageToSend;
 			if (outStream != null)
 			{
-				while ((messageToSend = messageQueue.peek()) != null)
+				while ((messageToSend = ClientData.messageQueue.peek()) != null)
 				{
-					messageToSend = messageQueue.poll();
+					messageToSend = ClientData.messageQueue.poll();
 					outStream.write(messageToSend);
 					System.out.println("Message sent to the server");
 				}
@@ -64,6 +61,6 @@ public class Sender
 	public static void addMessageToQueue(byte[] message)
 	{
 		byte[] messageWithHeader = MessageBuilder.addHeader(message);
-		messageQueue.add(messageWithHeader);
+		ClientData.messageQueue.add(messageWithHeader);
 	}
 }

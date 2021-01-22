@@ -33,21 +33,15 @@ public class Serializer
 	 */
 	public static void serialize(Serializable obj, String path)
 	{
-		try
+		try(FileOutputStream file = new FileOutputStream(path);
+			ObjectOutputStream out = new ObjectOutputStream(file))
 		{
-			//Saving of object in a file
-			FileOutputStream file = new FileOutputStream(path);
-			ObjectOutputStream out = new ObjectOutputStream(file);
-
 			// Method for serialization of object
 			out.writeObject(obj);
-
-			out.close();
-			file.close();
 		}
 		catch (IOException ex)
 		{
-			System.out.println("Error serializing the object");
+			System.out.println("Error serializing the object " + obj.getClass().getName());
 		}
 	}
 

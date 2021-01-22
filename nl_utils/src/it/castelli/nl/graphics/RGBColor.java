@@ -1,6 +1,8 @@
 package it.castelli.nl.graphics;
 
-public class RGBColor
+import java.io.Serializable;
+
+public class RGBColor implements Serializable
 {
 	public static final int MAX_COLOR_SIZE = 127;
 	private byte red, green, blue;
