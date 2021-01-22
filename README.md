@@ -5,10 +5,12 @@ A TCP application to chat with other people over the network. Developed by Luca 
 - messages sent before having an id (discover why it works now)
 - serialize User message queue
 - connection does not end and does not establish after an error
-- Try to implement a command interface on the server
+- Command for sending test messages and handle things on the server
 - Clear/update last message when removing it TEST TEST TEST TEST
 - User colors TEST TEST TEST TEST TEST
-- (Allow changing username)
+- Throw illegal argument exceptions in MessageBuilder methods
+- Use unused codes when groups are removed
+- Allow changing username
 - (Send images)
 
 ### Feature list

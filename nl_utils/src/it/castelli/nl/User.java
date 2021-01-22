@@ -1,5 +1,7 @@
 package it.castelli.nl;
 
+import it.castelli.nl.graphics.RGBColor;
+
 import java.io.Serializable;
 
 /**
@@ -10,7 +12,7 @@ public class User implements Serializable
 {
 	private final byte id;
 	private String name;
-	private String color;
+	private RGBColor color;
 
 	/**
 	 * Constructor for the User class with the name and the id
@@ -22,7 +24,7 @@ public class User implements Serializable
 	{
 		this.name = name;
 		this.id = id;
-		color = "ffffff";
+		color = new RGBColor((byte) 0, (byte) 0, (byte) 0);
 	}
 
 	/**
@@ -94,7 +96,7 @@ public class User implements Serializable
 	public void setColor(String color)
 	{
 		if (color.length() == 6 &&
-		    color.matches("[\\da-f]{6}"))
+				color.matches("[\\da-f]{6}"))
 			this.color = color;
 		else
 			System.out.println("The color #" + color + " is not valid");

@@ -5,6 +5,7 @@ import it.castelli.nl.ChatGroupMessage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Provides useful methods and constants to build packets to send either to the client or to the server
@@ -22,15 +23,16 @@ public class MessageBuilder
 	public static final byte SERVER_TEST_MESSAGE_TYPE = 7;
 	public static final byte SERVER_END_CONNECTION_MESSAGE_TYPE = 8;
 	public static final byte USER_SET_COLOR_MESSAGE_TYPE = 9;
+	public static final byte USER_NAME_CHANGE_MESSAGE_TYPE = 10;
 
-	public static final byte CLIENT_NEW_GROUP_MESSAGE_TYPE = 10;
-	public static final byte CLIENT_NEW_USER_MESSAGE_TYPE = 11;
-	public static final byte GROUP_REMOVED_MESSAGE_TYPE = 12;
-	public static final byte USER_ID_MESSAGE_TYPE = 13;
-	public static final byte CLIENT_USER_CHAT_MESSAGE_TYPE = 14;
-	public static final byte INFORMATION_MESSAGE_TYPE = 15;
-	public static final byte CLIENT_TEST_MESSAGE_TYPE = 16;
-	public static final byte USER_LEFT_MESSAGE_TYPE = 17;
+	public static final byte CLIENT_NEW_GROUP_MESSAGE_TYPE = 11;
+	public static final byte CLIENT_NEW_USER_MESSAGE_TYPE = 12;
+	public static final byte GROUP_REMOVED_MESSAGE_TYPE = 13;
+	public static final byte USER_ID_MESSAGE_TYPE = 14;
+	public static final byte CLIENT_USER_CHAT_MESSAGE_TYPE = 15;
+	public static final byte INFORMATION_MESSAGE_TYPE = 16;
+	public static final byte CLIENT_TEST_MESSAGE_TYPE = 17;
+	public static final byte USER_LEFT_MESSAGE_TYPE = 18;
 
 	public static final int HEADER_SIZE = 2; //number of bytes for the header
 
@@ -378,6 +380,32 @@ public class MessageBuilder
 		return outputStream.toByteArray();
 	}
 
+	/**
+	 * Build a packet which contains a new name for a specified user
+	 *
+	 * @param userId      The id of the user changing the name
+	 * @param newUserName The new name of the user
+	 * @return The array of bytes to be sent
+	 * @throws IllegalArgumentException Thrown when the provided username format is invalid
+	 * @throws IOException              Thrown when failing to build the packet
+	 */
+	public static byte[] buildUsernameChangeMessage(byte userId, String newUserName)
+			throws IllegalArgumentException, IOException
+	{
+		// syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, 1 to 20 for the username
+
+		if (newUserName.length() > 20 || newUserName.length() <= 0)
+			throw new IllegalArgumentException("Invalid length of provided username");
+
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		outputStream.write(USER_NAME_CHANGE_MESSAGE_TYPE);
+		outputStream.write((byte) 0); // the group code
+		outputStream.write(userId);
+		outputStream.write(newUserName.getBytes());
+
+		return outputStream.toByteArray();
+	}
+
 	public static byte[] addHeader(byte[] message)
 	{
 		int lengthOfMessage = message.length;
@@ -394,7 +422,7 @@ public class MessageBuilder
 		}
 		byte[] messageWithHeader = outputStream.toByteArray();
 		System.out.println("From a message with length: " + lengthOfMessage +
-		                   " a message with Header was created with length: " + messageWithHeader.length);
+				" a message with Header was created with length: " + messageWithHeader.length);
 
 		return messageWithHeader;
 	}

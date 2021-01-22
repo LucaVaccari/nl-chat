@@ -22,6 +22,7 @@ public class MessageManager
 		messageReceivers.put(MessageBuilder.GROUP_REMOVED_MESSAGE_TYPE, new GroupRemovedMessage());
 		messageReceivers.put(MessageBuilder.USER_ID_MESSAGE_TYPE, new UserIdMessage());
 		messageReceivers.put(MessageBuilder.USER_SET_COLOR_MESSAGE_TYPE, new UserSetColorMessage());
+		messageReceivers.put(MessageBuilder.USER_NAME_CHANGE_MESSAGE_TYPE, new UsernameChangeMessage());
 	}
 
 	/**

@@ -1,6 +1,6 @@
 package it.castelli.nl.client;
 
-import it.castelli.nl.client.graphics.FXMLController;
+import it.castelli.nl.client.graphics.SettingsMenuController;
 import it.castelli.nl.serialization.Serializer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +22,32 @@ public class NLClient extends Application
 	public static void main(String[] args)
 	{
 		launch(args);
+	}
+
+	@Override
+	public void start(Stage primaryStage)
+	{
+		NLClient.primaryStage = primaryStage;
+		Parent root = loadFXML(INDEX_FXML_FILE_PATH);
+		assert root != null;
+		Scene mainScene = new Scene(root);
+		primaryStage.setScene(mainScene);
+		primaryStage.setResizable(false);
+		primaryStage.setTitle("nl-chat | server offline");
+
+		ConnectionHandler.startConnection();
+		if (!ConnectionHandler.isConnected())
+			SettingsMenuController.askServerIp();
+
+		ClientGroupManager.init();
+
+		primaryStage.show();
+
+		primaryStage.setOnCloseRequest(event -> {
+			Serializer.serialize(ClientData.getInstance(), ClientData.CLIENT_DATA_FILE_PATH);
+			ConnectionHandler.endConnection();
+			System.exit(0);
+		});
 	}
 
 	/**
@@ -88,31 +114,5 @@ public class NLClient extends Application
 			e.printStackTrace();
 			return null;
 		}
-	}
-
-	@Override
-	public void start(Stage primaryStage)
-	{
-		NLClient.primaryStage = primaryStage;
-		Parent root = loadFXML(INDEX_FXML_FILE_PATH);
-		assert root != null;
-		Scene mainScene = new Scene(root);
-		primaryStage.setScene(mainScene);
-		primaryStage.setResizable(false);
-		primaryStage.setTitle("nl-chat | server offline");
-
-		ConnectionHandler.startConnection();
-		if (!ConnectionHandler.isConnected())
-			FXMLController.askServerIp();
-
-		ClientGroupManager.init();
-
-		primaryStage.show();
-
-		primaryStage.setOnCloseRequest(event -> {
-			Serializer.serialize(ClientData.getInstance(), ClientData.CLIENT_DATA_FILE_PATH);
-			ConnectionHandler.endConnection();
-			System.exit(0);
-		});
 	}
 }

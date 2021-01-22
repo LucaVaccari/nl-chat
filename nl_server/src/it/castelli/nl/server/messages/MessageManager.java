@@ -24,6 +24,7 @@ public class MessageManager
 		messageReceivers.put(MessageBuilder.SERVER_USER_CHAT_MESSAGE_TYPE, new UserChatMessage());
 		messageReceivers.put(MessageBuilder.SERVER_END_CONNECTION_MESSAGE_TYPE, new EndConnectionMessage());
 		messageReceivers.put(MessageBuilder.USER_SET_COLOR_MESSAGE_TYPE, new UserSetColorMessage());
+		messageReceivers.put(MessageBuilder.USER_NAME_CHANGE_MESSAGE_TYPE, new UsernameChangeMessage());
 	}
 
 	/**
