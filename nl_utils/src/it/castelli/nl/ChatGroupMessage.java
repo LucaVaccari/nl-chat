@@ -44,4 +44,16 @@ public class ChatGroupMessage implements Serializable
 	{
 		this.messageContent = messageContent;
 	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if(obj instanceof ChatGroupMessage)
+		{
+			return (((ChatGroupMessage) obj).getUserSender().equals(this.getUserSender()) &&
+					((ChatGroupMessage) obj).getChatGroup().equals(this.getChatGroup()) &&
+					((ChatGroupMessage) obj).getMessageContent().equals(this.getMessageContent()));
+		}
+		return false;
+	}
 }

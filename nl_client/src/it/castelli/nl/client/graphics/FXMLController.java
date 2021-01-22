@@ -5,6 +5,7 @@ import it.castelli.nl.ChatGroupMessage;
 import it.castelli.nl.User;
 import it.castelli.nl.client.*;
 import it.castelli.nl.messages.MessageBuilder;
+import it.castelli.nl.serialization.Serializer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -340,6 +341,11 @@ public class FXMLController
 			if (selectedChatGroupComponent != null)
 			{
 				selectedChatGroupComponent.getChatComponent().getMessageListView().getItems().clear();
+				if (selectedChatGroup != null)
+				{
+					selectedChatGroup.getChatGroupContent().getUserMessages().clear();
+					Serializer.serialize(ClientGroupManager.getAllGroups(), ClientGroupManager.GROUPS_FILE_PATH);
+				}
 
 				// update last message label
 				selectedChatGroupComponent.getLastMessageLabel().setText("");
@@ -365,8 +371,13 @@ public class FXMLController
 			ChatGroupComponent selectedChatGroupComponent = chatGroupListView.getSelectionModel().getSelectedItem();
 			ListView<ChatMessageComponent> messageListView =
 					selectedChatGroupComponent.getChatComponent().getMessageListView();
-			messageListView.getItems().remove(
-					messageListView.getSelectionModel().getSelectedItem());
+			ChatMessageComponent selectedChatMessage = messageListView.getSelectionModel().getSelectedItem();
+			messageListView.getItems().remove(selectedChatMessage);
+			if (selectedChatGroup != null)
+			{
+				selectedChatGroup.getChatGroupContent().getUserMessages().remove(selectedChatMessage);
+				Serializer.serialize(ClientGroupManager.getAllGroups(), ClientGroupManager.GROUPS_FILE_PATH);
+			}
 
 			// update last message label
 			ArrayList<ChatGroupMessage> userMessages =

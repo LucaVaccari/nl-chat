@@ -99,4 +99,12 @@ public class ChatGroup implements Serializable
 		}
 		return null;
 	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj instanceof ChatGroup )
+			return (((ChatGroup) obj).getCode() == this.getCode());
+		return  false;
+	}
 }

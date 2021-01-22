@@ -97,11 +97,10 @@ public class ClientGroupManager
 	                                     ArrayList<ChatGroupMessage> userMessages)
 	{
 		Label lastMessageLabel = chatGroupComponent.getLastMessageLabel();
-		ChatGroupMessage lastMessage = null;
 
-		if (lastMessageLabel != null && userMessages.size() > 0)
+		if (userMessages.size() > 0)
 		{
-			lastMessage = userMessages.get(userMessages.size() - 1);
+			ChatGroupMessage lastMessage = userMessages.get(userMessages.size() - 1);
 			lastMessageLabel
 					.setText(lastMessage.getUserSender().getName() + ": " + lastMessage.getMessageContent());
 		}

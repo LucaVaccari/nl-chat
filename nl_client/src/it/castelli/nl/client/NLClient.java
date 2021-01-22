@@ -51,6 +51,7 @@ public class NLClient extends Application
 
 		primaryStage.setOnCloseRequest(event -> {
 			Serializer.serialize(ClientData.getInstance(), ClientData.CLIENT_DATA_FILE_PATH);
+			Serializer.serialize(ClientGroupManager.getAllGroups(), ClientGroupManager.GROUPS_FILE_PATH);
 			System.out.println("The length of the queue during serialization is: " + ClientData.getInstance().getMessageQueue().size());
 			ConnectionHandler.endConnection();
 			System.exit(0);
