@@ -18,7 +18,7 @@ public class UserSetColorMessage implements IMessage
 	 * @param data The content of the packet received
 	 */
 	@Override
-	public void OnReceive(byte[] data)
+	public void onReceive(byte[] data)
 	{
 		byte userId = data[2];
 		byte[] contentOfMessage = Arrays.copyOfRange(data, 3, data.length);

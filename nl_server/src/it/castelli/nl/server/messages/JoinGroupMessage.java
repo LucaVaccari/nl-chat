@@ -28,7 +28,7 @@ public class JoinGroupMessage extends Message
 			try
 			{
 				byte[] errorReply = MessageBuilder
-						.buildErrorMessage("The group with code: " + String.valueOf(groupCode) + " does not exist.");
+						.buildInformationMessage("The group with code: " + String.valueOf(groupCode) + " does not exist.");
 				Sender.sendToUser(errorReply, thisUser);
 				System.out.println("Sent an error message");
 			}
@@ -89,7 +89,7 @@ public class JoinGroupMessage extends Message
 				try
 				{
 					byte[] errorReply = MessageBuilder
-							.buildErrorMessage("You are already in the group " + groupCode);
+							.buildInformationMessage("You are already in the group " + groupCode);
 					Sender.sendToUser(errorReply, thisUser);
 				}
 				catch (IOException e)

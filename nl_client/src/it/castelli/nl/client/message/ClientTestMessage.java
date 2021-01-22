@@ -9,7 +9,7 @@ import javafx.application.Platform;
 public class ClientTestMessage implements IMessage
 {
 	@Override
-	public void OnReceive(byte[] data)
+	public void onReceive(byte[] data)
 	{
 		System.out.println("A message has been received from the server");
 		Platform.runLater(() -> AlertUtil

@@ -17,7 +17,7 @@ public class ClientNewGroupMessage implements IMessage
 {
 
 	@Override
-	public void OnReceive(byte[] data)
+	public void onReceive(byte[] data)
 	{
 		// syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 

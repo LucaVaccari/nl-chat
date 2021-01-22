@@ -18,7 +18,7 @@ public class MessageManager
 		messageReceivers.put(MessageBuilder.CLIENT_NEW_USER_MESSAGE_TYPE, new ClientNewUserMessage());
 		messageReceivers.put(MessageBuilder.CLIENT_TEST_MESSAGE_TYPE, new ClientTestMessage());
 		messageReceivers.put(MessageBuilder.CLIENT_USER_CHAT_MESSAGE_TYPE, new ClientUserChatMessage());
-		messageReceivers.put(MessageBuilder.ERROR_MESSAGE_TYPE, new ErrorMessage());
+		messageReceivers.put(MessageBuilder.INFORMATION_MESSAGE_TYPE, new InformationMessage());
 		messageReceivers.put(MessageBuilder.GROUP_REMOVED_MESSAGE_TYPE, new GroupRemovedMessage());
 		messageReceivers.put(MessageBuilder.USER_ID_MESSAGE_TYPE, new UserIdMessage());
 		messageReceivers.put(MessageBuilder.USER_SET_COLOR_MESSAGE_TYPE, new UserSetColorMessage());

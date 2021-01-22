@@ -8,15 +8,15 @@ import java.util.Arrays;
 /**
  * Error message received by the client
  */
-public class ErrorMessage implements IMessage
+public class InformationMessage implements IMessage
 {
 	@Override
-	public void OnReceive(byte[] data)
+	public void onReceive(byte[] data)
 	{
 		byte[] contentOfMessage;
 		contentOfMessage = Arrays.copyOfRange(data, 3, data.length);
 		String errorMessage = new String(contentOfMessage).strip();
-		Platform.runLater(() -> AlertUtil.showErrorAlert("Error", "An error has occurred on the server",
-		                                                 errorMessage));
+		Platform.runLater(() -> AlertUtil.showInformationAlert("Error",
+				"An error has occurred on the server", errorMessage));
 	}
 }

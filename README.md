@@ -6,7 +6,6 @@ A TCP application to chat with other people over the network. Developed by Luca 
 - serialize User message queue
 - connection does not end and does not establish after an error
 - Try to implement a command interface on the server
-- Change server error to server information
 - Clear/update last message when removing it TEST TEST TEST TEST
 - User colors TEST TEST TEST TEST TEST
 - (Allow changing username)

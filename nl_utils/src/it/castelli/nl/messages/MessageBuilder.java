@@ -28,7 +28,7 @@ public class MessageBuilder
 	public static final byte GROUP_REMOVED_MESSAGE_TYPE = 12;
 	public static final byte USER_ID_MESSAGE_TYPE = 13;
 	public static final byte CLIENT_USER_CHAT_MESSAGE_TYPE = 14;
-	public static final byte ERROR_MESSAGE_TYPE = 15;
+	public static final byte INFORMATION_MESSAGE_TYPE = 15;
 	public static final byte CLIENT_TEST_MESSAGE_TYPE = 16;
 	public static final byte USER_LEFT_MESSAGE_TYPE = 17;
 
@@ -294,21 +294,21 @@ public class MessageBuilder
 	}
 
 	/**
-	 * Build a packet which contains an generic error to be communicated to the client
+	 * Build a packet which contains an generic information to be communicated to the client
 	 *
-	 * @param error The error encountered
+	 * @param information The information to send
 	 * @return The array of bytes to be sent
 	 * @throws IOException Thrown when failing to build the packet
 	 */
-	public static byte[] buildErrorMessage(String error) throws IOException
+	public static byte[] buildInformationMessage(String information) throws IOException
 	{
 		// syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
 
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		outputStream.write(ERROR_MESSAGE_TYPE);
+		outputStream.write(INFORMATION_MESSAGE_TYPE);
 		outputStream.write((byte) 0); //group code which is not present
 		outputStream.write((byte) 0); // userId which is not present
-		outputStream.write(error.getBytes());
+		outputStream.write(information.getBytes());
 
 		return outputStream.toByteArray();
 	}

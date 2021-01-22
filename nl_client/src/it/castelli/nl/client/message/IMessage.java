@@ -10,5 +10,5 @@ public interface IMessage
 	 *
 	 * @param data The content of the packet received
 	 */
-	void OnReceive(byte[] data);
+	void onReceive(byte[] data);
 }

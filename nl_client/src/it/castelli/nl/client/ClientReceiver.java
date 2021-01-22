@@ -64,7 +64,7 @@ public class ClientReceiver implements Runnable
 							System.out.println("Cannot find message receiver with id " + message[0]);
 						else
 						{
-							messageReceiver.OnReceive(message);
+							messageReceiver.onReceive(message);
 							Serializer
 									.serialize(ClientGroupManager.getAllGroups(), ClientGroupManager.GROUPS_FILE_PATH);
 							Serializer.serialize(ClientData.getInstance(), ClientData.CLIENT_DATA_FILE_PATH);
