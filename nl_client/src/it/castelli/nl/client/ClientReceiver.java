@@ -1,7 +1,7 @@
 package it.castelli.nl.client;
 
 import it.castelli.nl.client.graphics.AlertUtil;
-import it.castelli.nl.client.message.ClientMessageManager;
+import it.castelli.nl.client.message.MessageManager;
 import it.castelli.nl.client.message.IMessage;
 import it.castelli.nl.messages.MessageBuilder;
 import it.castelli.nl.serialization.Serializer;
@@ -59,7 +59,7 @@ public class ClientReceiver implements Runnable
 
 						System.out
 								.println("A packet has been received from " + socket.getInetAddress().getHostAddress());
-						IMessage messageReceiver = ClientMessageManager.getMessageReceiver(message[0]);
+						IMessage messageReceiver = MessageManager.getMessageReceiver(message[0]);
 						if (messageReceiver == null)
 							System.out.println("Cannot find message receiver with id " + message[0]);
 						else

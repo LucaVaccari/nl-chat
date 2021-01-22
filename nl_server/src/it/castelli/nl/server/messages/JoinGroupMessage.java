@@ -67,6 +67,14 @@ public class JoinGroupMessage extends Message
 							Sender.sendToOthersInGroup(reply, thisUser, groupToJoin);
 						else
 							Sender.sendToUser(reply, thisUser);
+
+						// send colors to all users (same method as before)
+						byte[] colorReply = MessageBuilder.buildUserSetColorMessage(groupCode, user.getColor());
+						System.out.println("Created UserSetColorMessage from JoinGroupMessage in the onReceive method");
+						if (user == thisUser)
+							Sender.sendToOthersInGroup(colorReply, thisUser, groupToJoin);
+						else
+							Sender.sendToUser(colorReply, thisUser);
 					}
 				}
 				catch (IOException e)

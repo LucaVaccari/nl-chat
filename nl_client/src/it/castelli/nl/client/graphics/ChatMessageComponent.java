@@ -16,8 +16,12 @@ public class ChatMessageComponent extends VBox
 	public Label userNameLabel;
 	public Label messageLabel;
 
+	private ChatGroupMessage chatGroupMessage;
+
 	public ChatMessageComponent(ChatGroupMessage message)
 	{
+		this.chatGroupMessage = message;
+
 		FXMLLoader loader = NLClient.getFXMLLoader("src/it/castelli/nl/client/graphics/chatMessage.fxml");
 		assert loader != null;
 		loader.setController(this);
@@ -44,5 +48,10 @@ public class ChatMessageComponent extends VBox
 	public Label getMessageLabel()
 	{
 		return messageLabel;
+	}
+
+	public ChatGroupMessage getChatGroupMessage()
+	{
+		return chatGroupMessage;
 	}
 }

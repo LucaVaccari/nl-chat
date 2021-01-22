@@ -8,7 +8,7 @@ import java.util.HashMap;
  * The ClientMessageManager organizes all the types of messages which the client can receive,
  * by mapping their instances with a specific message code (1 byte, using the constants defined in MessageBuilder)
  */
-public class ClientMessageManager
+public class MessageManager
 {
 	private static final HashMap<Byte, IMessage> messageReceivers = new HashMap<>();
 
@@ -21,6 +21,7 @@ public class ClientMessageManager
 		messageReceivers.put(MessageBuilder.ERROR_MESSAGE_TYPE, new ErrorMessage());
 		messageReceivers.put(MessageBuilder.GROUP_REMOVED_MESSAGE_TYPE, new GroupRemovedMessage());
 		messageReceivers.put(MessageBuilder.USER_ID_MESSAGE_TYPE, new UserIdMessage());
+		messageReceivers.put(MessageBuilder.USER_SET_COLOR_MESSAGE_TYPE, new UserSetColorMessage());
 	}
 
 	/**

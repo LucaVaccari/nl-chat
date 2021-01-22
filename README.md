@@ -3,10 +3,11 @@ A TCP application to chat with other people over the network. Developed by Luca 
 
 #### Todo
 - messages sent before having an id (discover why it works now)
-- serialize User message queue 
+- serialize User message queue
 - connection does not end and does not establish after an error
 - Try to implement a command interface on the server
-- Change server error to server information 
+- Change server error to server information
+- Clear/update last message when removing it 
 - (User colors)
 - (Allow changing username)
 - (Send images)
