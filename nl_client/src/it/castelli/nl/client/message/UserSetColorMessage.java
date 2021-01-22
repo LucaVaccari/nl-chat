@@ -6,6 +6,7 @@ import it.castelli.nl.client.ClientGroupManager;
 import it.castelli.nl.client.graphics.ChatGroupComponent;
 import it.castelli.nl.client.graphics.ChatMessageComponent;
 import it.castelli.nl.client.graphics.FXMLController;
+import it.castelli.nl.graphics.RGBColor;
 import javafx.scene.paint.Color;
 
 import java.util.Arrays;
@@ -22,7 +23,7 @@ public class UserSetColorMessage implements IMessage
 	{
 		byte userId = data[2];
 		byte[] contentOfMessage = Arrays.copyOfRange(data, 3, data.length);
-		String color = new String(contentOfMessage).strip();
+		RGBColor rgbColor = new RGBColor(contentOfMessage[0], contentOfMessage[1], contentOfMessage[2]);
 
 		for (ChatGroup group : ClientGroupManager.getAllGroups().values())
 		{
@@ -30,8 +31,8 @@ public class UserSetColorMessage implements IMessage
 			{
 				if (user.getId() == userId)
 				{
-					user.setColor(color);
-					System.out.println("Changed the color of " + user.getName() + " with color #" + color);
+					user.setColor(rgbColor);
+					System.out.println("Changed the color of " + user.getName() + " with color " + rgbColor);
 					break;
 				}
 			}
@@ -44,7 +45,10 @@ public class UserSetColorMessage implements IMessage
 			{
 				if (chatMessageComponent.getChatGroupMessage().getUserSender().getId() == userId)
 				{
-					chatMessageComponent.getUserNameLabel().setTextFill(Color.web(color));
+					Color newColor = Color.color((double) rgbColor.getRed() / RGBColor.MAX_COLOR_SIZE,
+							(double) rgbColor.getGreen() / RGBColor.MAX_COLOR_SIZE,
+							(double) rgbColor.getBlue() / RGBColor.MAX_COLOR_SIZE);
+					chatMessageComponent.getUserNameLabel().setTextFill(newColor);
 				}
 			}
 		}

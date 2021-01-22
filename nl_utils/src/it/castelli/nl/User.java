@@ -73,9 +73,7 @@ public class User implements Serializable
 	@Override
 	public int hashCode()
 	{
-		int result = 3;
-		result = 31 * result + id;
-		return result;
+		return 93 + id;
 	}
 
 	/**
@@ -83,7 +81,7 @@ public class User implements Serializable
 	 *
 	 * @return the String containing the color code
 	 */
-	public String getColor()
+	public RGBColor getColor()
 	{
 		return color;
 	}
@@ -93,12 +91,8 @@ public class User implements Serializable
 	 *
 	 * @param color The new color (if the format is incorrect it will be ignored)
 	 */
-	public void setColor(String color)
+	public void setColor(RGBColor color)
 	{
-		if (color.length() == 6 &&
-				color.matches("[\\da-f]{6}"))
-			this.color = color;
-		else
-			System.out.println("The color #" + color + " is not valid");
+		this.color = color;
 	}
 }

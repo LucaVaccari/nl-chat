@@ -2,6 +2,7 @@ package it.castelli.nl.server.messages;
 
 import it.castelli.nl.ChatGroup;
 import it.castelli.nl.User;
+import it.castelli.nl.graphics.RGBColor;
 import it.castelli.nl.server.Connection;
 import it.castelli.nl.server.GroupManager;
 import it.castelli.nl.server.Sender;
@@ -20,9 +21,9 @@ public class UserSetColorMessage extends Message
 		byte userId = data[2];
 		User thisUser = UserManager.getUserFromId(userId);
 		byte[] contentOfMessage = Arrays.copyOfRange(data, 3, data.length);
-		String color = new String(contentOfMessage).strip();
+		RGBColor rgbColor = new RGBColor(contentOfMessage[0], contentOfMessage[1],  contentOfMessage[2]);
 
-		thisUser.setColor(color);
+		thisUser.setColor(rgbColor);
 
 		// get all users know by the sender user
 		HashSet<User> knownUsers = new HashSet<>();

@@ -1,6 +1,7 @@
 package it.castelli.nl.messages;
 
 import it.castelli.nl.ChatGroupMessage;
+import it.castelli.nl.graphics.RGBColor;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -363,19 +364,17 @@ public class MessageBuilder
 	 * @throws IOException              Thrown when failing to build the packet
 	 * @throws IllegalArgumentException Thrown when format of the provided string is incorrect
 	 */
-	public static byte[] buildUserSetColorMessage(byte userId, String color) throws IOException,
-	                                                                                IllegalArgumentException
+	public static byte[] buildUserSetColorMessage(byte userId, RGBColor color) throws IOException
 	{
-		// syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, 6 for the color
-
-		if (color.length() != 6 && !color.matches("[\\da-f]{6}"))
-			throw new IllegalArgumentException("The provided color is not in a valid format");
+		// syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, 3 for the color (RGB)
 
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		outputStream.write(USER_SET_COLOR_MESSAGE_TYPE);
 		outputStream.write((byte) 0);
 		outputStream.write(userId);
-		outputStream.write(color.getBytes());
+		outputStream.write(color.getRed());
+		outputStream.write(color.getGreen());
+		outputStream.write(color.getBlue());
 
 		return outputStream.toByteArray();
 	}

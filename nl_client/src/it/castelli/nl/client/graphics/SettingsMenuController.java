@@ -4,6 +4,7 @@ import it.castelli.nl.User;
 import it.castelli.nl.client.ClientData;
 import it.castelli.nl.client.ConnectionHandler;
 import it.castelli.nl.client.Sender;
+import it.castelli.nl.graphics.RGBColor;
 import it.castelli.nl.messages.MessageBuilder;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -28,9 +29,7 @@ public class SettingsMenuController
 	@FXML
 	public void initialize()
 	{
-		setIpButton.setOnAction(event -> {
-			askServerIp();
-		});
+		setIpButton.setOnAction(event -> askServerIp());
 
 		changeUserNameButton.setOnAction(event -> {
 			String newUserName = askUserName("Insert a new username");
@@ -72,14 +71,12 @@ public class SettingsMenuController
 			}
 
 			Color selectedColor = userColorPicker.getValue();
-
-			String hexColor = String.format("#%02X%02X%02X",
-					(int) (selectedColor.getRed() * 255),
-					(int) (selectedColor.getGreen() * 255),
-					(int) (selectedColor.getBlue() * 255));
+			RGBColor rgbColor = new RGBColor((byte) (selectedColor.getRed() * RGBColor.MAX_COLOR_SIZE),
+					(byte) (selectedColor.getGreen() * RGBColor.MAX_COLOR_SIZE),
+					(byte) (selectedColor.getBlue() * RGBColor.MAX_COLOR_SIZE));
 			try
 			{
-				byte[] packet = MessageBuilder.buildUserSetColorMessage(thisUser.getId(), hexColor);
+				byte[] packet = MessageBuilder.buildUserSetColorMessage(thisUser.getId(), rgbColor);
 				Sender.addMessageToQueue(packet);
 			}
 			catch (IOException e)
@@ -87,7 +84,7 @@ public class SettingsMenuController
 				e.printStackTrace();
 			}
 
-			thisUser.setColor(hexColor);
+			thisUser.setColor(rgbColor);
 
 			// change the color for all messages
 			for (ChatGroupComponent chatGroupComponent : FXMLController.get().chatGroupListView.getItems())
@@ -96,8 +93,11 @@ public class SettingsMenuController
 						chatGroupComponent.getChatComponent().getMessageListView().getItems();
 				for (ChatMessageComponent messageComponent : chatMessageComponents)
 				{
-					String userColor = thisUser.getColor();
-					messageComponent.getUserNameLabel().setTextFill(Color.web(userColor));
+					RGBColor userColor = thisUser.getColor();
+					Color newColor = Color.color((double) userColor.getRed() / RGBColor.MAX_COLOR_SIZE,
+							(double) userColor.getGreen() / RGBColor.MAX_COLOR_SIZE,
+							(double) userColor.getBlue() / RGBColor.MAX_COLOR_SIZE);
+					messageComponent.getUserNameLabel().setTextFill(newColor);
 				}
 			}
 		});
