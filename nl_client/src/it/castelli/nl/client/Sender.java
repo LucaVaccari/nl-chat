@@ -27,9 +27,9 @@ public class Sender
 			byte[] messageToSend;
 			if (outStream != null)
 			{
-				while ((messageToSend = ClientData.messageQueue.peek()) != null)
+				while ((messageToSend = ClientData.getInstance().getMessageQueue().peek()) != null)
 				{
-					messageToSend = ClientData.messageQueue.poll();
+					messageToSend = ClientData.getInstance().getMessageQueue().poll();
 					outStream.write(messageToSend);
 					System.out.println("Message sent to the server");
 				}
@@ -61,6 +61,6 @@ public class Sender
 	public static void addMessageToQueue(byte[] message)
 	{
 		byte[] messageWithHeader = MessageBuilder.addHeader(message);
-		ClientData.messageQueue.add(messageWithHeader);
+		ClientData.getInstance().getMessageQueue().add(messageWithHeader);
 	}
 }

@@ -16,7 +16,7 @@ import java.util.LinkedList;
 public class ClientData implements Serializable
 {
 	public static final String CLIENT_DATA_FILE_PATH = "clientData.bin";
-	static final LinkedList<byte[]> messageQueue = new LinkedList<>();
+	private final LinkedList<byte[]> messageQueue = new LinkedList<>();
 	private static ClientData instance;
 
 	private User thisUser;
@@ -39,6 +39,7 @@ public class ClientData implements Serializable
 			try
 			{
 				instance = (ClientData) Serializer.deserialize(CLIENT_DATA_FILE_PATH);
+				System.out.println("The length of the queue after deserialization is: " + getInstance().messageQueue.size());
 			}
 			catch (IOException | ClassNotFoundException e)
 			{
@@ -99,5 +100,10 @@ public class ClientData implements Serializable
 	public void setServerAddress(InetAddress serverAddress)
 	{
 		this.serverAddress = serverAddress;
+	}
+
+	public LinkedList<byte[]> getMessageQueue()
+	{
+		return messageQueue;
 	}
 }

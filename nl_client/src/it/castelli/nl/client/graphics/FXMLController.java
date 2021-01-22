@@ -69,6 +69,7 @@ public class FXMLController
 				ClientData.getInstance().setThisUser(new User(userName, (byte) 0));
 				byte[] data = MessageBuilder.buildServerNewUserMessage(userName);
 				Sender.addMessageToQueue(data);
+				System.out.println("Message added to the queue");
 			}
 			catch (IOException e)
 			{
