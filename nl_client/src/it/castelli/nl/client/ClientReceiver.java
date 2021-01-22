@@ -44,9 +44,9 @@ public class ClientReceiver implements Runnable
 					break;
 				}
 
-				if (inStream.available() > 0)
+				int messageSize = inStream.read(receiveBuffer);
+				if (messageSize > 0)
 				{
-					int messageSize = inStream.read(receiveBuffer);
 					int offset = 0;
 					while (offset < messageSize)
 					{
@@ -76,7 +76,8 @@ public class ClientReceiver implements Runnable
 		}
 		catch (IOException e)
 		{
-			e.printStackTrace();
+			System.out.println("Connection lost");
+			interrupt();
 		}
 	}
 

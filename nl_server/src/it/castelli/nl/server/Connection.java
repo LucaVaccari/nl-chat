@@ -39,9 +39,9 @@ public class Connection implements Runnable
 			byte[] receiveBuffer = new byte[RECEIVE_WINDOW];
 			while (isRunning)
 			{
-				if (inStream.available() > 0)
+				int messageSize = inStream.read(receiveBuffer);
+				if (messageSize > 0)
 				{
-					int messageSize = inStream.read(receiveBuffer);
 					int offset = 0;
 					while (offset < messageSize)
 					{

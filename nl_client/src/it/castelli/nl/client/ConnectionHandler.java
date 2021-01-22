@@ -21,7 +21,10 @@ public class ConnectionHandler
 	{
 		try
 		{
-			NLClient.getPrimaryStage().setTitle("nl-chat | connecting...");
+
+			Platform.runLater(() -> {
+				NLClient.getPrimaryStage().setTitle("nl-chat | connecting");
+			});
 			socket = new Socket(ClientData.getInstance().getServerAddress(), GeneralData.SERVER_RECEIVE_PORT);
 			receiver = new ClientReceiver();
 			new Thread(receiver).start();
@@ -29,20 +32,24 @@ public class ConnectionHandler
 			Sender.setOutStream(socket.getOutputStream());
 
 			if (!socket.isClosed() && socket.isConnected())
-			{
-				NLClient.getPrimaryStage()
-						.setTitle("nl-chat | connected with " + socket.getInetAddress().getHostAddress());
+            {
+            	//error
+                NLClient.getPrimaryStage().setTitle("nl-chat | connected with " + socket.getInetAddress().getHostAddress());
 //                AlertUtil.showInformationAlert("Connection successful", "Success",
 //                                               "Connection with the server established");
-			}
+            }
 		}
 		catch (IOException e)
 		{
-			NLClient.getPrimaryStage().setTitle("nl-chat | server offline");
-			Platform.runLater(() -> AlertUtil.showErrorAlert("Connection error", "Cannot connect to the server",
-			                                                 "The server is offline or unreachable. Try setting your" +
-			                                                 " " +
-			                                                 "server address in the settings menu."));
+
+			Platform.runLater(() ->
+					{
+						NLClient.getPrimaryStage().setTitle("nl-chat | server offline");
+						AlertUtil.showErrorAlert("Connection error", "Cannot connect to the server",
+								"The server is offline or unreachable. Try setting your" +
+										" " +
+										"server address in the settings menu.");
+					});
 		}
 	}
 
@@ -67,12 +74,12 @@ public class ConnectionHandler
 	}
 
 	public static boolean isConnected()
-	{
-		if (socket == null)
-			return false;
+    {
+        if (socket == null)
+            return false;
 
-		return !socket.isClosed() && socket.isConnected();
-	}
+        return !socket.isClosed() && socket.isConnected();
+    }
 
 	public static Socket getSocket()
 	{

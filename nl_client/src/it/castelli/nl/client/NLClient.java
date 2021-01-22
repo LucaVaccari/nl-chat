@@ -111,6 +111,7 @@ public class NLClient extends Application
 
 		primaryStage.setOnCloseRequest(event -> {
 			Serializer.serialize(ClientData.getInstance(), ClientData.CLIENT_DATA_FILE_PATH);
+			ConnectionHandler.endConnection();
 			System.exit(0);
 		});
 	}
