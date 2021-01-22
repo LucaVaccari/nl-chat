@@ -85,7 +85,8 @@ public class User implements Serializable
 	 */
 	public String getColor()
 	{
-		return color;
+		//return color;
+		return "";
 	}
 
 	/**
@@ -95,10 +96,10 @@ public class User implements Serializable
 	 */
 	public void setColor(String color)
 	{
-		if (color.length() == 6 &&
+		/*if (color.length() == 6 &&
 				color.matches("[\\da-f]{6}"))
 			this.color = color;
 		else
-			System.out.println("The color #" + color + " is not valid");
+			System.out.println("The color #" + color + " is not valid");*/
 	}
 }

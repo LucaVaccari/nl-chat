@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.LinkedList;
 
 /**
  * Contains all the shared data every class of the client might need.
@@ -15,6 +16,7 @@ import java.net.UnknownHostException;
 public class ClientData implements Serializable
 {
 	public static final String CLIENT_DATA_FILE_PATH = "clientData.bin";
+	static final LinkedList<byte[]> messageQueue = new LinkedList<>();
 	private static ClientData instance;
 
 	private User thisUser;

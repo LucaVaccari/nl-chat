@@ -66,8 +66,7 @@ public class ClientReceiver implements Runnable
 						else
 						{
 							messageReceiver.onReceive(message);
-							Serializer
-									.serialize(ClientGroupManager.getAllGroups(), ClientGroupManager.GROUPS_FILE_PATH);
+							Serializer.serialize(ClientGroupManager.getAllGroups(), ClientGroupManager.GROUPS_FILE_PATH);
 							Serializer.serialize(ClientData.getInstance(), ClientData.CLIENT_DATA_FILE_PATH);
 						}
 					}
