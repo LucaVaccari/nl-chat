@@ -3,13 +3,14 @@ package it.castelli.nl.server;
 import it.castelli.nl.serialization.Serializer;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 public class NLServer
 {
 	private static final ConnectionManager connectionManager = new ConnectionManager();
 	private static final ConnectionReceiver connectionReceiver = new ConnectionReceiver();
 
-	public static void main(String[] args) throws InterruptedException, IOException
+	public static void main(String[] args) throws IOException
 	{
 		boolean running = true;
 
@@ -22,9 +23,12 @@ public class NLServer
 		Thread serverThread = new Thread(connectionReceiver, "serverThread");
 		serverThread.start();
 
+		Scanner scanner = new Scanner(System.in);
+
 		while (running)
 		{
-
+			if (scanner.next().equals("stop"))
+				running = false;
 		}
 
 		Serializer.serialize(GroupManager.getAllGroups(), GroupManager.GROUPS_FILE_PATH);
@@ -33,6 +37,8 @@ public class NLServer
 
 		connectionReceiver.interrupt();
 		connectionManager.interrupt();
+
+		System.out.println("Closing the server...");
 		try
 		{
 			connectionManagerThread.join();

@@ -21,6 +21,10 @@ sourceSets {
 application {
     mainClass = 'it.castelli.nl.server.NLServer'
 }
+run {
+    standardInput = System.in
+}
+
 jar {
 // https://stackoverflow.com/questions/28421409/gradle-command-from-configurations-compile-collect
     from(configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }) {}
