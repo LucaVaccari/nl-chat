@@ -24,7 +24,6 @@ public class Sender
 			if (outStream == null)
 			{
 				System.out.println("OutputStream to the server is null");
-				ConnectionHandler.endConnection();
 				ConnectionHandler.startConnection();
 			}
 
@@ -35,8 +34,8 @@ public class Sender
 				{
 					messageToSend = messageQueue.poll();
 					outStream.write(messageToSend);
+					System.out.println("Message sent to the server");
 				}
-
 			}
 		}
 		catch (IOException e)

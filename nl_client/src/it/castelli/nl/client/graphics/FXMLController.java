@@ -155,6 +155,7 @@ public class FXMLController
 		String groupName;
 		do
 		{
+			dialog.setResult("");
 			result = dialog.showAndWait();
 
 			groupName = result.orElse("");

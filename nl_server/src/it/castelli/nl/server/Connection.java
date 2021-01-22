@@ -7,6 +7,7 @@ import it.castelli.nl.server.messages.MessageManager;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
@@ -20,6 +21,7 @@ public class Connection implements Runnable
 	private final Socket connectionSocket;
 	private UserManager.AdvancedUser user;
 	private boolean isRunning = true;
+	private OutputStream outStream;
 
 	/**
 	 * Constructor for the connection object
@@ -36,6 +38,7 @@ public class Connection implements Runnable
 	{
 		try (InputStream inStream = connectionSocket.getInputStream())
 		{
+			outStream = connectionSocket.getOutputStream();
 			byte[] receiveBuffer = new byte[RECEIVE_WINDOW];
 			while (isRunning)
 			{
@@ -74,6 +77,7 @@ public class Connection implements Runnable
 		}
 		catch (IOException e)
 		{
+			outStream = null;
 			System.out.println("The connection has been interrupted");
 		}
 	}

@@ -63,6 +63,7 @@ public class ConnectionHandler
 
 			NLClient.getPrimaryStage().setTitle("nl-chat | server offline");
 			System.out.println("Connection was ended by the client");
+			Sender.setOutStream(null);
 			socket = null;
 		}
 		catch (IOException e)

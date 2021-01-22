@@ -1,6 +1,7 @@
 package it.castelli.nl.server;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -22,7 +23,7 @@ public class ConnectionManager implements Runnable
 		{
 			for (Connection connection : allConnections)
 			{
-				if (connection.getSocket().isConnected() && !connection.getSocket().isClosed())
+				if (connection.getSocket() != null)
 				{
 					try
 					{
@@ -43,16 +44,11 @@ public class ConnectionManager implements Runnable
 					}
 					catch (IOException e)
 					{
-						System.out.println("Connection has ended");
+						System.out.println("Connection has ended, IOException");
+						e.printStackTrace();
 						connection.interrupt();
 						allConnections.remove(connection);
 					}
-				}
-				else
-				{
-					System.out.println("Connection has ended");
-					connection.interrupt();
-					allConnections.remove(connection);
 				}
 			}
 		}

@@ -39,15 +39,7 @@ public class NLServer
 		connectionManager.interrupt();
 
 		System.out.println("Closing the server...");
-		try
-		{
-			connectionManagerThread.join();
-			serverThread.join();
-		}
-		catch (InterruptedException e)
-		{
-			e.printStackTrace();
-		}
+		System.exit(0);
 	}
 
 	public static ConnectionManager getConnectionManager()

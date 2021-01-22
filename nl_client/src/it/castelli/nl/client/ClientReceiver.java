@@ -37,6 +37,7 @@ public class ClientReceiver implements Runnable
 			{
 				if (!socket.isConnected() || socket.isClosed())
 				{
+					Sender.setOutStream(null);
 					Platform.runLater(() -> AlertUtil.showErrorAlert("Connection error", "Connection interrupted by " +
 					                                                                     "the remote host",
 					                                                 "The server is offline. Try again later."));
@@ -71,12 +72,15 @@ public class ClientReceiver implements Runnable
 						}
 					}
 				}
-				//error maybe
 			}
 		}
 		catch (IOException e)
 		{
+			Sender.setOutStream(null);
 			System.out.println("Connection lost");
+			Platform.runLater(() -> {
+				NLClient.getPrimaryStage().setTitle("nl-chat | server offline");
+			});
 			interrupt();
 		}
 	}
@@ -86,18 +90,6 @@ public class ClientReceiver implements Runnable
 	 */
 	public void interrupt()
 	{
-		byte[] packet = new byte[0];
-		try
-		{
-			packet = MessageBuilder.buildServerEndConnectionMessage();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-		Sender.addMessageToQueue(packet);
-		Sender.send();
 		isRunning = false;
-		System.out.println("Should be stopping");
 	}
 }
