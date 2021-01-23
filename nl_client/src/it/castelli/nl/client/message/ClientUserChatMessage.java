@@ -53,25 +53,29 @@ public class ClientUserChatMessage implements IMessage
 		Platform.runLater(() -> {
 			// add a message UI component on the chat element
 			ListView<ChatGroupComponent> chatGroupListView = FXMLController.get().chatGroupListView;
-			ChatComponent chatComponent = chatGroupListView.getSelectionModel().getSelectedItem().getChatComponent();
 
-			chatComponent.getMessageListView().scrollTo(chatComponent.getMessageListView().getItems().size() - 1);
+			ChatComponent chatComponent = null;
+			if (chatGroupListView.getSelectionModel().getSelectedItem() != null)
+			{
+				chatComponent = chatGroupListView.getSelectionModel().getSelectedItem().getChatComponent();
+				chatComponent.getMessageListView().scrollTo(chatComponent.getMessageListView().getItems().size() - 1);
+				ObservableList<ChatMessageComponent> chatComponentItems = chatComponent.getMessageListView().getItems();
 
-			ObservableList<ChatMessageComponent> chatComponentItems = chatComponent.getMessageListView().getItems();
-			ChatMessageComponent chatMessageComponent = new ChatMessageComponent(message);
+				ChatMessageComponent chatMessageComponent = new ChatMessageComponent(message);
 
-			// color
-			RGBColor userColor = finalThisUser.getColor();
-			Color newColor = Color.color((double) userColor.getRed() / RGBColor.MAX_COLOR_SIZE,
-					(double) userColor.getGreen() / RGBColor.MAX_COLOR_SIZE,
-					(double) userColor.getBlue() / RGBColor.MAX_COLOR_SIZE);
-			chatMessageComponent.getUserNameLabel().setTextFill(newColor);
+				// color
+				RGBColor userColor = finalThisUser.getColor();
+				Color newColor = Color.color((double) userColor.getRed() / RGBColor.MAX_COLOR_SIZE,
+						(double) userColor.getGreen() / RGBColor.MAX_COLOR_SIZE,
+						(double) userColor.getBlue() / RGBColor.MAX_COLOR_SIZE);
+				chatMessageComponent.getUserNameLabel().setTextFill(newColor);
 
-			chatComponentItems.add(chatMessageComponent);
+				chatComponentItems.add(chatMessageComponent);
 
-			// set last message on the ChatGroupComponent UI element
-			Label lastMessageLabel = chatGroupListView.getSelectionModel().getSelectedItem().getLastMessageLabel();
-			lastMessageLabel.setText(finalThisUser.getName() + ": " + textMessage);
+				// set last message on the ChatGroupComponent UI element
+				Label lastMessageLabel = chatGroupListView.getSelectionModel().getSelectedItem().getLastMessageLabel();
+				lastMessageLabel.setText(finalThisUser.getName() + ": " + textMessage);
+			}
 		});
 	}
 }
