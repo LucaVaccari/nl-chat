@@ -78,7 +78,7 @@ public class ClientUserChatMessage implements IMessage
 				lastMessageLabel.setText(finalThisUser.getName() + ": " + textMessage);
 
 				// set stage to front
-				if (!NLClient.getPrimaryStage().isFocused())
+				if (!NLClient.getPrimaryStage().isFocused() && !FXMLController.get().settingsStage.isFocused())
 				{
 					NLClient.getPrimaryStage().toFront();
 				}
