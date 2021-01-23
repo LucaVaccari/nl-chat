@@ -57,11 +57,20 @@ public class ClientUserChatMessage implements IMessage
 
 			ChatComponent chatComponent = null;
 			ObservableList<ChatMessageComponent> chatComponentItems = null;
+			// find the corresponding group
+			for (ChatGroupComponent chatGroupComponent : FXMLController.get().chatGroupListView.getItems())
+			{
+				if (chatGroupComponent.getChatGroup().getCode() == groupCode)
+				{
+					chatComponentItems = chatGroupComponent.getChatComponent().getMessageListView().getItems();
+					break;
+				}
+			}
+			// scroll to the bottom if it's selected
 			if (chatGroupListView.getSelectionModel().getSelectedItem() != null)
 			{
 				chatComponent = chatGroupListView.getSelectionModel().getSelectedItem().getChatComponent();
 				chatComponent.getMessageListView().scrollTo(chatComponent.getMessageListView().getItems().size() - 1);
-				chatComponentItems = chatComponent.getMessageListView().getItems();
 			}
 			ChatMessageComponent chatMessageComponent = new ChatMessageComponent(message);
 
@@ -72,7 +81,8 @@ public class ClientUserChatMessage implements IMessage
 					(double) userColor.getBlue() / RGBColor.MAX_COLOR_SIZE);
 			chatMessageComponent.getUserNameLabel().setTextFill(newColor);
 
-			chatComponentItems.add(chatMessageComponent);
+			if (chatComponentItems != null)
+				chatComponentItems.add(chatMessageComponent);
 
 			// set last message on the ChatGroupComponent UI element
 			Label lastMessageLabel = chatGroupListView.getSelectionModel().getSelectedItem().getLastMessageLabel();
