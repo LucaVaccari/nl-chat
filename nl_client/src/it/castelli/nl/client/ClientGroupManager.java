@@ -5,9 +5,11 @@ import it.castelli.nl.ChatGroupMessage;
 import it.castelli.nl.client.graphics.ChatGroupComponent;
 import it.castelli.nl.client.graphics.ChatMessageComponent;
 import it.castelli.nl.client.graphics.FXMLController;
+import it.castelli.nl.graphics.RGBColor;
 import it.castelli.nl.serialization.Serializer;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -56,6 +58,7 @@ public class ClientGroupManager
 			allGroups = new HashMap<>();
 		}
 
+		// update UI
 		for (ChatGroup group : allGroups.values())
 		{
 			ObservableList<ChatGroupComponent> chatGroupListViewItems =
@@ -84,8 +87,15 @@ public class ClientGroupManager
 			{
 				ObservableList<ChatMessageComponent> messageListViewItems =
 						chatGroupComponent.getChatComponent().getMessageListView().getItems();
-				ChatMessageComponent chatMessageComponent =
-						new ChatMessageComponent(userMessage);
+				ChatMessageComponent chatMessageComponent = new ChatMessageComponent(userMessage);
+
+				// set user color
+				RGBColor userColor = userMessage.getUserSender().getColor();
+				Color newColor = Color.color((double) userColor.getRed() / RGBColor.MAX_COLOR_SIZE,
+						(double) userColor.getGreen() / RGBColor.MAX_COLOR_SIZE,
+						(double) userColor.getBlue() / RGBColor.MAX_COLOR_SIZE);
+				chatMessageComponent.getUserNameLabel().setTextFill(newColor);
+
 				messageListViewItems.add(chatMessageComponent);
 			}
 

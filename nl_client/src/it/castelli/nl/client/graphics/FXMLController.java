@@ -86,7 +86,7 @@ public class FXMLController
 		settingsMenuItem.setOnAction(event -> {
 			settingsStage = new Stage();
 			settingsStage.setTitle("Settings");
-			settingsStage.setAlwaysOnTop(true);
+			settingsStage.setAlwaysOnTop(false);
 			settingsStage.initModality(Modality.APPLICATION_MODAL);
 			settingsStage.setResizable(false);
 			Parent root = NLClient.loadFXML(SETTINGS_MENU_FXML_PATH);

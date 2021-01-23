@@ -2,10 +2,12 @@ package it.castelli.nl.client.graphics;
 
 import it.castelli.nl.User;
 import it.castelli.nl.client.ClientData;
+import it.castelli.nl.client.ClientGroupManager;
 import it.castelli.nl.client.ConnectionHandler;
 import it.castelli.nl.client.Sender;
 import it.castelli.nl.graphics.RGBColor;
 import it.castelli.nl.messages.MessageBuilder;
+import it.castelli.nl.serialization.Serializer;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -58,6 +60,13 @@ public class SettingsMenuController
 			}
 		});
 
+		// set the color of the color picker
+		RGBColor userColor = ClientData.getInstance().getThisUser().getColor();
+		Color color = Color.color((double) userColor.getRed() / RGBColor.MAX_COLOR_SIZE,
+				(double) userColor.getGreen() / RGBColor.MAX_COLOR_SIZE,
+				(double) userColor.getBlue() / RGBColor.MAX_COLOR_SIZE);
+		userColorPicker.setValue(color);
+
 		userColorPicker.setOnAction(event -> {
 
 			User thisUser = ClientData.getInstance().getThisUser();
@@ -93,13 +102,17 @@ public class SettingsMenuController
 						chatGroupComponent.getChatComponent().getMessageListView().getItems();
 				for (ChatMessageComponent messageComponent : chatMessageComponents)
 				{
-					RGBColor userColor = thisUser.getColor();
-					Color newColor = Color.color((double) userColor.getRed() / RGBColor.MAX_COLOR_SIZE,
-							(double) userColor.getGreen() / RGBColor.MAX_COLOR_SIZE,
-							(double) userColor.getBlue() / RGBColor.MAX_COLOR_SIZE);
+					RGBColor newUserColor = thisUser.getColor();
+					Color newColor = Color.color((double) newUserColor.getRed() / RGBColor.MAX_COLOR_SIZE,
+							(double) newUserColor.getGreen() / RGBColor.MAX_COLOR_SIZE,
+							(double) newUserColor.getBlue() / RGBColor.MAX_COLOR_SIZE);
 					messageComponent.getUserNameLabel().setTextFill(newColor);
+					messageComponent.getChatGroupMessage().getUserSender().setColor(newUserColor);
 				}
 			}
+
+			Serializer.serialize(ClientData.getInstance(), ClientData.CLIENT_DATA_FILE_PATH);
+			Serializer.serialize(ClientGroupManager.getAllGroups(), ClientGroupManager.GROUPS_FILE_PATH);
 		});
 	}
 

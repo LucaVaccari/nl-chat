@@ -25,6 +25,12 @@ public class UserSetColorMessage implements IMessage
 		byte[] contentOfMessage = Arrays.copyOfRange(data, 3, data.length);
 		RGBColor rgbColor = new RGBColor(contentOfMessage[0], contentOfMessage[1], contentOfMessage[2]);
 
+		if (ClientGroupManager.getAllGroups() == null)
+		{
+			System.out.println("AllGroups is null in UserSetColor.onReceive()");
+			return;
+		}
+
 		for (ChatGroup group : ClientGroupManager.getAllGroups().values())
 		{
 			for (User user : group.getUsers())
