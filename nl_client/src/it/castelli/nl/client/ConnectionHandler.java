@@ -42,6 +42,7 @@ public class ConnectionHandler
 				{
 					data = MessageBuilder.buildServerTestMessage("Start communications", ClientData.getInstance().getThisUser().getId());
 					Sender.addMessageToQueue(data);
+					Sender.send();
 				}
 			}
 		}
