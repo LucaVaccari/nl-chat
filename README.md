@@ -2,8 +2,7 @@
 A TCP application to chat with other people over the network. Developed by Luca Vaccari and Nicola Vivante.
 
 #### Todo
-- Clear/update last message when removing it
-- Delete messages not serializing (.contains)
+
 - Put windows in front
 - Set color when writing a new message
 - Throw illegal argument exceptions in MessageBuilder methods
