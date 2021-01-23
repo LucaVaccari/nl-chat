@@ -4,7 +4,9 @@ import it.castelli.nl.ChatGroup;
 import it.castelli.nl.User;
 import it.castelli.nl.client.ClientData;
 import it.castelli.nl.client.ClientGroupManager;
+import it.castelli.nl.client.graphics.AlertUtil;
 import it.castelli.nl.serialization.Serializer;
+import javafx.application.Platform;
 
 public class UserLeftMessage implements IMessage
 {
@@ -22,6 +24,11 @@ public class UserLeftMessage implements IMessage
 		Serializer.serialize(ClientData.getInstance(), ClientData.CLIENT_DATA_FILE_PATH);
 
 		System.out.println(userWhoLeft.getName() + " left " + thisGroup.getName());
+
+		Platform.runLater(() -> {
+			AlertUtil.showInformationAlert("Someone left the group", "Someone left one of your groups",
+					"The User " + userWhoLeft + " has left the group + " + thisGroup.getName() + ", maybe He'll be back one day...");
+		});
 
 		thisGroup.getUsers().remove(userWhoLeft);
 	}

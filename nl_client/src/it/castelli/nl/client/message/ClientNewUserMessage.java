@@ -3,6 +3,8 @@ package it.castelli.nl.client.message;
 import it.castelli.nl.ChatGroup;
 import it.castelli.nl.User;
 import it.castelli.nl.client.ClientGroupManager;
+import it.castelli.nl.client.graphics.AlertUtil;
+import javafx.application.Platform;
 
 import java.util.Arrays;
 
@@ -25,6 +27,11 @@ public class ClientNewUserMessage implements IMessage
 		User newUser = new User(userName, userId);
 
 		System.out.println(userName + " entered " + thisGroup.getName());
+
+		Platform.runLater(() -> {
+			AlertUtil.showInformationAlert("A new User has joined", "A new User joined one of your groups",
+					"The User " + userName + " has joined the group + " + thisGroup.getName() + ", go and say hello!");
+		});
 
 		thisGroup.getUsers().add(newUser);
 	}

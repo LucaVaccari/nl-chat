@@ -4,6 +4,7 @@ import it.castelli.nl.ChatGroup;
 import it.castelli.nl.User;
 import it.castelli.nl.client.ClientData;
 import it.castelli.nl.client.ClientGroupManager;
+import it.castelli.nl.client.graphics.AlertUtil;
 import it.castelli.nl.client.graphics.ChatGroupComponent;
 import it.castelli.nl.client.graphics.FXMLController;
 import javafx.application.Platform;
@@ -31,6 +32,11 @@ public class ClientNewGroupMessage implements IMessage
 		newGroup.getUsers().add(thisUser);
 
 		System.out.println("New group " + groupName + " has been created with id " + groupCode);
+
+		Platform.runLater(() -> {
+			AlertUtil.showInformationAlert("New Group", "A new Group has been received",
+					"You are now in the group " + newGroup.getName() + ", go and have fun!");
+		});
 
 		// prevent the UI update to be executed on the secondary thread
 		Platform.runLater(
