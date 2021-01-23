@@ -1,6 +1,7 @@
 package it.castelli.nl.client;
 
 import it.castelli.nl.client.graphics.SettingsMenuController;
+import it.castelli.nl.messages.MessageBuilder;
 import it.castelli.nl.serialization.Serializer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -115,6 +116,17 @@ public class NLClient extends Application
 			System.out.println("Root is null in Application.start()");
 
 		primaryStage.setOnCloseRequest(event -> {
+			byte[] data;
+			try
+			{
+				data = MessageBuilder.buildServerEndConnectionMessage();
+				Sender.addMessageToQueue(data);
+				Sender.send();
+			}
+			catch (IOException e)
+			{
+				System.out.println("EndConnectionMessage error");
+			}
 			Serializer.serialize(ClientData.getInstance(), ClientData.CLIENT_DATA_FILE_PATH);
 			Serializer.serialize(ClientGroupManager.getAllGroups(), ClientGroupManager.GROUPS_FILE_PATH);
 			System.out.println("The length of the queue during serialization is: " + ClientData.getInstance().getMessageQueue().size());
