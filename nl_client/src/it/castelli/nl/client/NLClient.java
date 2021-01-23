@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -23,6 +24,42 @@ public class NLClient extends Application
 	public static void main(String[] args)
 	{
 		launch(args);
+	}
+
+	@Override
+	public void start(Stage primaryStage)
+	{
+		NLClient.primaryStage = primaryStage;
+		Parent root = loadFXML(INDEX_FXML_FILE_PATH);
+		if (root != null)
+		{
+			Scene mainScene = new Scene(root);
+			primaryStage.setScene(mainScene);
+			primaryStage.setResizable(false);
+			primaryStage.setTitle("nl-chat | server offline");
+
+			Image image = new Image("file:src/nl-logo.png");
+			primaryStage.getIcons().add(image);
+
+			ConnectionHandler.startConnection();
+			if (!ConnectionHandler.isConnected())
+			{
+				SettingsMenuController.askServerIp();
+			}
+
+			ClientGroupManager.init();
+
+			primaryStage.show();
+		} else
+			System.out.println("Root is null in Application.start()");
+
+		primaryStage.setOnCloseRequest(event -> {
+			Serializer.serialize(ClientData.getInstance(), ClientData.CLIENT_DATA_FILE_PATH);
+			Serializer.serialize(ClientGroupManager.getAllGroups(), ClientGroupManager.GROUPS_FILE_PATH);
+			System.out.println("The length of the queue during serialization is: " + ClientData.getInstance().getMessageQueue().size());
+			ConnectionHandler.endConnection();
+			System.exit(0);
+		});
 	}
 
 	/**
