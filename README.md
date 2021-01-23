@@ -3,6 +3,7 @@ A TCP application to chat with other people over the network. Developed by Luca 
 
 #### Todo
 - Fix scroll bars
+- Fix colors TO TEST
 - Scroll to the bottom
 - (Throw illegal argument exceptions in MessageBuilder methods)
 - (Use unused codes when groups are removed)

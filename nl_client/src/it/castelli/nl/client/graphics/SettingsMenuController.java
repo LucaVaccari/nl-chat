@@ -37,11 +37,12 @@ public class SettingsMenuController
 			String newUserName = askUserName("Insert a new username");
 			try
 			{
-				byte[] packet = MessageBuilder.buildUsernameChangeMessage(ClientData.getInstance().getThisUser().getId(), newUserName);
+				User thisUser = ClientData.getInstance().getThisUser();
+				byte[] packet = MessageBuilder.buildUsernameChangeMessage(thisUser.getId(), newUserName);
 				Sender.addMessageToQueue(packet);
 				Sender.send();
 
-				ClientData.getInstance().getThisUser().setName(newUserName);
+				thisUser.setName(newUserName);
 
 				// change the new username for all messages
 				for (ChatGroupComponent chatGroupComponent : FXMLController.get().chatGroupListView.getItems())
@@ -50,7 +51,10 @@ public class SettingsMenuController
 							chatGroupComponent.getChatComponent().getMessageListView().getItems();
 					for (ChatMessageComponent messageComponent : chatMessageComponents)
 					{
-						messageComponent.getUserNameLabel().setText(newUserName);
+						if (messageComponent.getChatGroupMessage().getUserSender().equals(thisUser))
+						{
+							messageComponent.getUserNameLabel().setText(newUserName);
+						}
 					}
 				}
 			}
@@ -102,12 +106,15 @@ public class SettingsMenuController
 						chatGroupComponent.getChatComponent().getMessageListView().getItems();
 				for (ChatMessageComponent messageComponent : chatMessageComponents)
 				{
-					RGBColor newUserColor = thisUser.getColor();
-					Color newColor = Color.color((double) newUserColor.getRed() / RGBColor.MAX_COLOR_SIZE,
-							(double) newUserColor.getGreen() / RGBColor.MAX_COLOR_SIZE,
-							(double) newUserColor.getBlue() / RGBColor.MAX_COLOR_SIZE);
-					messageComponent.getUserNameLabel().setTextFill(newColor);
-					messageComponent.getChatGroupMessage().getUserSender().setColor(newUserColor);
+					if (messageComponent.getChatGroupMessage().getUserSender().equals(thisUser))
+					{
+						RGBColor newUserColor = thisUser.getColor();
+						Color newColor = Color.color((double) newUserColor.getRed() / RGBColor.MAX_COLOR_SIZE,
+								(double) newUserColor.getGreen() / RGBColor.MAX_COLOR_SIZE,
+								(double) newUserColor.getBlue() / RGBColor.MAX_COLOR_SIZE);
+						messageComponent.getUserNameLabel().setTextFill(newColor);
+						messageComponent.getChatGroupMessage().getUserSender().setColor(newUserColor);
+					}
 				}
 			}
 
