@@ -4,6 +4,7 @@ import it.castelli.nl.ChatGroupMessage;
 import it.castelli.nl.client.NLClient;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -16,7 +17,7 @@ public class ChatMessageComponent extends VBox
 	public Label userNameLabel;
 	public Label messageLabel;
 
-	private ChatGroupMessage chatGroupMessage;
+	private final ChatGroupMessage chatGroupMessage;
 
 	public ChatMessageComponent(ChatGroupMessage message)
 	{
@@ -37,7 +38,7 @@ public class ChatMessageComponent extends VBox
 		}
 
 		userNameLabel.setText(message.getUserSender().getName());
-		this.messageLabel.setText(message.getMessageContent());
+		messageLabel.setText(message.getMessageContent());
 	}
 
 	public Label getUserNameLabel()

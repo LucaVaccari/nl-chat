@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<fx:root xmlns:fx="http://javafx.com/fxml/1" prefHeight="45.0" prefWidth="600.0" type="VBox"
-         xmlns="http://javafx.com/javafx/11.0.1">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<fx:root prefHeight="45.0" prefWidth="600.0" type="VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <Label fx:id="userNameLabel" prefHeight="4.0" prefWidth="288.0" text="User name">
         <font>
-            <Font name="System Bold" size="15.0"/>
+            <Font name="System Bold" size="15.0" />
         </font>
     </Label>
-    <Label fx:id="messageLabel" prefHeight="20.0" prefWidth="598.0" text="Message"/>
+    <Label fx:id="messageLabel" prefHeight="27.0" prefWidth="598.0" text="Message" textAlignment="JUSTIFY" wrapText="true" />
 </fx:root>

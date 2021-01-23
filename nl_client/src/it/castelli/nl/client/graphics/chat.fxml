@@ -15,9 +15,7 @@
             <Font name="System Italic" size="12.0" />
         </font>
     </Label>
-    <ScrollPane hbarPolicy="NEVER" pannable="true" vvalue="1.0">
-        <ListView fx:id="messageListView" prefHeight="353.0" prefWidth="558.0" />
-    </ScrollPane>
+     <ListView fx:id="messageListView" prefHeight="353.0" prefWidth="558.0" />
     <HBox>
         <TextField fx:id="messageInputField" prefHeight="42.0" prefWidth="499.0" promptText="Write a message..." />
         <Button fx:id="sendMessageButton" mnemonicParsing="false" prefHeight="43.0" prefWidth="85.0" text="Send" />

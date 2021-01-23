@@ -54,6 +54,9 @@ public class ClientUserChatMessage implements IMessage
 			// add a message UI component on the chat element
 			ListView<ChatGroupComponent> chatGroupListView = FXMLController.get().chatGroupListView;
 			ChatComponent chatComponent = chatGroupListView.getSelectionModel().getSelectedItem().getChatComponent();
+
+			chatComponent.getMessageListView().scrollTo(chatComponent.getMessageListView().getItems().size() - 1);
+
 			ObservableList<ChatMessageComponent> chatComponentItems = chatComponent.getMessageListView().getItems();
 			ChatMessageComponent chatMessageComponent = new ChatMessageComponent(message);
 

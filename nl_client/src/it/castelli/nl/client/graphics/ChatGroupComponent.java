@@ -64,6 +64,7 @@ public class ChatGroupComponent extends VBox
 		ObservableList<Node> chatGroupElementChildren = FXMLController.get().chatElementParent.getChildren();
 		chatGroupElementChildren.clear();
 		chatGroupElementChildren.add(chatComponent);
+		chatComponent.getMessageListView().scrollTo(chatComponent.getMessageListView().getItems().size() - 1);
 	}
 
 	/**

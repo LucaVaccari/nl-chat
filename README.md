@@ -2,9 +2,9 @@
 A TCP application to chat with other people over the network. Developed by Luca Vaccari and Nicola Vivante.
 
 #### Todo
-- Fix scroll bars
+- Remove horizontal scroll bar
+- Wrap text when too long
 - Fix colors TO TEST
-- Scroll to the bottom
 - (Throw illegal argument exceptions in MessageBuilder methods)
 - (Use unused codes when groups are removed)
 - (Command for sending test messages and handle things on the server)

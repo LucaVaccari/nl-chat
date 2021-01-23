@@ -8,10 +8,7 @@ import it.castelli.nl.client.Sender;
 import it.castelli.nl.messages.MessageBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -65,7 +62,7 @@ public class ChatComponent extends VBox
 	private void OnMessageSend(ActionEvent actionEvent)
 	{
 		String text = messageInputField.getText();
-		text.strip();
+		text = text.strip();
 
 		if (!text.equals(""))
 		{
@@ -84,4 +81,5 @@ public class ChatComponent extends VBox
 
 		messageInputField.setText("");
 	}
+
 }
