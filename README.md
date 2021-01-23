@@ -2,10 +2,10 @@
 A TCP application to chat with other people over the network. Developed by Luca Vaccari and Nicola Vivante.
 
 #### Todo
-- Scroll to the bottom
 - Clear/update last message when removing it
-- Delete messages not serializing (.contains)
 - Fix scroll bars
+- Scroll to the bottom
+- Delete messages not serializing (.contains)
 - (Throw illegal argument exceptions in MessageBuilder methods)
 - (Use unused codes when groups are removed)
 - (Command for sending test messages and handle things on the server)
