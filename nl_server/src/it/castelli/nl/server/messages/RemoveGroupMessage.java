@@ -37,5 +37,18 @@ public class RemoveGroupMessage extends Message
 
 			GroupManager.getAllGroups().remove(groupCode);
 		}
+		else
+		{
+			byte[] reply = new byte[0];
+			try
+			{
+				reply = MessageBuilder.buildInformationMessage("You are not the creator of this group, so you can't remove it");
+				Sender.sendToUser(reply, thisUser);
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 }
