@@ -38,6 +38,7 @@ public class Serializer
 		{
 			// Method for serialization of object
 			out.writeObject(obj);
+			System.out.println("Serialized the object " + obj.getClass().getName());
 		}
 		catch (IOException ex)
 		{

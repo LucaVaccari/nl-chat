@@ -56,4 +56,11 @@ public class ChatGroupMessage implements Serializable
 		}
 		return false;
 	}
+
+	/*@Override
+	public int hashCode()
+	{
+		System.out.println("HashCode was called");
+		return 1 + 3 * userSender.getId() + 5 * chatGroup.getCode();
+	}*/
 }

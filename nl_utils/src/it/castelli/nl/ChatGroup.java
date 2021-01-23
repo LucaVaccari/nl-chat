@@ -103,8 +103,10 @@ public class ChatGroup implements Serializable
 	@Override
 	public boolean equals(Object obj)
 	{
-		if (obj instanceof ChatGroup )
+		if (obj instanceof ChatGroup)
+		{
 			return (((ChatGroup) obj).getCode() == this.getCode());
+		}
 		return  false;
 	}
 }
