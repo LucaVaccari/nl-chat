@@ -36,7 +36,7 @@
                     <Button fx:id="joinGroupButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="118.0" text="Join group" />
                 </HBox>
             </VBox>
-            <VBox>
+            <VBox prefHeight="462.0" prefWidth="558.0">
                 <Pane fx:id="chatElementParent" prefHeight="461.0" prefWidth="558.0" />
             </VBox>
         </children>
