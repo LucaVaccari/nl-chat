@@ -56,7 +56,7 @@ public class ClientUserChatMessage implements IMessage
 			ListView<ChatGroupComponent> chatGroupListView = FXMLController.get().chatGroupListView;
 
 			ChatComponent chatComponent = null;
-			ObservableList<ChatMessageComponent>  chatComponentItems = null;
+			ObservableList<ChatMessageComponent> chatComponentItems = null;
 			if (chatGroupListView.getSelectionModel().getSelectedItem() != null)
 			{
 				chatComponent = chatGroupListView.getSelectionModel().getSelectedItem().getChatComponent();
@@ -78,11 +78,10 @@ public class ClientUserChatMessage implements IMessage
 			Label lastMessageLabel = chatGroupListView.getSelectionModel().getSelectedItem().getLastMessageLabel();
 			lastMessageLabel.setText(finalThisUser.getName() + ": " + textMessage);
 
-				// set stage to front
-				if (!NLClient.getPrimaryStage().isFocused() && !FXMLController.get().settingsStage.isFocused())
-				{
-					NLClient.getPrimaryStage().toFront();
-				}
+			// set stage to front
+			if (!NLClient.getPrimaryStage().isFocused() && !FXMLController.get().settingsStage.isFocused())
+			{
+				NLClient.getPrimaryStage().toFront();
 			}
 		});
 	}
