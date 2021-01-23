@@ -6,6 +6,7 @@ import it.castelli.nl.client.ClientGroupManager;
 import it.castelli.nl.client.graphics.ChatGroupComponent;
 import it.castelli.nl.client.graphics.ChatMessageComponent;
 import it.castelli.nl.client.graphics.FXMLController;
+import javafx.application.Platform;
 import javafx.scene.paint.Color;
 
 import java.util.Arrays;
@@ -39,7 +40,9 @@ public class UsernameChangeMessage implements IMessage
 			{
 				if (chatMessageComponent.getChatGroupMessage().getUserSender().getId() == userId)
 				{
-					chatMessageComponent.getUserNameLabel().setText(newUserName);
+					Platform.runLater(() -> {
+						chatMessageComponent.getUserNameLabel().setText(newUserName);
+					});
 				}
 			}
 		}

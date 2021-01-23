@@ -30,7 +30,7 @@ public class ClientNewUserMessage implements IMessage
 
 		Platform.runLater(() -> {
 			AlertUtil.showInformationAlert("A new User has joined", "A new User joined one of your groups",
-					"The User " + userName + " has joined the group + " + thisGroup.getName() + ", go and say hello!");
+					"The User " + userName + " has joined the group " + thisGroup.getName() + ", go and say hello!");
 		});
 
 		thisGroup.getUsers().add(newUser);
