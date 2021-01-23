@@ -1,8 +1,8 @@
 package it.castelli.nl.client;
 
 import it.castelli.nl.client.graphics.AlertUtil;
-import it.castelli.nl.client.message.MessageManager;
 import it.castelli.nl.client.message.IMessage;
+import it.castelli.nl.client.message.MessageManager;
 import it.castelli.nl.messages.MessageBuilder;
 import it.castelli.nl.serialization.Serializer;
 import javafx.application.Platform;
@@ -39,8 +39,8 @@ public class ClientReceiver implements Runnable
 				{
 					Sender.setOutStream(null);
 					Platform.runLater(() -> AlertUtil.showErrorAlert("Connection error", "Connection interrupted by " +
-					                                                                     "the remote host",
-					                                                 "The server is offline. Try again later."));
+									"the remote host",
+							"The server is offline. Try again later."));
 					interrupt();
 					break;
 				}

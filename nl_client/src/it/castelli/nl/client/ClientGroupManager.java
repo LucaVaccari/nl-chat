@@ -104,7 +104,7 @@ public class ClientGroupManager
 	}
 
 	public static void updateLastMessageLabel(ChatGroupComponent chatGroupComponent,
-	                                     ArrayList<ChatGroupMessage> userMessages)
+	                                          ArrayList<ChatGroupMessage> userMessages)
 	{
 		Label lastMessageLabel = chatGroupComponent.getLastMessageLabel();
 

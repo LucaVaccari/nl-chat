@@ -33,7 +33,7 @@ public class UserChatMessage extends Message
 		User thisUser = UserManager.getUserFromId(userId);
 
 		System.out.println("a user message has arrived from user: " + thisUser.getName() + " and id: " + userId +
-		                   " in the group with code: " + groupCode);
+				" in the group with code: " + groupCode);
 
 		if (thisGroup.getUsers().contains(thisUser))
 		{
@@ -49,11 +49,10 @@ public class UserChatMessage extends Message
 			{
 				e.printStackTrace();
 			}
-		}
-		else
+		} else
 		{
 			System.out.println("The user with id: " + thisUser.getId() + " and name: " + thisUser.getName() +
-			                   " is not part of group " + thisGroup.getCode());
+					" is not part of group " + thisGroup.getCode());
 			System.out.println("The participants are: ");
 			for (User user : thisGroup.getUsers())
 			{

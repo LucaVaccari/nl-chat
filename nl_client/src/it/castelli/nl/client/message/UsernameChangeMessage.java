@@ -7,7 +7,6 @@ import it.castelli.nl.client.graphics.ChatGroupComponent;
 import it.castelli.nl.client.graphics.ChatMessageComponent;
 import it.castelli.nl.client.graphics.FXMLController;
 import javafx.application.Platform;
-import javafx.scene.paint.Color;
 
 import java.util.Arrays;
 

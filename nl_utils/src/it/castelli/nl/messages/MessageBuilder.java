@@ -6,7 +6,6 @@ import it.castelli.nl.graphics.RGBColor;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
 
 /**
  * Provides useful methods and constants to build packets to send either to the client or to the server

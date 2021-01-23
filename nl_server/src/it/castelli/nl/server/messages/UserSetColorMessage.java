@@ -21,7 +21,7 @@ public class UserSetColorMessage extends Message
 		byte userId = data[2];
 		User thisUser = UserManager.getUserFromId(userId);
 		byte[] contentOfMessage = Arrays.copyOfRange(data, 3, data.length);
-		RGBColor rgbColor = new RGBColor(contentOfMessage[0], contentOfMessage[1],  contentOfMessage[2]);
+		RGBColor rgbColor = new RGBColor(contentOfMessage[0], contentOfMessage[1], contentOfMessage[2]);
 
 		thisUser.setColor(rgbColor);
 

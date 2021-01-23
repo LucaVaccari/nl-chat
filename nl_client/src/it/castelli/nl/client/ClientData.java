@@ -16,16 +16,17 @@ import java.util.LinkedList;
 public class ClientData implements Serializable
 {
 	public static final String CLIENT_DATA_FILE_PATH = "clientData.bin";
-	private final LinkedList<byte[]> messageQueue = new LinkedList<>();
 	private static ClientData instance;
-
+	private final LinkedList<byte[]> messageQueue = new LinkedList<>();
 	private User thisUser;
 	private InetAddress serverAddress;
 
 	/**
 	 * DO NOT USE FOR ANY REASON
 	 */
-	public ClientData() {}
+	public ClientData()
+	{
+	}
 
 	/**
 	 * Getter for the singleton instance

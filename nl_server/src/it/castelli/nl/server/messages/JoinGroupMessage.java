@@ -37,8 +37,7 @@ public class JoinGroupMessage extends Message
 				System.out.println("IOException in " + this.toString() + " during the error reply creation");
 				e.printStackTrace();
 			}
-		}
-		else
+		} else
 		{
 			//the group exists
 
@@ -83,8 +82,7 @@ public class JoinGroupMessage extends Message
 							"IOException in " + this.toString() + " during reply creation in JoinGroupMessage");
 					e.printStackTrace();
 				}
-			}
-			else
+			} else
 			{
 				try
 				{

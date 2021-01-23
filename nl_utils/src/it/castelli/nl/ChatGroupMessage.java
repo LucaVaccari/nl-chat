@@ -48,7 +48,7 @@ public class ChatGroupMessage implements Serializable
 	@Override
 	public boolean equals(Object obj)
 	{
-		if(obj instanceof ChatGroupMessage)
+		if (obj instanceof ChatGroupMessage)
 		{
 			return (((ChatGroupMessage) obj).getUserSender().equals(this.getUserSender()) &&
 					((ChatGroupMessage) obj).getChatGroup().equals(this.getChatGroup()) &&

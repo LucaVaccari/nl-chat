@@ -38,7 +38,7 @@ public class CreateGroupMessage extends Message
 		ServerData.getInstance().incrementLastGroupCode();
 
 		System.out.println("The group " + newGroupName + " has been created with the groupCode of: " + newGroupCode +
-		                   " and it contains the user: " + userId);
+				" and it contains the user: " + userId);
 
 		try
 		{

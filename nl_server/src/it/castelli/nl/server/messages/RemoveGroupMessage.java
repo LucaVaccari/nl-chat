@@ -36,8 +36,7 @@ public class RemoveGroupMessage extends Message
 			Sender.sendToGroup(reply, groupToRemove);
 
 			GroupManager.getAllGroups().remove(groupCode);
-		}
-		else
+		} else
 		{
 			byte[] reply = new byte[0];
 			try

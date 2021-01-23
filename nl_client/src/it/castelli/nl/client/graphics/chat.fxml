@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-
-<fx:root prefHeight="450.0" prefWidth="558.0" type="VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <Label fx:id="chatGroupName" prefHeight="44.0" prefWidth="558.0" text="Group Name">
-        <font>
-            <Font name="System Bold" size="17.0" />
-        </font>
-    </Label>
-    <Label fx:id="chatGroupCode" prefHeight="22.0" prefWidth="564.0" text="Group code">
-        <font>
-            <Font name="System Italic" size="12.0" />
-        </font>
-    </Label>
-     <ListView fx:id="messageListView" prefHeight="353.0" prefWidth="558.0" />
-    <HBox>
-        <TextField fx:id="messageInputField" prefHeight="42.0" prefWidth="499.0" promptText="Write a message..." />
-        <Button fx:id="sendMessageButton" mnemonicParsing="false" prefHeight="43.0" prefWidth="85.0" text="Send" />
-    </HBox>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<fx:root xmlns:fx="http://javafx.com/fxml/1" prefHeight="450.0" prefWidth="558.0" type="VBox"
+         xmlns="http://javafx.com/javafx/11.0.1">
+	<Label fx:id="chatGroupName" prefHeight="44.0" prefWidth="558.0" text="Group Name">
+		<font>
+			<Font name="System Bold" size="17.0"/>
+		</font>
+	</Label>
+	<Label fx:id="chatGroupCode" prefHeight="22.0" prefWidth="564.0" text="Group code">
+		<font>
+			<Font name="System Italic" size="12.0"/>
+		</font>
+	</Label>
+	<ListView fx:id="messageListView" prefHeight="353.0" prefWidth="558.0"/>
+	<HBox>
+		<TextField fx:id="messageInputField" prefHeight="42.0" prefWidth="499.0" promptText="Write a message..."/>
+		<Button fx:id="sendMessageButton" mnemonicParsing="false" prefHeight="43.0" prefWidth="85.0" text="Send"/>
+	</HBox>
 </fx:root>

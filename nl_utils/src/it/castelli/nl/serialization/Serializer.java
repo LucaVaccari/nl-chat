@@ -33,8 +33,8 @@ public class Serializer
 	 */
 	public static void serialize(Serializable obj, String path)
 	{
-		try(FileOutputStream file = new FileOutputStream(path);
-			ObjectOutputStream out = new ObjectOutputStream(file))
+		try (FileOutputStream file = new FileOutputStream(path);
+		     ObjectOutputStream out = new ObjectOutputStream(file))
 		{
 			// Method for serialization of object
 			out.writeObject(obj);

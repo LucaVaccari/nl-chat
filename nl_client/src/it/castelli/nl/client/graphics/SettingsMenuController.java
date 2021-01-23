@@ -28,6 +28,86 @@ public class SettingsMenuController
 	public Button changeUserNameButton;
 	public ColorPicker userColorPicker;
 
+	/**
+	 * Ask for the server IP and tries to connect
+	 */
+	public static void askServerIp()
+	{
+		String hostAddress = ClientData.getInstance().getServerAddress().getHostAddress();
+		if (hostAddress == null) hostAddress = "";
+
+		Optional<String> ipText;
+		boolean askAgain;
+		do
+		{
+			askAgain = false;
+			ipText = AlertUtil.showTextInputDialogue(hostAddress, "Server IP", "Insert the IP of the " +
+					"server", "Server IP: ");
+			if (ipText.isEmpty())
+			{
+				AlertUtil.showInformationAlert("Insert address", "Address is mandatory", "Pleas insert an address");
+				askAgain = true;
+				continue;
+			}
+
+			if (!ipText.get().matches("((\\d{1,3}\\.){3}\\d{1,3})|localhost"))
+			{
+				AlertUtil.showInformationAlert("Invalid address", "Wrong syntax", "An address is identified by 4 " +
+						"numbers under 255 separated by " +
+						"dots (.).\nIf the server is on " +
+						"your machine you can write " +
+						"'localhost'");
+				askAgain = true;
+			}
+		} while (askAgain);
+
+		try
+		{
+			ClientData.getInstance().setServerAddress(InetAddress.getByName(ipText.get()));
+		}
+		catch (UnknownHostException e)
+		{
+			e.printStackTrace();
+		}
+		ConnectionHandler.startConnection();
+	}
+
+	public static String askUserName(String headerText)
+	{
+		// register screen
+		boolean askAgain;
+		String userName;
+		do
+		{
+			askAgain = false;
+			Optional<String> name = AlertUtil
+					.showTextInputDialogue("Pinco Pallino", "Set username", headerText,
+							"Username: ");
+
+			userName = name.orElse("");
+
+			// if the user pressed the "cancel" button, exit the application
+			if (name.isEmpty()) System.exit(0);
+
+			userName = userName.strip();
+
+			if (userName.length() <= 0 || userName.length() > 20)
+			{
+				askAgain = true;
+				AlertUtil.showErrorAlert("Invalid name", "Check the size of your username",
+						"The size should be between 0 and 20");
+			}
+			if (!userName.matches("[\\w\\s]+[\\d\\s]*"))
+			{
+				askAgain = true;
+				AlertUtil.showErrorAlert("Invalid name", "The name uses an invalid format",
+						"The name must start with a letter and could be followed by digits");
+			}
+		} while (askAgain);
+
+		return userName;
+	}
+
 	@FXML
 	public void initialize()
 	{
@@ -121,85 +201,5 @@ public class SettingsMenuController
 			Serializer.serialize(ClientData.getInstance(), ClientData.CLIENT_DATA_FILE_PATH);
 			Serializer.serialize(ClientGroupManager.getAllGroups(), ClientGroupManager.GROUPS_FILE_PATH);
 		});
-	}
-
-	/**
-	 * Ask for the server IP and tries to connect
-	 */
-	public static void askServerIp()
-	{
-		String hostAddress = ClientData.getInstance().getServerAddress().getHostAddress();
-		if (hostAddress == null) hostAddress = "";
-
-		Optional<String> ipText;
-		boolean askAgain;
-		do
-		{
-			askAgain = false;
-			ipText = AlertUtil.showTextInputDialogue(hostAddress, "Server IP", "Insert the IP of the " +
-					"server", "Server IP: ");
-			if (ipText.isEmpty())
-			{
-				AlertUtil.showInformationAlert("Insert address", "Address is mandatory", "Pleas insert an address");
-				askAgain = true;
-				continue;
-			}
-
-			if (!ipText.get().matches("((\\d{1,3}\\.){3}\\d{1,3})|localhost"))
-			{
-				AlertUtil.showInformationAlert("Invalid address", "Wrong syntax", "An address is identified by 4 " +
-						"numbers under 255 separated by " +
-						"dots (.).\nIf the server is on " +
-						"your machine you can write " +
-						"'localhost'");
-				askAgain = true;
-			}
-		} while (askAgain);
-
-		try
-		{
-			ClientData.getInstance().setServerAddress(InetAddress.getByName(ipText.get()));
-		}
-		catch (UnknownHostException e)
-		{
-			e.printStackTrace();
-		}
-		ConnectionHandler.startConnection();
-	}
-
-	public static String askUserName(String headerText)
-	{
-		// register screen
-		boolean askAgain;
-		String userName;
-		do
-		{
-			askAgain = false;
-			Optional<String> name = AlertUtil
-					.showTextInputDialogue("Pinco Pallino", "Set username", headerText,
-							"Username: ");
-
-			userName = name.orElse("");
-
-			// if the user pressed the "cancel" button, exit the application
-			if (name.isEmpty()) System.exit(0);
-
-			userName = userName.strip();
-
-			if (userName.length() <= 0 || userName.length() > 20)
-			{
-				askAgain = true;
-				AlertUtil.showErrorAlert("Invalid name", "Check the size of your username",
-						"The size should be between 0 and 20");
-			}
-			if (!userName.matches("[\\w\\s]+[\\d\\s]*"))
-			{
-				askAgain = true;
-				AlertUtil.showErrorAlert("Invalid name", "The name uses an invalid format",
-						"The name must start with a letter and could be followed by digits");
-			}
-		} while (askAgain);
-
-		return userName;
 	}
 }

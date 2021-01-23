@@ -17,7 +17,9 @@ public class ServerData implements Serializable
 	private byte lastUserId = 1;
 	private byte lastGroupCode = 1;
 
-	private ServerData() {}
+	private ServerData()
+	{
+	}
 
 	/**
 	 * Getter for the singleton instance

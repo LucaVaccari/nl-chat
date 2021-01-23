@@ -4,6 +4,7 @@ import it.castelli.nl.ChatGroup;
 import it.castelli.nl.ChatGroupMessage;
 import it.castelli.nl.User;
 import it.castelli.nl.client.ClientGroupManager;
+import it.castelli.nl.client.NLClient;
 import it.castelli.nl.client.graphics.ChatComponent;
 import it.castelli.nl.client.graphics.ChatGroupComponent;
 import it.castelli.nl.client.graphics.ChatMessageComponent;
@@ -75,6 +76,12 @@ public class ClientUserChatMessage implements IMessage
 				// set last message on the ChatGroupComponent UI element
 				Label lastMessageLabel = chatGroupListView.getSelectionModel().getSelectedItem().getLastMessageLabel();
 				lastMessageLabel.setText(finalThisUser.getName() + ": " + textMessage);
+
+				// set stage to front
+				if (!NLClient.getPrimaryStage().isFocused())
+				{
+					NLClient.getPrimaryStage().toFront();
+				}
 			}
 		});
 	}

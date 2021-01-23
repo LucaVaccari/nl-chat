@@ -9,7 +9,9 @@ public class Sender
 {
 	private static OutputStream outStream;
 
-	private Sender() {}
+	private Sender()
+	{
+	}
 
 	/**
 	 * Empty the queue of messages, sending each of theme
@@ -56,6 +58,7 @@ public class Sender
 
 	/**
 	 * Add a message to the queue of messages. The queued messages will be sent with send()
+	 *
 	 * @param message The message to be sent
 	 */
 	public static void addMessageToQueue(byte[] message)

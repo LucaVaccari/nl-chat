@@ -107,6 +107,6 @@ public class ChatGroup implements Serializable
 		{
 			return (((ChatGroup) obj).getCode() == this.getCode());
 		}
-		return  false;
+		return false;
 	}
 }
