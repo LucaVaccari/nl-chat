@@ -2,6 +2,7 @@ package it.castelli.nl.client;
 
 import it.castelli.nl.GeneralData;
 import it.castelli.nl.client.graphics.AlertUtil;
+import it.castelli.nl.messages.MessageBuilder;
 import javafx.application.Platform;
 
 import java.io.IOException;
@@ -35,6 +36,13 @@ public class ConnectionHandler
 			{
 				Platform.runLater(() ->
 						NLClient.getPrimaryStage().setTitle("nl-chat | connected with " + socket.getInetAddress().getHostAddress()));
+
+				byte[] data;
+				if (ClientData.getInstance().getThisUser().getId() > 0)
+				{
+					data = MessageBuilder.buildServerTestMessage("Start communications", ClientData.getInstance().getThisUser().getId());
+					Sender.addMessageToQueue(data);
+				}
 			}
 		}
 		catch (IOException e)

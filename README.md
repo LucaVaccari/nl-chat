@@ -35,5 +35,7 @@ A TCP application to chat with other people over the network. Developed by Luca 
 
 ### Packet structure:
  - 1 byte for the message type
- - content (string, int or both) optional
+ - 1 byte for the group Code (optional)
+ - 1 byte for the userId (optional)
+ - content (string, int or both) (optional)
 
