@@ -64,6 +64,10 @@ public class ConnectionHandler
 	{
 		try
 		{
+			byte[] data = MessageBuilder.buildServerEndConnectionMessage();
+			Sender.addMessageToQueue(data);
+			Sender.send();
+
 			if (receiver != null)
 				receiver.interrupt();
 
