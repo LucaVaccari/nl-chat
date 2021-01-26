@@ -24,15 +24,16 @@ public class MessageBuilder
 	public static final byte SERVER_END_CONNECTION_MESSAGE_TYPE = 8;
 	public static final byte USER_SET_COLOR_MESSAGE_TYPE = 9;
 	public static final byte USER_NAME_CHANGE_MESSAGE_TYPE = 10;
+	public static final byte SERVER_FEEDBACK_MESSAGE_TYPE = 11;
 
-	public static final byte CLIENT_NEW_GROUP_MESSAGE_TYPE = 11;
-	public static final byte CLIENT_NEW_USER_MESSAGE_TYPE = 12;
-	public static final byte GROUP_REMOVED_MESSAGE_TYPE = 13;
-	public static final byte USER_ID_MESSAGE_TYPE = 14;
-	public static final byte CLIENT_USER_CHAT_MESSAGE_TYPE = 15;
-	public static final byte INFORMATION_MESSAGE_TYPE = 16;
-	public static final byte CLIENT_TEST_MESSAGE_TYPE = 17;
-	public static final byte USER_LEFT_MESSAGE_TYPE = 18;
+	public static final byte CLIENT_NEW_GROUP_MESSAGE_TYPE = 12;
+	public static final byte CLIENT_NEW_USER_MESSAGE_TYPE = 13;
+	public static final byte GROUP_REMOVED_MESSAGE_TYPE = 14;
+	public static final byte USER_ID_MESSAGE_TYPE = 15;
+	public static final byte CLIENT_USER_CHAT_MESSAGE_TYPE = 16;
+	public static final byte INFORMATION_MESSAGE_TYPE = 17;
+	public static final byte CLIENT_TEST_MESSAGE_TYPE = 18;
+	public static final byte USER_LEFT_MESSAGE_TYPE = 19;
 
 	public static final int HEADER_SIZE = 2; //number of bytes for the header
 
@@ -187,6 +188,18 @@ public class MessageBuilder
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream(0);
 		outputStream.write(SERVER_END_CONNECTION_MESSAGE_TYPE);
 		outputStream.write((byte) 0); //groupCode which is not present
+
+		return outputStream.toByteArray();
+	}
+
+	public static byte[] buildServerFeedbackMessage(byte userId)
+	{
+		// syntax: 1 byte for the type of message, 1 for the group code, 1 for the user id, others
+
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream(0);
+		outputStream.write(SERVER_FEEDBACK_MESSAGE_TYPE);
+		outputStream.write((byte) 0); //groupCode which is not present
+		outputStream.write(userId);
 
 		return outputStream.toByteArray();
 	}

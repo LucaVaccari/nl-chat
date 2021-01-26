@@ -60,11 +60,22 @@ public class UserManager
 		}
 		if (allUsers == null)
 			allUsers = new HashMap<>();
+
+		for(AdvancedUser user : allUsers.values())
+		{
+			for(int i = user.incomingMessagesAlreadySent.size() - 1; i >= 0; i--)
+			{
+				byte[] message = user.incomingMessagesAlreadySent.get(i);
+				user.incomingMessages.addFirst(message);
+				user.incomingMessagesAlreadySent.remove(message);
+			}
+		}
 	}
 
 	public static class AdvancedUser implements Serializable
 	{
 		private final LinkedList<byte[]> incomingMessages = new LinkedList<>();
+		private final LinkedList<byte[]> incomingMessagesAlreadySent = new LinkedList<>();
 		private User user;
 
 		public AdvancedUser(User user)
@@ -85,6 +96,11 @@ public class UserManager
 		public LinkedList<byte[]> getIncomingMessages()
 		{
 			return incomingMessages;
+		}
+
+		public LinkedList<byte[]> getIncomingMessagesAlreadySent()
+		{
+			return incomingMessagesAlreadySent;
 		}
 	}
 

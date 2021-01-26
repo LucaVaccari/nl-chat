@@ -38,6 +38,7 @@ public class ConnectionManager implements Runnable
 							{
 								out.write(message);
 								System.out.println("Reply sent to user with code: " + advancedUser.getUser().getId());
+								advancedUser.getIncomingMessagesAlreadySent().add(message);
 							}
 						}
 					}
