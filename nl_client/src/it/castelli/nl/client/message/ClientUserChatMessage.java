@@ -42,7 +42,8 @@ public class ClientUserChatMessage implements IMessage
 			}
 		}
 
-		if (thisUser == null) thisUser = new User("Stranger", (byte) 0);
+		if (thisUser == null)
+			thisUser = new User("Stranger", (byte) 0);
 
 
 		ChatGroupMessage message = new ChatGroupMessage(thisUser, thisGroup, textMessage);
